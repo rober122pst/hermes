@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.Cinemachine;
+using UnityEngine;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
 #endif
@@ -15,17 +16,17 @@ namespace StarterAssets
     public class ThirdPersonController : MonoBehaviour
     {
         [Header("Player")]
-        [Tooltip("Move speed of the character in m/s")]
+        [Tooltip("Velocidade do player em m/s")]
         public float MoveSpeed = 2.0f;
 
-        [Tooltip("Sprint speed of the character in m/s")]
+        [Tooltip("Velocidade do player na corrida em m/s")]
         public float SprintSpeed = 5.335f;
 
-        [Tooltip("How fast the character turns to face movement direction")]
+        [Tooltip("Quão rápido o player muda de direção")]
         [Range(0.0f, 0.3f)]
         public float RotationSmoothTime = 0.12f;
 
-        [Tooltip("Acceleration and deceleration")]
+        [Tooltip("Aceleração e Desaceleração")]
         public float SpeedChangeRate = 10.0f;
 
         public AudioSource AudioFootsteps;
@@ -36,8 +37,8 @@ namespace StarterAssets
         [Range(0, 1)] public float FootstepAudioVolume = 0.5f;
 
         [Space(10)]
-        [Tooltip("The height the player can jump")]
-        public float JumpHeight = 1.2f;
+        [Tooltip("Força do pulo")]
+        public float JumpForce = 8f;
 
         [Tooltip("The character uses its own gravity value. The engine default is -9.81f")]
         public float Gravity = -15.0f;
@@ -81,6 +82,8 @@ namespace StarterAssets
         // cinemachine
         private float _cinemachineTargetYaw;
         private float _cinemachineTargetPitch;
+        [Tooltip("Cinemachine Third Person Follow component")]
+        public CinemachineThirdPersonFollow CinemachineFollow;
 
         // player
         private float _speed;
@@ -162,6 +165,7 @@ namespace StarterAssets
             JumpAndGravity();
             GroundedCheck();
             Move();
+            SprintCam();
         }
 
         private void LateUpdate()
@@ -212,6 +216,22 @@ namespace StarterAssets
             // Cinemachine will follow this target
             CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride,
                 _cinemachineTargetYaw, 0.0f);
+        }
+
+        public void SprintCam()
+        {
+            if (_input.sprint)
+            {
+                CinemachineFollow.ShoulderOffset.x = 0.5f;
+                CinemachineFollow.ShoulderOffset.y = 1.5f;
+                CinemachineFollow.ShoulderOffset.z = 0.5f;
+            }
+            else
+            {
+                CinemachineFollow.ShoulderOffset.x = 0.5f;
+                CinemachineFollow.ShoulderOffset.y = 1.5f;
+                CinemachineFollow.ShoulderOffset.z = -0.5f;
+            }
         }
 
         private void Move()
@@ -306,7 +326,7 @@ namespace StarterAssets
                 if (_input.jump && _jumpTimeoutDelta <= 0.0f)
                 {
                     // the square root of H * -2 * G = how much velocity needed to reach desired height
-                    _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
+                    _verticalVelocity = JumpForce;
 
                     // update animator if using character
                     if (_hasAnimator)

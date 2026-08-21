@@ -1,11 +1,8 @@
 fileFormatVersion: 2
-guid: 909d917d73a63f940ac158d02e936645
-MonoImporter:
+guid: 9e7be553448fa2546aea5752021cbcf7
+NativeFormatImporter:
   externalObjects: {}
-  serializedVersion: 2
-  defaultReferences: []
-  executionOrder: 0
-  icon: {instanceID: 0}
+  mainObjectFileID: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
@@ -15,5 +12,5 @@ AssetOrigin:
   packageName: Starter Assets - ThirdPerson | Updates in new CharacterController
     package
   packageVersion: 1.1.7
-  assetPath: Assets/StarterAssets/ThirdPersonController/Scripts/BasicRigidBodyPush.cs
+  assetPath: Assets/StarterAssets/InputSystem/StarterAssets.inputsettings.asset
   uploadId: 879174
