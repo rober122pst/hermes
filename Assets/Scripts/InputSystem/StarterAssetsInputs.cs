@@ -12,6 +12,8 @@ namespace Player
 		public bool sprint;
 		public bool aim;
 
+		public bool jetpack;
+
 		[Header("Movement Settings")]
 		public bool analogMovement;
 
@@ -26,7 +28,7 @@ namespace Player
 
 		public void OnLook(InputValue value)
 		{
-			if(cursorInputForLook)
+			if (cursorInputForLook)
 			{
 				LookInput(value.Get<Vector2>());
 			}
@@ -47,11 +49,15 @@ namespace Player
 			AimInput(value.isPressed);
 		}
 
+		public void OnJetpack(InputValue value)
+		{
+			JetpackInput(value.isPressed);
+		}
 
 		public void MoveInput(Vector2 newMoveDirection)
 		{
 			move = newMoveDirection;
-		} 
+		}
 
 		public void LookInput(Vector2 newLookDirection)
 		{
@@ -78,10 +84,15 @@ namespace Player
 			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
 		}
 
-        public void AimInput(bool newAimState)
-        {
-            aim = newAimState;
-        }
-    }
+		public void AimInput(bool newAimState)
+		{
+			aim = newAimState;
+		}
+
+		private void JetpackInput(bool newJetpackState)
+		{
+			jetpack = newJetpackState;
+		}
+	}
 	
 }

@@ -52,6 +52,26 @@ namespace Player
         [Tooltip("Time required to pass before entering the fall state. Useful for walking down stairs")]
         public float FallTimeout = 0.15f;
 
+        [Header("Jetpack")]
+        [Tooltip("Velocidade Máxima do Jetpack")]
+        public float JetpackMaxSpeed = 10.0f;
+
+        [Tooltip("Aceleração do jetpack")]
+        public float JetpackAcceleration = 5.0f;
+
+        [Tooltip("Combustível do jetpack")]
+        public float JetpackFuel = 100.0f;
+
+        [Tooltip("Consumo de combustível do jetpack por segundo")]
+        public float JetpackFuelConsumption = 10.0f;
+
+        [Tooltip("Recarga de combustível do jetpack por segundo")]
+        public float JetpackFuelReload = 5.0f;
+
+        [Space(10)]
+        [Tooltip("Tempo para o combustível do jetpack começar a recarregar")]
+        public float JetpackTimeout = 1.0f;
+
         [Header("Player Grounded")]
         [Tooltip("If the character is grounded or not. Not part of the CharacterController built in grounded check")]
         public bool Grounded = true;
@@ -101,10 +121,13 @@ namespace Player
         private float _rotationVelocity;
         private float _verticalVelocity;
         private float _terminalVelocity = 53.0f;
+        private float _jetpackSpeed = 0.0f;
+        private float _jetpackFuel = 100.0f;
 
         // timeout deltatime
         private float _jumpTimeoutDelta;
         private float _fallTimeoutDelta;
+        private float _jetpackTimeoutDelta;
 
         // animation IDs
         private int _animIDSpeed;
@@ -165,6 +188,7 @@ namespace Player
             // reset our timeouts on start
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
+            _jetpackTimeoutDelta = JetpackTimeout;
         }
 
         private void Update()
@@ -175,6 +199,7 @@ namespace Player
             GroundedCheck();
             Aiming();
             SprintCam();
+            JetpackImpulse();
             Move();
         }
 
@@ -282,9 +307,10 @@ namespace Player
             if (_isStrafe)
             {
                 targetSpeed = StrafeSpeed;
+                _targetRotation = _cinemachineTargetYaw;
+
                 transform.rotation = Quaternion.Euler(0.0f, _targetRotation, 0.0f);
 
-                _targetRotation = _cinemachineTargetYaw;
                 targetDirection = transform.forward * inputDirection.z + transform.right * inputDirection.x;
 
                 if (_animator)
@@ -351,7 +377,6 @@ namespace Player
                 // Jump
                 if (_input.jump && _jumpTimeoutDelta <= 0.0f)
                 {
-                    // the square root of H * -2 * G = how much velocity needed to reach desired height
                     _verticalVelocity = JumpForce;
 
                     // update animator if using character
@@ -395,6 +420,35 @@ namespace Player
             {
                 _verticalVelocity += Gravity * Time.deltaTime;
             }
+        }
+
+        private void JetpackImpulse()
+        {
+
+            float targetJetpackSpeed = _input.jetpack ? JetpackMaxSpeed : 0.0f;
+            _jetpackSpeed = Mathf.Lerp(_jetpackSpeed, targetJetpackSpeed, JetpackAcceleration * Time.deltaTime);
+
+            if (_input.jetpack && _jetpackFuel > 0.0f)
+            {
+                _verticalVelocity = _jetpackSpeed;
+                _jetpackTimeoutDelta = JetpackTimeout;
+                _jetpackFuel -= JetpackFuelConsumption * Time.deltaTime;
+                _jetpackFuel = Mathf.Clamp(_jetpackFuel, 0.0f, JetpackFuel);
+            }
+
+            if (_jetpackTimeoutDelta > 0.0f)
+            {
+                _jetpackTimeoutDelta -= Time.deltaTime;
+            }
+
+
+            if (_jetpackTimeoutDelta <= 0.0f)
+            {
+                _jetpackFuel += JetpackFuelReload * Time.deltaTime;
+                _jetpackFuel = Mathf.Clamp(_jetpackFuel, 0.0f, JetpackFuel);
+            }
+
+            Debug.Log($"Jetpack Fuel: {_jetpackFuel} | Jetpack Timeout: {_jetpackTimeoutDelta}");
         }
 
         private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
