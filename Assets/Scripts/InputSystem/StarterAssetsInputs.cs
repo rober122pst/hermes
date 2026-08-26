@@ -11,6 +11,7 @@ namespace Player
 		public bool jump;
 		public bool sprint;
 		public bool aim;
+		public Vector2 roll;
 
 		public bool jetpack;
 
@@ -54,6 +55,16 @@ namespace Player
 			JetpackInput(value.isPressed);
 		}
 
+		public void OnRoll(InputValue value)
+		{
+			RollInput(value.Get<Vector2>());
+		}
+
+		public void RollInput(Vector2 newRollState)
+		{
+			roll = newRollState;
+		}
+
 		public void MoveInput(Vector2 newMoveDirection)
 		{
 			move = newMoveDirection;
@@ -94,5 +105,5 @@ namespace Player
 			jetpack = newJetpackState;
 		}
 	}
-	
+
 }

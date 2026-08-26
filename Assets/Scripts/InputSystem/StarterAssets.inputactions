@@ -52,13 +52,13 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Jetpack",
-                    "type": "PassThrough",
+                    "name": "Roll",
+                    "type": "Value",
                     "id": "c3da8976-90b0-47bc-875a-24d1371b81ff",
-                    "expectedControlType": "",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -261,26 +261,59 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "ae1be9cd-ae37-4376-b6fc-da5f9200df9c",
-                    "path": "<Keyboard>/leftCtrl",
+                    "name": "2D Vector",
+                    "id": "1876b9fd-1204-4f5f-817a-a70d8484faa4",
+                    "path": "2DVector",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";KeyboardMouse",
-                    "action": "Jetpack",
-                    "isComposite": false,
+                    "groups": "",
+                    "action": "Roll",
+                    "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "bd642ec3-9888-4b85-a878-efc278a9ee45",
-                    "path": "<Gamepad>/leftTrigger",
+                    "name": "Up",
+                    "id": "9b725e9d-dc67-4faf-8e11-7bc0729bfccf",
+                    "path": "",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Gamepad",
-                    "action": "Jetpack",
+                    "groups": "",
+                    "action": "Roll",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Down",
+                    "id": "34698a63-0561-43d6-bc9b-da90b466bf77",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Roll",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Left",
+                    "id": "1013e6a7-e87d-4e23-872d-9df438041f4a",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";KeyboardMouse",
+                    "action": "Roll",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Right",
+                    "id": "8c34a559-5ecd-4162-a098-6113a8d79272",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";KeyboardMouse",
+                    "action": "Roll",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }
