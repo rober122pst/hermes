@@ -363,13 +363,13 @@ MonoBehaviour:
     m_Value: 1
   threshold:
     m_OverrideState: 1
-    m_Value: 0.9
+    m_Value: 0.89
   intensity:
     m_OverrideState: 1
-    m_Value: 1.07
+    m_Value: 1.18
   scatter:
     m_OverrideState: 1
-    m_Value: 0.79
+    m_Value: 0.573
   clamp:
     m_OverrideState: 1
     m_Value: 65472
@@ -855,7 +855,7 @@ MonoBehaviour:
   active: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 0.3
+    m_Value: 0.15
 --- !u!114 &6940869943325143175
 MonoBehaviour:
   m_ObjectHideFlags: 3
