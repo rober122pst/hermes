@@ -12,6 +12,7 @@ namespace Player
 		public bool sprint;
 		public bool aim;
 		public Vector2 roll;
+		public bool fire;
 
 		public bool jetpack;
 
@@ -43,6 +44,11 @@ namespace Player
 		public void OnSprint(InputValue value)
 		{
 			SprintInput(value.isPressed);
+		}
+
+		public void OnFire(InputValue value)
+		{
+			FireInput(value.isPressed);
 		}
 
 		public void OnAim(InputValue value)
@@ -93,6 +99,11 @@ namespace Player
 		private void SetCursorState(bool newState)
 		{
 			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
+		}
+
+		private void FireInput(bool newFireState)
+		{
+			fire = newFireState;
 		}
 
 		public void AimInput(bool newAimState)
