@@ -4,10 +4,11 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] private float lifetime = 2f;
+    [SerializeField] private float speed = 50f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void OnEnable()
     {
-
+        StartCoroutine(DisableRoutine());
     }
 
     IEnumerator DisableRoutine()
@@ -19,7 +20,6 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // TODO só para teste.
-        transform.Translate(Vector3.forward * Time.deltaTime * 50);
+        transform.Translate(Vector3.forward * Time.deltaTime * speed);
     }
 }
