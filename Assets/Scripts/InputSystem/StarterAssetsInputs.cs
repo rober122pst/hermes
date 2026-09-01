@@ -10,9 +10,9 @@ namespace Player
 		public Vector2 look;
 		public bool jump;
 		public bool sprint;
-		public bool aim;
 		public Vector2 roll;
 		public bool fire;
+		public bool pull;
 
 		public bool jetpack;
 
@@ -50,15 +50,14 @@ namespace Player
 		{
 			FireInput(value.isPressed);
 		}
-
-		public void OnAim(InputValue value)
-		{
-			AimInput(value.isPressed);
-		}
-
 		public void OnJetpack(InputValue value)
 		{
 			JetpackInput(value.isPressed);
+		}
+
+		public void OnPull(InputValue value)
+		{
+			PullInput(value.isPressed);
 		}
 
 		public void OnRoll(InputValue value)
@@ -91,6 +90,11 @@ namespace Player
 			sprint = newSprintState;
 		}
 
+		public void PullInput(bool newPullState)
+		{
+			pull = newPullState;
+		}
+
 		private void OnApplicationFocus(bool hasFocus)
 		{
 			SetCursorState(cursorLocked);
@@ -104,11 +108,6 @@ namespace Player
 		private void FireInput(bool newFireState)
 		{
 			fire = newFireState;
-		}
-
-		public void AimInput(bool newAimState)
-		{
-			aim = newAimState;
 		}
 
 		private void JetpackInput(bool newJetpackState)
