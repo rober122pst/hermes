@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Enemy.System
+namespace Enemy
 {
     public class EnemySystem : MonoBehaviour
     {
@@ -21,9 +21,23 @@ namespace Enemy.System
         {
             if (Vida <= 0f)
             {
-                gameObject.SetActive(false);
-                cinemachineShake.ShakeCamera(1f, 0.25f);
+                Die();
             }
+        }
+
+        void Die()
+        {
+            if (WaveManager.Instance != null)
+            {
+                WaveManager.Instance.RegisterDefeatedEnemy();
+            }
+            else
+            {
+                Debug.LogWarning("WaveManager instance is null. Cannot register defeated enemy.");
+            }
+
+            gameObject.SetActive(false);
+            cinemachineShake.ShakeCamera(1f, 0.25f);
         }
 
         private void OnTriggerEnter(Collider other)
