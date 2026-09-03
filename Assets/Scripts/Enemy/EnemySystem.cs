@@ -4,22 +4,22 @@ namespace Enemy
 {
     public class EnemySystem : MonoBehaviour
     {
-        [Header("Dados do Inimigo")]
-        public float Vida = 100f;
+        public EnemiesConfig config;
 
         DamageReceiver damageReceiver;
-        [SerializeField]
-        CinemachineShake cinemachineShake;
+
+        private float life;
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
             damageReceiver = gameObject.GetComponent<DamageReceiver>();
+            life = config.maxHealth;
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (Vida <= 0f)
+            if (life <= 0f)
             {
                 Die();
             }
@@ -29,7 +29,7 @@ namespace Enemy
         {
             if (WaveManager.Instance != null)
             {
-                WaveManager.Instance.RegisterDefeatedEnemy();
+                
             }
             else
             {
@@ -37,7 +37,7 @@ namespace Enemy
             }
 
             gameObject.SetActive(false);
-            cinemachineShake.ShakeCamera(1f, 0.25f);
+            CinemachineShake.Instance.ShakeCamera(1f, 0.25f);
         }
 
         private void OnTriggerEnter(Collider other)
@@ -47,7 +47,7 @@ namespace Enemy
                 Bullet bullet = other.GetComponent<Bullet>();
                 float dano = bullet.GetDamage();
                 damageReceiver.TakeDamage(dano);
-                Vida -= dano;
+                life -= dano;
             }
         }
     }
