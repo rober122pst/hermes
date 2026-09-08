@@ -5876,8 +5876,8 @@ MonoBehaviour:
   - {fileID: 1420681997}
   - {fileID: 1093121540}
   spawnIndex: 0
-  totalSubWaves: 5
-  spawnInterval: 2
+  totalSubWaves: 10
+  spawnInterval: 15
   spawnedEnemies: []
 --- !u!4 &471558486
 Transform:
@@ -6847,7 +6847,6 @@ GameObject:
   m_Component:
   - component: {fileID: 981921877}
   - component: {fileID: 981921880}
-  - component: {fileID: 981921879}
   - component: {fileID: 981921878}
   m_Layer: 3
   m_Name: UI Camera
@@ -6915,14 +6914,6 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!81 &981921879
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 981921876}
-  m_Enabled: 1
 --- !u!20 &981921880
 Camera:
   m_ObjectHideFlags: 0
@@ -7440,7 +7431,7 @@ MonoBehaviour:
   velocidade: 1
   velocidadeSprint: 8
   multAnguloVelocidade: 0.15
-  multVelocidadeRotacao: 0.05
+  multVelocidadeRotacao: 0.15
   tempoEntreTiros: 0.2
   danoDoTiro: 5
   distanciaDaMira: 600

@@ -25,7 +25,7 @@ public class WaveManager : MonoBehaviour
     public Transform[] spawnLocation;
     public int spawnIndex;
 
-    public static int minTotalEnemies;
+    public static int minTotalEnemies = 80;
     public int totalSubWaves;
 
     [SerializeField]
@@ -59,16 +59,17 @@ public class WaveManager : MonoBehaviour
     {
         if (spawnTimer <= 0 && spawnedEnemies.Count < 50)
         {
-            Debug.Log($"Spawning enemies. SpawnedEnemies: {spawnedEnemies.Count}, EnemiesToSpawn: {enemiesToSpawn}");
+            Debug.Log($"Spawning enemies. SpawnedEnemies: {spawnedEnemies.Count}, EnemiesToSpawn: {enemiesToSpawn}, SubWaves: {subWaves.Count}");
             if (subWaves.Count > 0)
             {
                 foreach (var e in subWaves[0])
                 {
-
                     if (enemyPoolDict.TryGetValue(e, out ObjectPool pool))
                     {
                         GameObject enemy = pool.GetInstance();
                         enemy.transform.position = spawnLocation[spawnIndex].position;
+                        spawnIndex = (spawnIndex + 1) % spawnLocation.Length;
+                        enemy.SetActive(true);
                         spawnedEnemies.Add(enemy);
                     }
                     else
@@ -77,10 +78,9 @@ public class WaveManager : MonoBehaviour
                     }
                     
                 }
-                spawnIndex = (spawnIndex + 1) % spawnLocation.Length;
-                spawnTimer = spawnInterval;
                 subWaves.RemoveAt(0);
             }
+            spawnTimer = spawnInterval;
         }
         else
         {
