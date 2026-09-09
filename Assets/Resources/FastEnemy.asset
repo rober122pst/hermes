@@ -20,3 +20,4 @@ MonoBehaviour:
   attackRange: 0
   attackCooldown: 0
   cost: 3
+  distanceToStop: 60

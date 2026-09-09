@@ -71,6 +71,7 @@ public class WaveManager : MonoBehaviour
                         spawnIndex = (spawnIndex + 1) % spawnLocation.Length;
                         enemy.SetActive(true);
                         spawnedEnemies.Add(enemy);
+                        ShipManager.Instance.AddActiveShip(enemy.transform);
                     }
                     else
                     {
