@@ -5876,6 +5876,7 @@ MonoBehaviour:
   - {fileID: 1420681997}
   - {fileID: 1093121540}
   spawnIndex: 0
+  minTotalEnemies: 100
   totalSubWaves: 10
   spawnInterval: 15
   spawnedEnemies: []

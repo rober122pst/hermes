@@ -29,9 +29,14 @@ public class Bullet : MonoBehaviour
         damage = _damage;
     }
 
-    public float GetDamage()
+    void OnTriggerEnter(Collider coll)
     {
-        gameObject.SetActive(false);
-        return damage;
+        IDamageable damageable = coll.GetComponentInParent<IDamageable>();
+        Debug.Log($"Bullet hit {damageable.GetType().Name}.");
+        if (damageable != null)
+        {
+            damageable.TakeDamage(damage);
+            gameObject.SetActive(false);
+        }
     }
 }

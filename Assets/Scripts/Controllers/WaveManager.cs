@@ -25,7 +25,8 @@ public class WaveManager : MonoBehaviour
     public Transform[] spawnLocation;
     public int spawnIndex;
 
-    public static int minTotalEnemies = 80;
+   
+    public int minTotalEnemies = 80;
     public int totalSubWaves;
 
     [SerializeField]
@@ -98,7 +99,7 @@ public class WaveManager : MonoBehaviour
     public void GenerateEnemies()
     {
         List<EnemyType> generatedEnemies = new List<EnemyType>();
-        while (waveValue > 0)
+        while (waveValue > 0 || generatedEnemies.Count < minTotalEnemies + 50)
         {
             int randEnemyId = Random.Range(0, enemies.Count);
             int randEnemyCost = enemies[randEnemyId].cost;

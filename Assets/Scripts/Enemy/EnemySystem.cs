@@ -1,9 +1,8 @@
-using NUnit.Framework.Constraints;
 using UnityEngine;
 
 namespace Enemy
 {
-    public class EnemySystem : MonoBehaviour
+    public class EnemySystem : MonoBehaviour, IDamageable
     {
         public EnemiesConfig config;
 
@@ -25,11 +24,6 @@ namespace Enemy
         void Update()
         {
             Walk();
-
-            if (life <= 0f)
-            {
-                Die();
-            }
         }
 
         void Walk()
@@ -60,15 +54,28 @@ namespace Enemy
             CinemachineShake.Instance.ShakeCamera(1f, 0.25f);
         }
 
-        private void OnTriggerEnter(Collider other)
+        public void TakeDamage(float damage)
         {
-            if (other.CompareTag("Bullets"))
+            Debug.Log("Dano sofrido: " + damage);
+            damageReceiver.TakeDamage(damage);
+            life -= damage;
+
+            if (life <= 0)
             {
-                Bullet bullet = other.GetComponent<Bullet>();
-                float dano = bullet.GetDamage();
-                damageReceiver.TakeDamage(dano);
-                life -= dano;
+                Die();
             }
         }
+
+
+        //private void OnTriggerEnter(Collider other)
+        //{
+        //    if (other.CompareTag("Bullets"))
+        //    {
+        //        Bullet bullet = other.GetComponent<Bullet>();
+        //        float dano = bullet.GetDamage();
+        //        damageReceiver.TakeDamage(dano);
+        //        life -= dano;
+        //    }
+        //}
     }
 }
