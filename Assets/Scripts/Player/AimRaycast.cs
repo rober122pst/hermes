@@ -79,7 +79,7 @@ namespace Player.UI
 
             if (Physics.SphereCast(ray, raioDeDeteccao, out hit, 100f, objetosInterativos))
             {
-                Vector3 posicaoNaTela = cam.WorldToScreenPoint(hit.transform.position);
+                Vector3 posicaoNaTela = PosInScreen(hit.transform.position);
                 cursorUI.position = Vector2.Lerp(cursorUI.position, posicaoNaTela, 0.2f);
 
                 if (hit.distance > distanciaDaCamera)
@@ -121,7 +121,7 @@ namespace Player.UI
         {
             grab = true;
             // Trava o UI Cursor no objeto enquanto ele é movido
-            Vector3 posicaoNaTela = cam.WorldToScreenPoint(objetoSegurado.position);
+            Vector3 posicaoNaTela = PosInScreen(objetoSegurado.position);
             cursorUI.position = Vector3.Lerp(cursorUI.position, posicaoNaTela, 0.6f);
 
             // Move o objeto 3D para o ponto projetado na frente da câmera
@@ -149,6 +149,19 @@ namespace Player.UI
 
             objetoSegurado = null;
             grab = false;
+        }
+
+        Vector3 PosInScreen(Vector3 posWorld)
+        {
+            Vector3 posScreen = cam.WorldToScreenPoint(posWorld);
+            
+            if (cam.targetTexture != null)
+            {
+                posScreen.x *= (float)Screen.width / cam.targetTexture.width;
+                posScreen.y *= (float)Screen.height / cam.targetTexture.height;
+            }
+
+            return posScreen;
         }
     }
 }

@@ -21,4 +21,6 @@ public class EnemiesConfig : ScriptableObject
     public float attackRange;
     public float attackCooldown;
     public int cost;
+
+    public float distanceToStop = 1.5f;
 }

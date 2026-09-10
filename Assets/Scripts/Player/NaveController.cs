@@ -157,7 +157,7 @@ namespace Player
             }
 
             // Posição do marcador na tela
-            Vector3 screenPos = cam.WorldToScreenPoint(pontoDeImpacto);
+            Vector3 screenPos = PosInScreen(pontoDeImpacto);
 
             // Posição do centro da tela (onde a crosshair principal fica)
             Vector2 centroDaTela = new Vector2(Screen.width * 0.5f, Screen.height * 0.5f);
@@ -186,6 +186,19 @@ namespace Player
             rb.AddTorque(rb.transform.up * multAnguloVelocidade * input.look.x, ForceMode.VelocityChange);
 
             rb.AddTorque(rb.transform.forward * multVelocidadeRotacao * -input.roll.x, ForceMode.VelocityChange);
+        }
+
+        Vector3 PosInScreen(Vector3 posWorld)
+        {
+            Vector3 posScreen = cam.WorldToScreenPoint(posWorld);
+
+            if (cam.targetTexture != null)
+            {
+                posScreen.x *= (float)Screen.width / cam.targetTexture.width;
+                posScreen.y *= (float)Screen.height / cam.targetTexture.height;
+            }
+
+            return posScreen;
         }
     }
 }
