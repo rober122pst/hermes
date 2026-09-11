@@ -23,4 +23,7 @@ public class EnemiesConfig : ScriptableObject
     public int cost;
 
     public float distanceToStop = 1.5f;
+
+    [Header("Audio")]
+    public AudioClip hitAudio;
 }

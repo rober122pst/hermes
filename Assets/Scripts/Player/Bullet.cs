@@ -5,7 +5,9 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] private float lifetime = 2f;
     [SerializeField] private float speed = 50f;
+    [SerializeField]
     float damage;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void OnEnable()
     {
@@ -31,8 +33,7 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter(Collider coll)
     {
-        IDamageable damageable = coll.GetComponentInParent<IDamageable>();
-        Debug.Log($"Bullet hit {damageable.GetType().Name}.");
+        EnemySystem damageable = coll.GetComponentInParent<EnemySystem>();
         if (damageable != null)
         {
             damageable.TakeDamage(damage);

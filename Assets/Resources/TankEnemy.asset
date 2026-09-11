@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TankEnemy
   m_EditorClassIdentifier: Assembly-CSharp::EnemiesConfig
   enemyType: 2
-  enemyPrefab: {fileID: 2589318629784095058, guid: b9dbb63d263e2304dbe6f6d1572c5fb1, type: 3}
+  enemyPrefab: {fileID: 588246369752594920, guid: 8ca7a2134459af745bed6d277af378b0, type: 3}
   maxHealth: 300
   speed: 20
   damage: 0
@@ -21,3 +21,4 @@ MonoBehaviour:
   attackCooldown: 0
   cost: 20
   distanceToStop: 120
+  hitAudio: {fileID: 8300000, guid: 7528083f4a66b7e488aa67500f05cc89, type: 3}

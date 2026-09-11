@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FastEnemy
   m_EditorClassIdentifier: Assembly-CSharp::EnemiesConfig
   enemyType: 1
-  enemyPrefab: {fileID: 4800501455853259568, guid: 2e3cd8f03fd060e40a5c8783e7ab57dc, type: 3}
+  enemyPrefab: {fileID: 3564160837023805701, guid: 17a6ccf5ac254804397f53952b61ff2b, type: 3}
   maxHealth: 80
   speed: 50
   damage: 0
@@ -21,3 +21,4 @@ MonoBehaviour:
   attackCooldown: 0
   cost: 3
   distanceToStop: 60
+  hitAudio: {fileID: 8300000, guid: 8a37293db56a4bd42b349d77f1e4158b, type: 3}

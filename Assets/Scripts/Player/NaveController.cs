@@ -35,9 +35,14 @@ namespace Player
         [Tooltip("Margem de erro em pixels. Se o tiro desviar mais que isso do centro, o marcador aparece.")]
         private float limiteDesalinhamentoTela = 30f;
 
+        [Header("Audios")]
+        [SerializeField]
+        private AudioClip tiroAudioClip;
+
         private Rigidbody rb;
         private StarterAssetsInputs input;
         private Camera cam;
+        private AudioSource audioSource;
 
         [Space(10)]
         [SerializeField]
@@ -48,6 +53,7 @@ namespace Player
             cam = Camera.main;
             rb = GetComponent<Rigidbody>();
             input = GetComponent<StarterAssetsInputs>();
+            audioSource = GetComponent<AudioSource>();
         }
 
         private void Update()
@@ -115,6 +121,7 @@ namespace Player
 
                 bullet.SetActive(true);
             }
+            audioSource.PlayOneShot(tiroAudioClip);
             tempoUltimoTiro = Time.time + tempoEntreTiros;
         }
 
