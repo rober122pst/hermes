@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1987545263352046297}
-  - component: {fileID: 8603098250138709558}
   - component: {fileID: 5550042228650580051}
   - component: {fileID: 3661807587998416427}
   m_Layer: 8
@@ -28,28 +27,13 @@ Transform:
   m_GameObject: {fileID: 3564160837023805701}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.7, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 973569684997783301}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8603098250138709558
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3564160837023805701}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36ec34d676e876646a9dcff21b0e8f00, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DamageReceiver
-  damagePopupPrefab: {fileID: 324359250997528770, guid: c95409421ffa26041ad3de98dfaf4eed, type: 3}
-  popupSpawnPoint: {fileID: 0}
-  combineTimeWindow: 0.1
 --- !u!114 &5550042228650580051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,6 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySystem
   config: {fileID: 11400000, guid: c1d5654a7bd13c64a871b85d32a6548f, type: 2}
+  combineTimeWindow: 0.1
+  popupSpawnPoint: {fileID: 0}
 --- !u!54 &3661807587998416427
 Rigidbody:
   m_ObjectHideFlags: 0

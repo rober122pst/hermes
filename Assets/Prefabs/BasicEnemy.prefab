@@ -124,7 +124,6 @@ GameObject:
   m_Component:
   - component: {fileID: 9924873835651608}
   - component: {fileID: 5931935699687101077}
-  - component: {fileID: 640450061734239254}
   - component: {fileID: 6582166439516845572}
   m_Layer: 8
   m_Name: BasicEnemy
@@ -162,21 +161,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySystem
   config: {fileID: 11400000, guid: 2635e2c6efe6a9148af512fcbef501e1, type: 2}
---- !u!114 &640450061734239254
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4374582424730688564}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36ec34d676e876646a9dcff21b0e8f00, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DamageReceiver
-  damagePopupPrefab: {fileID: 324359250997528770, guid: c95409421ffa26041ad3de98dfaf4eed, type: 3}
-  popupSpawnPoint: {fileID: 0}
   combineTimeWindow: 0.1
+  popupSpawnPoint: {fileID: 0}
 --- !u!54 &6582166439516845572
 Rigidbody:
   m_ObjectHideFlags: 0

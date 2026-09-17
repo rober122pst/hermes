@@ -50,8 +50,9 @@ Material:
     m_Ints: []
     m_Floats:
     - _ColorMask: 15
-    - _DitherOpacity: 0.55
-    - _QuantizationLevel: 16
+    - _DitherOpacity: 0.35
+    - _QuantizationLevel: 32
+    - _SatSteps: 12
     - _Stencil: 0
     - _StencilComp: 8
     - _StencilOp: 0
@@ -59,6 +60,7 @@ Material:
     - _StencilWriteMask: 255
     - _UIMaskSoftnessX: 1
     - _UIMaskSoftnessY: 1
+    - _ValSteps: 7.78
     m_Colors:
     - _ClipRect: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

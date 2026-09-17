@@ -22,10 +22,12 @@ public class DamagePopup : MonoBehaviour
     private float currentDamage;
     private float fadeTimer;
     private Color currentColor;
+    private Transform cameraTransform;
 
     void Awake()
     {
         textMesh = GetComponent<TextMeshPro>();
+        cameraTransform = Camera.main.transform;
     }
 
     // Chamado na primeira vez que o dano é instanciado
@@ -74,8 +76,14 @@ public class DamagePopup : MonoBehaviour
         // Destrói o objeto quando some totalmente
         if (fadeTimer <= 0)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
+    }
+
+    private void LateUpdate()
+    {
+        // Faz o texto sempre olhar para a câmera
+        transform.rotation = cameraTransform.rotation;
     }
 
     // Abreviador de números gigantes (1K, 1.5M, etc)

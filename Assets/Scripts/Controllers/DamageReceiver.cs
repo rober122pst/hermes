@@ -22,6 +22,7 @@ public class DamageReceiver : MonoBehaviour
         {
             // O tempo expirou ou é o primeiro dano: cria um novo popup
             Vector3 spawnPos = popupSpawnPoint != null ? popupSpawnPoint.position : transform.position;
+
             GameObject popupObj = Instantiate(damagePopupPrefab, spawnPos, Quaternion.identity);
 
             lastPopup = popupObj.GetComponent<DamagePopup>();

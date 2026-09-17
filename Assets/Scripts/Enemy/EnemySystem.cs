@@ -11,6 +11,12 @@ public class EnemySystem : MonoBehaviour, IDamageable
     private float targetSpd = 0;
     private AudioSource audioSource;
 
+    [Tooltip("Tempo máximo (em segundos) entre os hits para os danos serem somados no mesmo popup")]
+    public float combineTimeWindow = 0.1f;
+    public Transform popupSpawnPoint;
+    private DamagePopup lastPopup;
+    private float lastDamageTime = -1f;
+
     Transform player;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -58,13 +64,34 @@ public class EnemySystem : MonoBehaviour, IDamageable
     public void TakeDamage(float damage)
     {
         Debug.Log("Dano sofrido: " + damage);
-        damageReceiver.TakeDamage(damage);
         audioSource.PlayOneShot(config.hitAudio);
         life -= damage;
+        ShowDamagePopup(damage);
 
         if (life <= 0)
         {
             Die();
         }
+    }
+
+    void ShowDamagePopup(float damageAmount)
+    {
+        // Se existe um popup ativo e o tempo atual está dentro da janela permitida
+        if (lastPopup != null && Time.time <= lastDamageTime + combineTimeWindow)
+        {
+            lastPopup.AddDamage(damageAmount);
+        }
+        else
+        {
+            // O tempo expirou ou é o primeiro dano: cria um novo popup
+            Vector3 spawnPos = popupSpawnPoint != null ? popupSpawnPoint.position : transform.position;
+
+            GameObject popupObj = DamageManager.Instance.ShowDamage(damageAmount, spawnPos);
+
+            lastPopup = popupObj.GetComponent<DamagePopup>();
+        }
+
+        // Atualiza o tempo do último dano recebido
+        lastDamageTime = Time.time;
     }
 }
