@@ -12,6 +12,8 @@ public class WaveManager : MonoBehaviour
 {
     public static WaveManager Instance { get; private set; }
 
+    public PoolID poolID;
+
     public List<EnemyPool> enemyPools = new List<EnemyPool>();
     private Dictionary<EnemyType, ObjectPool> enemyPoolDict;
 
@@ -25,7 +27,7 @@ public class WaveManager : MonoBehaviour
     public Transform[] spawnLocation;
     public int spawnIndex;
 
-   
+
     public int minTotalEnemies = 80;
     public int totalSubWaves;
 
@@ -67,7 +69,7 @@ public class WaveManager : MonoBehaviour
                 {
                     if (enemyPoolDict.TryGetValue(e, out ObjectPool pool))
                     {
-                        GameObject enemy = pool.GetInstance();
+                        GameObject enemy = pool.GetInstance(poolID);
                         enemy.transform.position = spawnLocation[spawnIndex].position;
                         spawnIndex = (spawnIndex + 1) % spawnLocation.Length;
                         enemy.SetActive(true);
@@ -78,7 +80,7 @@ public class WaveManager : MonoBehaviour
                     {
                         Debug.LogWarning($"No ObjectPool found for EnemyType: {e}");
                     }
-                    
+
                 }
                 subWaves.RemoveAt(0);
             }

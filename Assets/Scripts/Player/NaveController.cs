@@ -56,131 +56,131 @@ namespace Player
             audioSource = GetComponent<AudioSource>();
         }
 
-        private void Update()
-        {
-            if (input.fire && Time.time > tempoUltimoTiro)
-            {
-                Atirar();
-            }
-        }
+        // private void Update()
+        // {
+        //     if (input.fire && Time.time > tempoUltimoTiro)
+        //     {
+        //         Atirar();
+        //     }
+        // }
 
-        private void LateUpdate()
-        {
-            AtualizarMarcadorUI();
-        }
+        // private void LateUpdate()
+        // {
+        //     AtualizarMarcadorUI();
+        // }
 
-        // Centralizei a leitura do alvo da câmera para usar tanto no tiro quanto na UI
-        private Vector3 ObterPontoAlvoCamera()
-        {
-            RaycastHit hit;
-            Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        // // Centralizei a leitura do alvo da câmera para usar tanto no tiro quanto na UI
+        // private Vector3 ObterPontoAlvoCamera()
+        // {
+        //     RaycastHit hit;
+        //     Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
 
-            if (Physics.Raycast(ray, out hit, distanciaDaMira, layerColisaoMira))
-            {
-                if (hit.distance < distanciaMinima)
-                    return ray.GetPoint(distanciaMinima);
-                else
-                    return hit.point;
-            }
+        //     if (Physics.Raycast(ray, out hit, distanciaDaMira, layerColisaoMira))
+        //     {
+        //         if (hit.distance < distanciaMinima)
+        //             return ray.GetPoint(distanciaMinima);
+        //         else
+        //             return hit.point;
+        //     }
 
-            return ray.GetPoint(distanciaDaMira);
-        }
+        //     return ray.GetPoint(distanciaDaMira);
+        // }
 
-        private void Atirar()
-        {
-            // Vector3 targetPoint = ObterPontoAlvoCamera();
+        // private void Atirar()
+        // {
+        //     // Vector3 targetPoint = ObterPontoAlvoCamera();
 
-            // // Converte o alvo da câmera para as coordenadas relativas da nave
-            // Vector3 alvoLocalNave = transform.InverseTransformPoint(targetPoint);
+        //     // // Converte o alvo da câmera para as coordenadas relativas da nave
+        //     // Vector3 alvoLocalNave = transform.InverseTransformPoint(targetPoint);
 
-            // for (int i = 0; i < bulletPools.Count; i++)
-            // {
-            //     GameObject bullet = bulletPools[i].GetInstance();
-            //     Transform cano = bulletPools[i].transform;
+        //     // for (int i = 0; i < bulletPools.Count; i++)
+        //     // {
+        //     //     GameObject bullet = bulletPools[i].GetInstance();
+        //     //     Transform cano = bulletPools[i].transform;
 
-            //     // Aqui é o pulo do gato: pegamos a posição do alvo, mas FORÇAMOS a posição 
-            //     // horizontal (X) para ser exatamente a mesma do cano da arma.
-            //     // Isso impede a arma de virar para os lados (Yaw), forçando ela a rotacionar
-            //     // APENAS no eixo X (Pitch - para cima e para baixo).
-            //     Vector3 canoLocalPos = transform.InverseTransformPoint(cano.position);
-            //     Vector3 alvoEspecificoLocal = alvoLocalNave;
-            //     alvoEspecificoLocal.x = canoLocalPos.x; // Trava convergência lateral
+        //     //     // Aqui é o pulo do gato: pegamos a posição do alvo, mas FORÇAMOS a posição 
+        //     //     // horizontal (X) para ser exatamente a mesma do cano da arma.
+        //     //     // Isso impede a arma de virar para os lados (Yaw), forçando ela a rotacionar
+        //     //     // APENAS no eixo X (Pitch - para cima e para baixo).
+        //     //     Vector3 canoLocalPos = transform.InverseTransformPoint(cano.position);
+        //     //     Vector3 alvoEspecificoLocal = alvoLocalNave;
+        //     //     alvoEspecificoLocal.x = canoLocalPos.x; // Trava convergência lateral
 
-            //     // Converte de volta pro mundo real
-            //     Vector3 finalTarget = transform.TransformPoint(alvoEspecificoLocal);
-            //     Vector3 shootDirection = (finalTarget - cano.position).normalized;
+        //     //     // Converte de volta pro mundo real
+        //     //     Vector3 finalTarget = transform.TransformPoint(alvoEspecificoLocal);
+        //     //     Vector3 shootDirection = (finalTarget - cano.position).normalized;
 
-            //     bullet.transform.position = cano.position;
-            //     bullet.transform.rotation = Quaternion.LookRotation(shootDirection);
+        //     //     bullet.transform.position = cano.position;
+        //     //     bullet.transform.rotation = Quaternion.LookRotation(shootDirection);
 
-            //     Bullet bullet1 = bullet.GetComponent<Bullet>();
-            //     if (bullet1 != null)
-            //     {
-            //         bullet1.SetDamage(danoDoTiro);
-            //     }
+        //     //     Bullet bullet1 = bullet.GetComponent<Bullet>();
+        //     //     if (bullet1 != null)
+        //     //     {
+        //     //         bullet1.SetDamage(danoDoTiro);
+        //     //     }
 
-            //     bullet.SetActive(true);
-            // }
-            // audioSource.PlayOneShot(tiroAudioClip);
-            // tempoUltimoTiro = Time.time + tempoEntreTiros;
-        }
+        //     //     bullet.SetActive(true);
+        //     // }
+        //     // audioSource.PlayOneShot(tiroAudioClip);
+        //     // tempoUltimoTiro = Time.time + tempoEntreTiros;
+        // }
 
-        private void AtualizarMarcadorUI()
-        {
-            if (marcadorArmaUI == null) return;
+        // private void AtualizarMarcadorUI()
+        // {
+        //     if (marcadorArmaUI == null) return;
 
-            Vector3 targetPoint = ObterPontoAlvoCamera();
-            Vector3 alvoLocalNave = transform.InverseTransformPoint(targetPoint);
+        //     Vector3 targetPoint = ObterPontoAlvoCamera();
+        //     Vector3 alvoLocalNave = transform.InverseTransformPoint(targetPoint);
 
-            Vector3 centroDasArmas = Vector3.zero;
-            if (bulletPools.Count > 0)
-            {
-                for (int i = 0; i < bulletPools.Count; i++)
-                    centroDasArmas += bulletPools[i].transform.position;
-                centroDasArmas /= bulletPools.Count;
-            }
-            else
-            {
-                centroDasArmas = transform.position;
-            }
+        //     Vector3 centroDasArmas = Vector3.zero;
+        //     if (bulletPools.Count > 0)
+        //     {
+        //         for (int i = 0; i < bulletPools.Count; i++)
+        //             centroDasArmas += bulletPools[i].transform.position;
+        //         centroDasArmas /= bulletPools.Count;
+        //     }
+        //     else
+        //     {
+        //         centroDasArmas = transform.position;
+        //     }
 
-            Vector3 centroLocalPos = transform.InverseTransformPoint(centroDasArmas);
-            Vector3 alvoMarcadorLocal = alvoLocalNave;
-            alvoMarcadorLocal.x = centroLocalPos.x;
+        //     Vector3 centroLocalPos = transform.InverseTransformPoint(centroDasArmas);
+        //     Vector3 alvoMarcadorLocal = alvoLocalNave;
+        //     alvoMarcadorLocal.x = centroLocalPos.x;
 
-            Vector3 finalTargetMarcador = transform.TransformPoint(alvoMarcadorLocal);
-            Vector3 direcaoRealTiro = (finalTargetMarcador - centroDasArmas).normalized;
+        //     Vector3 finalTargetMarcador = transform.TransformPoint(alvoMarcadorLocal);
+        //     Vector3 direcaoRealTiro = (finalTargetMarcador - centroDasArmas).normalized;
 
-            Vector3 pontoDeImpacto;
-            RaycastHit hit;
+        //     Vector3 pontoDeImpacto;
+        //     RaycastHit hit;
 
-            if (Physics.Raycast(centroDasArmas, direcaoRealTiro, out hit, distanciaDaMira, layerColisaoMira))
-            {
-                pontoDeImpacto = hit.point;
-            }
-            else
-            {
-                pontoDeImpacto = centroDasArmas + (direcaoRealTiro * distanciaDaMira);
-            }
+        //     if (Physics.Raycast(centroDasArmas, direcaoRealTiro, out hit, distanciaDaMira, layerColisaoMira))
+        //     {
+        //         pontoDeImpacto = hit.point;
+        //     }
+        //     else
+        //     {
+        //         pontoDeImpacto = centroDasArmas + (direcaoRealTiro * distanciaDaMira);
+        //     }
 
-            // Posição do marcador na tela
-            Vector3 screenPos = PosInScreen(pontoDeImpacto);
+        //     // Posição do marcador na tela
+        //     Vector3 screenPos = PosInScreen(pontoDeImpacto);
 
-            // Posição do centro da tela (onde a crosshair principal fica)
-            Vector2 centroDaTela = new Vector2(Screen.width * 0.5f, Screen.height * 0.5f);
+        //     // Posição do centro da tela (onde a crosshair principal fica)
+        //     Vector2 centroDaTela = new Vector2(Screen.width * 0.5f, Screen.height * 0.5f);
 
-            float distanciaDesalinhamentoVertical = Mathf.Abs(screenPos.y - centroDaTela.y);
+        //     float distanciaDesalinhamentoVertical = Mathf.Abs(screenPos.y - centroDaTela.y);
 
-            if (screenPos.z > 0 && distanciaDesalinhamentoVertical > limiteDesalinhamentoTela)
-            {
-                marcadorArmaUI.gameObject.SetActive(true);
-                marcadorArmaUI.position = Vector3.Lerp(marcadorArmaUI.position, screenPos, 0.5f);
-            }
-            else
-            {
-                marcadorArmaUI.gameObject.SetActive(false);
-            }
-        }
+        //     if (screenPos.z > 0 && distanciaDesalinhamentoVertical > limiteDesalinhamentoTela)
+        //     {
+        //         marcadorArmaUI.gameObject.SetActive(true);
+        //         marcadorArmaUI.position = Vector3.Lerp(marcadorArmaUI.position, screenPos, 0.5f);
+        //     }
+        //     else
+        //     {
+        //         marcadorArmaUI.gameObject.SetActive(false);
+        //     }
+        // }
 
         private void FixedUpdate()
         {

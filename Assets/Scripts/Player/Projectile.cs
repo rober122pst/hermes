@@ -4,6 +4,7 @@ public class Projectile : MonoBehaviour
 {
     public WeaponBase weaponConfig;
     public Transform player;
+    float attackTimer = 0;
 
     void Start()
     {
@@ -12,7 +13,12 @@ public class Projectile : MonoBehaviour
 
     void Update()
     {
-        weaponConfig.Attack(10, gameObject, player);
+        if (attackTimer <= 0)
+        {
+            weaponConfig.Attack(10, gameObject, player);
+        }
+
+        attackTimer -= Time.deltaTime;
     }
 
     public void SetWeaponConfig(WeaponBase weapon)

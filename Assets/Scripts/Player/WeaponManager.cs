@@ -5,10 +5,10 @@ public class WeaponManager : MonoBehaviour
 {
     public WeaponBase weapon;
     public float damage;
-    public GameObject projectile;
+    public PoolID poolID;
 
-    void Start()
+    void Update()
     {
-        weapon.WeaponBehaviour(projectile);
+        weapon.WeaponBehaviour(poolID);
     }
 }

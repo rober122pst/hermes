@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class ObjectPool : MonoBehaviour
 {
+    public static ObjectPool Instance { get; private set; }
+
     public List<PoolID> pools;
     [Tooltip("Objeto pai para os objetos instanciados")]
     public Transform parent;
@@ -13,7 +15,17 @@ public class ObjectPool : MonoBehaviour
 
     void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+
         instances = new Dictionary<PoolID, List<GameObject>>();
+        lastIndexes = new Dictionary<PoolID, int>();
         foreach (PoolID data in pools)
         {
             List<GameObject> pool = new List<GameObject>();

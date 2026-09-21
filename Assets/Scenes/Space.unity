@@ -5919,7 +5919,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponManager
   weapon: {fileID: 11400000, guid: f16941d2f88a03748a4eba2a6ffdc909, type: 2}
   damage: 10
-  projectile: {fileID: 2577970336255360343, guid: 3324a3803afddc5419b9bec33db0d5f3, type: 3}
+  poolID: {fileID: 11400000, guid: 003eab7265d3d1a48a84ea2b42c8e5fd, type: 2}
 --- !u!4 &360765475
 Transform:
   m_ObjectHideFlags: 0
@@ -5945,7 +5945,6 @@ GameObject:
   m_Component:
   - component: {fileID: 378262303}
   - component: {fileID: 378262302}
-  - component: {fileID: 378262301}
   m_Layer: 0
   m_Name: DamageManager
   m_TagString: Untagged
@@ -5953,21 +5952,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &378262301
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 378262300}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18518d74097fcb045b9b9e11284d79fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ObjectPool
-  prefab: {fileID: 324359250997528770, guid: c95409421ffa26041ad3de98dfaf4eed, type: 3}
-  amount: 200
-  parent: {fileID: 378262303}
 --- !u!114 &378262302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5980,7 +5964,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bea821f8d109304bab405245a303d15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageManager
-  damagePool: {fileID: 378262301}
+  damagePool: {fileID: 1022581260}
+  poolID: {fileID: 11400000, guid: 0d7b08d676e54be42bc8feb7a3629c5a, type: 2}
 --- !u!4 &378262303
 Transform:
   m_ObjectHideFlags: 0
@@ -5988,54 +5973,6 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 378262300}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &454896306
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 454896308}
-  - component: {fileID: 454896307}
-  m_Layer: 0
-  m_Name: FastEnemyPool
-  m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &454896307
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 454896306}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e027760539be61e4790a4a569e19ddaa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemySpawnPool
-  prefab: {fileID: 3564160837023805701, guid: 17a6ccf5ac254804397f53952b61ff2b, type: 3}
-  amount: 50
-  parent: {fileID: 454896308}
-  config: {fileID: 11400000, guid: c1d5654a7bd13c64a871b85d32a6548f, type: 2}
---- !u!4 &454896308
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 454896306}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -6060,7 +5997,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &471558485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6073,13 +6010,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c26ea210b613104fa65f02d770b6400, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveManager
+  poolID: {fileID: 0}
   enemyPools:
   - type: 0
-    pool: {fileID: 1626361066}
+    pool: {fileID: 0}
   - type: 1
-    pool: {fileID: 454896307}
+    pool: {fileID: 0}
   - type: 2
-    pool: {fileID: 665773320}
+    pool: {fileID: 0}
   enemies:
   - {fileID: 11400000, guid: 2635e2c6efe6a9148af512fcbef501e1, type: 2}
   - {fileID: 11400000, guid: c1d5654a7bd13c64a871b85d32a6548f, type: 2}
@@ -6216,54 +6154,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1432757961}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: -90}
---- !u!1 &665773319
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 665773321}
-  - component: {fileID: 665773320}
-  m_Layer: 0
-  m_Name: TankEnemyPool
-  m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &665773320
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 665773319}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e027760539be61e4790a4a569e19ddaa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemySpawnPool
-  prefab: {fileID: 588246369752594920, guid: 8ca7a2134459af745bed6d277af378b0, type: 3}
-  amount: 50
-  parent: {fileID: 665773321}
-  config: {fileID: 11400000, guid: 5a56df245d215e04dbd19af6e4b2e51c, type: 2}
---- !u!4 &665773321
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 665773319}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &668711375
 GameObject:
   m_ObjectHideFlags: 0
@@ -6273,7 +6163,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 668711376}
-  - component: {fileID: 668711377}
   m_Layer: 2
   m_Name: RightGun
   m_TagString: Untagged
@@ -6296,21 +6185,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1432757961}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &668711377
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 668711375}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18518d74097fcb045b9b9e11284d79fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ObjectPool
-  prefab: {fileID: 2577970336255360343, guid: 3324a3803afddc5419b9bec33db0d5f3, type: 3}
-  amount: 12
-  parent: {fileID: 1022581259}
 --- !u!1 &806854707
 GameObject:
   m_ObjectHideFlags: 0
@@ -7362,8 +7236,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18518d74097fcb045b9b9e11284d79fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectPool
-  prefab: {fileID: 2577970336255360343, guid: 3324a3803afddc5419b9bec33db0d5f3, type: 3}
-  amount: 20
+  pools:
+  - {fileID: 11400000, guid: e37a48246836cdd4183da15873624b39, type: 2}
+  - {fileID: 11400000, guid: 003eab7265d3d1a48a84ea2b42c8e5fd, type: 2}
+  - {fileID: 11400000, guid: 0d7b08d676e54be42bc8feb7a3629c5a, type: 2}
   parent: {fileID: 1022581259}
 --- !u!1001 &1085884911
 PrefabInstance:
@@ -7618,7 +7494,6 @@ GameObject:
   - component: {fileID: 1270151978}
   - component: {fileID: 1270151977}
   - component: {fileID: 1270151982}
-  - component: {fileID: 1270151984}
   - component: {fileID: 1270151983}
   m_Layer: 2
   m_Name: Spaceship
@@ -7734,8 +7609,8 @@ MonoBehaviour:
   limiteDesalinhamentoTela: 60
   tiroAudioClip: {fileID: 8300000, guid: 06bb985c7a4faea4a888bc016211c42c, type: 3}
   bulletPools:
-  - {fileID: 1969208117}
-  - {fileID: 668711377}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!4 &1270151981
 Transform:
   m_ObjectHideFlags: 0
@@ -7873,21 +7748,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1270151984
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1270151976}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66c144631e8505a4f8f6d495e96ded0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WeaponManager
-  weapon: {fileID: 0}
-  damage: 0
-  projectile: {fileID: 2577970336255360343, guid: 3324a3803afddc5419b9bec33db0d5f3, type: 3}
 --- !u!1 &1273185932
 GameObject:
   m_ObjectHideFlags: 0
@@ -8318,54 +8178,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GridDebugger
   sectorSize: 10
   playerShip: {fileID: 1270151981}
---- !u!1 &1626361063
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1626361065}
-  - component: {fileID: 1626361066}
-  m_Layer: 0
-  m_Name: BasicEnemyPool
-  m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1626361065
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1626361063}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1626361066
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1626361063}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e027760539be61e4790a4a569e19ddaa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemySpawnPool
-  prefab: {fileID: 4374582424730688564, guid: c83b83ab06257f34597a09993585a446, type: 3}
-  amount: 50
-  parent: {fileID: 1626361065}
-  config: {fileID: 11400000, guid: 2635e2c6efe6a9148af512fcbef501e1, type: 2}
 --- !u!1 &1675830216
 GameObject:
   m_ObjectHideFlags: 0
@@ -8628,7 +8440,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1969208116}
-  - component: {fileID: 1969208117}
   m_Layer: 2
   m_Name: LeftGun
   m_TagString: Untagged
@@ -8651,21 +8462,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1432757961}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1969208117
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1969208115}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18518d74097fcb045b9b9e11284d79fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ObjectPool
-  prefab: {fileID: 2577970336255360343, guid: 3324a3803afddc5419b9bec33db0d5f3, type: 3}
-  amount: 12
-  parent: {fileID: 1022581259}
 --- !u!1 &2001856087
 GameObject:
   m_ObjectHideFlags: 0
@@ -8682,7 +8478,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2001856088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8722,7 +8518,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2035492010}
-  - component: {fileID: 2035492009}
   m_Layer: 0
   m_Name: ProjectileManager
   m_TagString: Untagged
@@ -8730,18 +8525,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2035492009
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2035492008}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd74c9c4cec833f40a8276e8f88cf37e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ProjectileManager
 --- !u!4 &2035492010
 Transform:
   m_ObjectHideFlags: 0
@@ -8845,9 +8628,6 @@ SceneRoots:
   - {fileID: 1847672185}
   - {fileID: 891105876}
   - {fileID: 1524508906}
-  - {fileID: 1626361065}
-  - {fileID: 454896308}
-  - {fileID: 665773321}
   - {fileID: 1501807738}
   - {fileID: 1420681997}
   - {fileID: 1093121540}

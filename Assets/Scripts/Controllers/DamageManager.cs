@@ -4,6 +4,7 @@ public class DamageManager : MonoBehaviour
 {
     public static DamageManager Instance { get; private set; }
     [SerializeField] private ObjectPool damagePool;
+    [SerializeField] private PoolID poolID;
 
     private void Awake()
     {
@@ -20,7 +21,7 @@ public class DamageManager : MonoBehaviour
     public GameObject ShowDamage(float amount, Vector3 position)
     {
         position += new Vector3(Random.Range(-1f, 1f), Random.Range(0.5f, 2.5f), 0); // Adiciona um deslocamento aleatório para o popup
-        GameObject damagePopup = damagePool.GetInstance();
+        GameObject damagePopup = damagePool.GetInstance(poolID);
         damagePopup.transform.position = position;
         damagePopup.GetComponent<DamagePopup>().Setup(amount);
         damagePopup.SetActive(true);
