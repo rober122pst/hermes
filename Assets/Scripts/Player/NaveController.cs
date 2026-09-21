@@ -88,41 +88,41 @@ namespace Player
 
         private void Atirar()
         {
-            Vector3 targetPoint = ObterPontoAlvoCamera();
+            // Vector3 targetPoint = ObterPontoAlvoCamera();
 
-            // Converte o alvo da câmera para as coordenadas relativas da nave
-            Vector3 alvoLocalNave = transform.InverseTransformPoint(targetPoint);
+            // // Converte o alvo da câmera para as coordenadas relativas da nave
+            // Vector3 alvoLocalNave = transform.InverseTransformPoint(targetPoint);
 
-            for (int i = 0; i < bulletPools.Count; i++)
-            {
-                GameObject bullet = bulletPools[i].GetInstance();
-                Transform cano = bulletPools[i].transform;
+            // for (int i = 0; i < bulletPools.Count; i++)
+            // {
+            //     GameObject bullet = bulletPools[i].GetInstance();
+            //     Transform cano = bulletPools[i].transform;
 
-                // Aqui é o pulo do gato: pegamos a posição do alvo, mas FORÇAMOS a posição 
-                // horizontal (X) para ser exatamente a mesma do cano da arma.
-                // Isso impede a arma de virar para os lados (Yaw), forçando ela a rotacionar
-                // APENAS no eixo X (Pitch - para cima e para baixo).
-                Vector3 canoLocalPos = transform.InverseTransformPoint(cano.position);
-                Vector3 alvoEspecificoLocal = alvoLocalNave;
-                alvoEspecificoLocal.x = canoLocalPos.x; // Trava convergência lateral
+            //     // Aqui é o pulo do gato: pegamos a posição do alvo, mas FORÇAMOS a posição 
+            //     // horizontal (X) para ser exatamente a mesma do cano da arma.
+            //     // Isso impede a arma de virar para os lados (Yaw), forçando ela a rotacionar
+            //     // APENAS no eixo X (Pitch - para cima e para baixo).
+            //     Vector3 canoLocalPos = transform.InverseTransformPoint(cano.position);
+            //     Vector3 alvoEspecificoLocal = alvoLocalNave;
+            //     alvoEspecificoLocal.x = canoLocalPos.x; // Trava convergência lateral
 
-                // Converte de volta pro mundo real
-                Vector3 finalTarget = transform.TransformPoint(alvoEspecificoLocal);
-                Vector3 shootDirection = (finalTarget - cano.position).normalized;
+            //     // Converte de volta pro mundo real
+            //     Vector3 finalTarget = transform.TransformPoint(alvoEspecificoLocal);
+            //     Vector3 shootDirection = (finalTarget - cano.position).normalized;
 
-                bullet.transform.position = cano.position;
-                bullet.transform.rotation = Quaternion.LookRotation(shootDirection);
+            //     bullet.transform.position = cano.position;
+            //     bullet.transform.rotation = Quaternion.LookRotation(shootDirection);
 
-                Bullet bullet1 = bullet.GetComponent<Bullet>();
-                if (bullet1 != null)
-                {
-                    bullet1.SetDamage(danoDoTiro);
-                }
+            //     Bullet bullet1 = bullet.GetComponent<Bullet>();
+            //     if (bullet1 != null)
+            //     {
+            //         bullet1.SetDamage(danoDoTiro);
+            //     }
 
-                bullet.SetActive(true);
-            }
-            audioSource.PlayOneShot(tiroAudioClip);
-            tempoUltimoTiro = Time.time + tempoEntreTiros;
+            //     bullet.SetActive(true);
+            // }
+            // audioSource.PlayOneShot(tiroAudioClip);
+            // tempoUltimoTiro = Time.time + tempoEntreTiros;
         }
 
         private void AtualizarMarcadorUI()

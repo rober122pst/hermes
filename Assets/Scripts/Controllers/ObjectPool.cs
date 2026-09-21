@@ -1,33 +1,48 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+
 public class ObjectPool : MonoBehaviour
 {
-    [Tooltip("Objeto para ser instanciado")]
-    public GameObject prefab;
-    [Tooltip("Quantidade de objetos a serem instanciados")]
-    public int amount = 5;
+    public List<PoolID> pools;
     [Tooltip("Objeto pai para os objetos instanciados")]
     public Transform parent;
 
-    List<GameObject> instances;
-    int lastIndex = 0;
+    private Dictionary<PoolID, List<GameObject>> instances;
+    private Dictionary<PoolID, int> lastIndexes;
 
     void Awake()
     {
-        instances = new List<GameObject>();
-        for (int i = 0; i < amount; i++)
+        instances = new Dictionary<PoolID, List<GameObject>>();
+        foreach (PoolID data in pools)
         {
-            GameObject obj = Instantiate(prefab, parent);
-            obj.SetActive(false);
-            instances.Add(obj);
+            List<GameObject> pool = new List<GameObject>();
+            for (int i = 0; i < data.amount; i++)
+            {
+                GameObject obj = Instantiate(data.prefab, parent);
+                obj.SetActive(false);
+                pool.Add(obj);
+            }
+
+            instances.Add(data, pool);
+            lastIndexes.Add(data, 0);
         }
     }
 
-    public GameObject GetInstance()
+    public GameObject GetInstance(PoolID id)
     {
-        GameObject obj = instances[lastIndex];
-        lastIndex = (lastIndex + 1) % instances.Count;
+        if (!instances.TryGetValue(id, out List<GameObject> pool))
+        {
+            Debug.LogError($"Pool com ID {id} não existe.");
+            return null;
+        }
+
+        int index = lastIndexes[id];
+
+        GameObject obj = pool[index];
+
+        lastIndexes[id] = (index + 1) % pool.Count;
+
         return obj;
     }
 }
