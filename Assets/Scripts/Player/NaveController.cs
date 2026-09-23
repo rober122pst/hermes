@@ -47,6 +47,8 @@ namespace Player
         [Space(10)]
         [SerializeField]
         List<ObjectPool> bulletPools;
+        public WeaponManager weaponManager;
+        public WeaponData weaponData;
 
         private void Awake()
         {
@@ -54,6 +56,7 @@ namespace Player
             rb = GetComponent<Rigidbody>();
             input = GetComponent<StarterAssetsInputs>();
             audioSource = GetComponent<AudioSource>();
+            weaponManager.EquipWeapon(weaponData);
         }
 
         // private void Update()

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 280c9a0da0f0b49469f929afab0910ed, type: 3}
   m_Name: PoolID_BaseProjectile
   m_EditorClassIdentifier: Assembly-CSharp::PoolID
-  prefab: {fileID: 2577970336255360343, guid: 3324a3803afddc5419b9bec33db0d5f3, type: 3}
-  amount: 10
+  prefab: {fileID: 2577970336255360343, guid: 611272c04be3fe341b8082d68bc3898d, type: 3}
+  amount: 20

@@ -5888,53 +5888,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 359504479}
   m_CullTransparentMesh: 1
---- !u!1 &360765473
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 360765475}
-  - component: {fileID: 360765474}
-  m_Layer: 0
-  m_Name: OrbitalWeapon
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &360765474
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 360765473}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66c144631e8505a4f8f6d495e96ded0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WeaponManager
-  weapon: {fileID: 11400000, guid: f16941d2f88a03748a4eba2a6ffdc909, type: 2}
-  damage: 10
-  poolID: {fileID: 11400000, guid: 003eab7265d3d1a48a84ea2b42c8e5fd, type: 2}
---- !u!4 &360765475
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 360765473}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &378262300
 GameObject:
   m_ObjectHideFlags: 0
@@ -6165,7 +6118,7 @@ GameObject:
   - component: {fileID: 668711376}
   m_Layer: 2
   m_Name: RightGun
-  m_TagString: Untagged
+  m_TagString: LaserWeapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7495,6 +7448,7 @@ GameObject:
   - component: {fileID: 1270151977}
   - component: {fileID: 1270151982}
   - component: {fileID: 1270151983}
+  - component: {fileID: 1270151984}
   m_Layer: 2
   m_Name: Spaceship
   m_TagString: Player
@@ -7611,6 +7565,8 @@ MonoBehaviour:
   bulletPools:
   - {fileID: 0}
   - {fileID: 0}
+  weaponManager: {fileID: 1270151984}
+  weaponData: {fileID: 11400000, guid: c3cd45a2bb2f8b04ca6b813d47a5aea8, type: 2}
 --- !u!4 &1270151981
 Transform:
   m_ObjectHideFlags: 0
@@ -7748,6 +7704,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1270151984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1270151976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66c144631e8505a4f8f6d495e96ded0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponManager
 --- !u!1 &1273185932
 GameObject:
   m_ObjectHideFlags: 0
@@ -8442,7 +8410,7 @@ GameObject:
   - component: {fileID: 1969208116}
   m_Layer: 2
   m_Name: LeftGun
-  m_TagString: Untagged
+  m_TagString: LaserWeapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8637,4 +8605,3 @@ SceneRoots:
   - {fileID: 1137410870}
   - {fileID: 336173921}
   - {fileID: 2035492010}
-  - {fileID: 360765475}

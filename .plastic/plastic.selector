@@ -1,0 +1,4 @@
+repository "Jogo Da Mulher/Jogo Da Mulher@4674174678149@cloud"
+  path "/"
+    br "/main"
+    co "/main"
