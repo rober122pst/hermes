@@ -17,7 +17,7 @@ MonoBehaviour:
   projectileAmount: 2
   projectileScale: 1
   speedMult: 1
-  speed: 5
+  speed: 50
   lifetime: 2
   weaponLogicPrefab: {fileID: 8220193705518072167, guid: 0a87567ac44a96b42a90d845ff0d83e6, type: 3}
   projectilePoolID: {fileID: 11400000, guid: e37a48246836cdd4183da15873624b39, type: 2}

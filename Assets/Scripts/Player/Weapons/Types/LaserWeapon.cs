@@ -21,7 +21,6 @@ public class LaserWeapon : WeaponBase
         for (int i = 0; i < weaponData.projectileAmount; i++)
         {
             GameObject p = ObjectPool.Instance.GetInstance(weaponData.projectilePoolID);
-            Debug.Log(spawnPoints[i].name);
 
             if (i < spawnPoints.Count)
             {
@@ -29,6 +28,7 @@ public class LaserWeapon : WeaponBase
                 p.transform.rotation = spawnPoints[i].transform.rotation;
             }
             p.SetActive(true);
+            activeProjectiles.RemoveAll(item => item.projectile == p);
             activeProjectiles.Add((p, weaponData.lifetime));
         }
     }
@@ -46,19 +46,21 @@ public class LaserWeapon : WeaponBase
 
     private void UpdateMoves()
     {
-        for (int i = 0; i < activeProjectiles.Count; i++)
+        for (int i = activeProjectiles.Count - 1; i >= 0; i--)
         {
             var activeProjectile = activeProjectiles[i];
             if (activeProjectile.projectile == null) continue;
+            Debug.Log($"Projectile {activeProjectile.projectile.GetInstanceID()} updated on frame {Time.frameCount}");
+            activeProjectile.projectile.transform.position += activeProjectile.projectile.transform.forward * weaponData.speed * Time.deltaTime;
 
-            activeProjectiles[i].projectile.transform.position += activeProjectiles[i].projectile.transform.forward * weaponData.speed * Time.deltaTime;
+            activeProjectile.lifetime -= Time.deltaTime;
+            activeProjectiles[i] = activeProjectile;
 
             if (activeProjectiles[i].lifetime <= 0f)
             {
                 activeProjectiles[i].projectile.SetActive(false);
+                activeProjectiles.RemoveAt(i);
             }
-            activeProjectile.lifetime -= Time.deltaTime;
-            activeProjectiles[i] = activeProjectile;
         }
     }
 }
