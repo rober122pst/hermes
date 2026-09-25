@@ -50,7 +50,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _ColorMask: 15
-    - _DitherOpacity: 0.35
+    - _DitherOpacity: 0.5
     - _QuantizationLevel: 32
     - _SatSteps: 12
     - _Stencil: 0

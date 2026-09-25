@@ -27,13 +27,15 @@ namespace Player
         float distanciaMinima = 20f;
 
         [Header("UI do Retículo")]
-        [SerializeField]
-        private RectTransform marcadorArmaUI;
-        [SerializeField]
-        private LayerMask layerColisaoMira;
-        [SerializeField]
-        [Tooltip("Margem de erro em pixels. Se o tiro desviar mais que isso do centro, o marcador aparece.")]
-        private float limiteDesalinhamentoTela = 30f;
+        public Transform rayOrigin;
+
+        public Camera mainCamera;
+
+        public RectTransform uiDot;
+
+        public float maxDistance = 100f;
+
+        public LayerMask collisionMask;
 
         [Header("Audios")]
         [SerializeField]
@@ -46,7 +48,7 @@ namespace Player
 
         [Space(10)]
         [SerializeField]
-        List<ObjectPool> bulletPools;
+        List<GameObject> weapons;
         public WeaponManager weaponManager;
         public WeaponData weaponData;
 
@@ -67,123 +69,10 @@ namespace Player
         //     }
         // }
 
-        // private void LateUpdate()
-        // {
-        //     AtualizarMarcadorUI();
-        // }
-
-        // // Centralizei a leitura do alvo da câmera para usar tanto no tiro quanto na UI
-        // private Vector3 ObterPontoAlvoCamera()
-        // {
-        //     RaycastHit hit;
-        //     Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-
-        //     if (Physics.Raycast(ray, out hit, distanciaDaMira, layerColisaoMira))
-        //     {
-        //         if (hit.distance < distanciaMinima)
-        //             return ray.GetPoint(distanciaMinima);
-        //         else
-        //             return hit.point;
-        //     }
-
-        //     return ray.GetPoint(distanciaDaMira);
-        // }
-
-        // private void Atirar()
-        // {
-        //     // Vector3 targetPoint = ObterPontoAlvoCamera();
-
-        //     // // Converte o alvo da câmera para as coordenadas relativas da nave
-        //     // Vector3 alvoLocalNave = transform.InverseTransformPoint(targetPoint);
-
-        //     // for (int i = 0; i < bulletPools.Count; i++)
-        //     // {
-        //     //     GameObject bullet = bulletPools[i].GetInstance();
-        //     //     Transform cano = bulletPools[i].transform;
-
-        //     //     // Aqui é o pulo do gato: pegamos a posição do alvo, mas FORÇAMOS a posição 
-        //     //     // horizontal (X) para ser exatamente a mesma do cano da arma.
-        //     //     // Isso impede a arma de virar para os lados (Yaw), forçando ela a rotacionar
-        //     //     // APENAS no eixo X (Pitch - para cima e para baixo).
-        //     //     Vector3 canoLocalPos = transform.InverseTransformPoint(cano.position);
-        //     //     Vector3 alvoEspecificoLocal = alvoLocalNave;
-        //     //     alvoEspecificoLocal.x = canoLocalPos.x; // Trava convergência lateral
-
-        //     //     // Converte de volta pro mundo real
-        //     //     Vector3 finalTarget = transform.TransformPoint(alvoEspecificoLocal);
-        //     //     Vector3 shootDirection = (finalTarget - cano.position).normalized;
-
-        //     //     bullet.transform.position = cano.position;
-        //     //     bullet.transform.rotation = Quaternion.LookRotation(shootDirection);
-
-        //     //     Bullet bullet1 = bullet.GetComponent<Bullet>();
-        //     //     if (bullet1 != null)
-        //     //     {
-        //     //         bullet1.SetDamage(danoDoTiro);
-        //     //     }
-
-        //     //     bullet.SetActive(true);
-        //     // }
-        //     // audioSource.PlayOneShot(tiroAudioClip);
-        //     // tempoUltimoTiro = Time.time + tempoEntreTiros;
-        // }
-
-        // private void AtualizarMarcadorUI()
-        // {
-        //     if (marcadorArmaUI == null) return;
-
-        //     Vector3 targetPoint = ObterPontoAlvoCamera();
-        //     Vector3 alvoLocalNave = transform.InverseTransformPoint(targetPoint);
-
-        //     Vector3 centroDasArmas = Vector3.zero;
-        //     if (bulletPools.Count > 0)
-        //     {
-        //         for (int i = 0; i < bulletPools.Count; i++)
-        //             centroDasArmas += bulletPools[i].transform.position;
-        //         centroDasArmas /= bulletPools.Count;
-        //     }
-        //     else
-        //     {
-        //         centroDasArmas = transform.position;
-        //     }
-
-        //     Vector3 centroLocalPos = transform.InverseTransformPoint(centroDasArmas);
-        //     Vector3 alvoMarcadorLocal = alvoLocalNave;
-        //     alvoMarcadorLocal.x = centroLocalPos.x;
-
-        //     Vector3 finalTargetMarcador = transform.TransformPoint(alvoMarcadorLocal);
-        //     Vector3 direcaoRealTiro = (finalTargetMarcador - centroDasArmas).normalized;
-
-        //     Vector3 pontoDeImpacto;
-        //     RaycastHit hit;
-
-        //     if (Physics.Raycast(centroDasArmas, direcaoRealTiro, out hit, distanciaDaMira, layerColisaoMira))
-        //     {
-        //         pontoDeImpacto = hit.point;
-        //     }
-        //     else
-        //     {
-        //         pontoDeImpacto = centroDasArmas + (direcaoRealTiro * distanciaDaMira);
-        //     }
-
-        //     // Posição do marcador na tela
-        //     Vector3 screenPos = PosInScreen(pontoDeImpacto);
-
-        //     // Posição do centro da tela (onde a crosshair principal fica)
-        //     Vector2 centroDaTela = new Vector2(Screen.width * 0.5f, Screen.height * 0.5f);
-
-        //     float distanciaDesalinhamentoVertical = Mathf.Abs(screenPos.y - centroDaTela.y);
-
-        //     if (screenPos.z > 0 && distanciaDesalinhamentoVertical > limiteDesalinhamentoTela)
-        //     {
-        //         marcadorArmaUI.gameObject.SetActive(true);
-        //         marcadorArmaUI.position = Vector3.Lerp(marcadorArmaUI.position, screenPos, 0.5f);
-        //     }
-        //     else
-        //     {
-        //         marcadorArmaUI.gameObject.SetActive(false);
-        //     }
-        // }
+        private void LateUpdate()
+        {
+            CrosshairUpdate();
+        }
 
         private void FixedUpdate()
         {
@@ -196,6 +85,48 @@ namespace Player
             rb.AddTorque(rb.transform.up * multAnguloVelocidade * input.look.x, ForceMode.VelocityChange);
 
             rb.AddTorque(rb.transform.forward * multVelocidadeRotacao * -input.roll.x, ForceMode.VelocityChange);
+        }
+
+        void CrosshairUpdate()
+        {
+            if (rayOrigin == null || mainCamera == null || uiDot == null) return;
+
+            // Cria o raio saindo da origem e indo para a frente do objeto
+            Ray ray = new Ray(rayOrigin.position, rayOrigin.forward);
+            Vector3 targetPosition;
+
+            // Lança o raycast
+            if (Physics.Raycast(ray, out RaycastHit hit, maxDistance, collisionMask))
+            {
+                // Se houver colisão, o alvo é exatamente o ponto onde bateu
+                targetPosition = hit.point;
+                Debug.DrawLine(hit.point, hit.point + Vector3.up * 2f, Color.yellow);
+                Debug.Log("Não mirando");
+            }
+            else
+            {
+                // Se não bater em nada, o alvo é o limite máximo da distância no ar
+                targetPosition = rayOrigin.position + rayOrigin.forward * maxDistance;
+                Debug.DrawLine(rayOrigin.position, rayOrigin.position + Vector3.up * 2f, Color.red);
+                Debug.Log("Não mirando");
+            }
+
+            // Converte a coordenada 3D do mundo em uma coordenada 2D de tela em pixels
+            Vector3 screenPosition = mainCamera.WorldToScreenPoint(targetPosition);
+
+            // O valor Z da posição de tela indica se o ponto está na frente ou atrás da câmera
+            if (screenPosition.z > 0)
+            {
+                uiDot.gameObject.SetActive(true);
+                // Move a UI para a coordenada da tela. 
+                // Obs: O Canvas deve estar configurado como "Screen Space - Overlay".
+                uiDot.position = screenPosition;
+            }
+            else
+            {
+                // Esconde a bolinha da UI caso o ponto fique atrás do jogador/câmera
+                uiDot.gameObject.SetActive(false);
+            }
         }
 
         Vector3 PosInScreen(Vector3 posWorld)

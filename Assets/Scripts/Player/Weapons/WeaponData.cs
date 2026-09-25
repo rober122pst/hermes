@@ -13,6 +13,7 @@ public class WeaponData : ScriptableObject
     public float speedMult = 1f;
     public float speed = 5f;
     public float lifetime = 2f;
+    public float damage = 5f;
 
     [Header("Dependencias")]
     public GameObject weaponLogicPrefab;

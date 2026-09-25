@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec8e354a32d86c94aa5b2d1313e6cd97, type: 3}
-  m_Name: LaserData
+  m_Name: AuraData
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   attackCooldown: 2
   projectileCooldown: 0.2
-  projectileAmount: 2
+  projectileAmount: 1
   projectileScale: 1
   speedMult: 1
-  speed: 300
+  speed: 5
   lifetime: 2
-  weaponLogicPrefab: {fileID: 8220193705518072167, guid: 0a87567ac44a96b42a90d845ff0d83e6, type: 3}
-  projectilePoolID: {fileID: 11400000, guid: e37a48246836cdd4183da15873624b39, type: 2}
+  damage: 5
+  weaponLogicPrefab: {fileID: 8220193705518072167, guid: 2754ce59cf51d9b4881d3b918f7f8da7, type: 3}
+  projectilePoolID: {fileID: 11400000, guid: 0dc7413b2eb2dd0418945d61aeba3fc9, type: 2}

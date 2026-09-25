@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class LaserWeapon : WeaponBase
 {
@@ -50,8 +51,26 @@ public class LaserWeapon : WeaponBase
         {
             var activeProjectile = activeProjectiles[i];
             if (activeProjectile.projectile == null) continue;
-            Debug.Log($"Projectile {activeProjectile.projectile.GetInstanceID()} updated on frame {Time.frameCount}");
-            activeProjectile.projectile.transform.position += activeProjectile.projectile.transform.forward * weaponData.speed * Time.deltaTime;
+
+            Vector3 direction = activeProjectile.projectile.transform.forward;
+            float distance = weaponData.speed * Time.deltaTime;
+
+            if (Physics.Raycast(activeProjectile.projectile.transform.position, direction, out RaycastHit hit, distance))
+            {
+                // Atingiu um alvo! Verifica se tem a tag ou componente de inimigo
+                IDamageable enemy = hit.collider.GetComponentInParent<IDamageable>();
+                if (enemy != null)
+                {
+                    enemy.TakeDamage(weaponData.damage);
+                    activeProjectile.projectile.SetActive(false);
+                    activeProjectiles.RemoveAt(i);
+                }
+
+                // Desativa o projetil e remove da lista de ativos
+                continue;
+            }
+
+            activeProjectile.projectile.transform.position += direction * distance;
 
             activeProjectile.lifetime -= Time.deltaTime;
             activeProjectiles[i] = activeProjectile;
