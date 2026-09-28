@@ -69,7 +69,7 @@ public class WaveManager : MonoBehaviour
                 {
                     if (enemyPoolDict.TryGetValue(e, out ObjectPool pool))
                     {
-                        GameObject enemy = pool.GetInstance(poolID);
+                        GameObject enemy = ObjectPool.Instance.GetInstance(poolID);
                         enemy.transform.position = spawnLocation[spawnIndex].position;
                         spawnIndex = (spawnIndex + 1) % spawnLocation.Length;
                         enemy.SetActive(true);

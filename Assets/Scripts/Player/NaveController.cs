@@ -26,17 +26,6 @@ namespace Player
         [SerializeField]
         float distanciaMinima = 20f;
 
-        [Header("UI do Retículo")]
-        public Transform rayOrigin;
-
-        public Camera mainCamera;
-
-        public RectTransform uiDot;
-
-        public float maxDistance = 100f;
-
-        public LayerMask collisionMask;
-
         [Header("Audios")]
         [SerializeField]
         private AudioClip tiroAudioClip;
@@ -69,11 +58,6 @@ namespace Player
         //     }
         // }
 
-        private void LateUpdate()
-        {
-            CrosshairUpdate();
-        }
-
         private void FixedUpdate()
         {
             float velocidadeAlvo = input.sprint ? velocidadeSprint : velocidade;
@@ -85,48 +69,6 @@ namespace Player
             rb.AddTorque(rb.transform.up * multAnguloVelocidade * input.look.x, ForceMode.VelocityChange);
 
             rb.AddTorque(rb.transform.forward * multVelocidadeRotacao * -input.roll.x, ForceMode.VelocityChange);
-        }
-
-        void CrosshairUpdate()
-        {
-            if (rayOrigin == null || mainCamera == null || uiDot == null) return;
-
-            // Cria o raio saindo da origem e indo para a frente do objeto
-            Ray ray = new Ray(rayOrigin.position, rayOrigin.forward);
-            Vector3 targetPosition;
-
-            // Lança o raycast
-            if (Physics.Raycast(ray, out RaycastHit hit, maxDistance, collisionMask))
-            {
-                // Se houver colisão, o alvo é exatamente o ponto onde bateu
-                targetPosition = hit.point;
-                Debug.DrawLine(hit.point, hit.point + Vector3.up * 2f, Color.yellow);
-                Debug.Log("Não mirando");
-            }
-            else
-            {
-                // Se não bater em nada, o alvo é o limite máximo da distância no ar
-                targetPosition = rayOrigin.position + rayOrigin.forward * maxDistance;
-                Debug.DrawLine(rayOrigin.position, rayOrigin.position + Vector3.up * 2f, Color.red);
-                Debug.Log("Não mirando");
-            }
-
-            // Converte a coordenada 3D do mundo em uma coordenada 2D de tela em pixels
-            Vector3 screenPosition = mainCamera.WorldToScreenPoint(targetPosition);
-
-            // O valor Z da posição de tela indica se o ponto está na frente ou atrás da câmera
-            if (screenPosition.z > 0)
-            {
-                uiDot.gameObject.SetActive(true);
-                // Move a UI para a coordenada da tela. 
-                // Obs: O Canvas deve estar configurado como "Screen Space - Overlay".
-                uiDot.position = screenPosition;
-            }
-            else
-            {
-                // Esconde a bolinha da UI caso o ponto fique atrás do jogador/câmera
-                uiDot.gameObject.SetActive(false);
-            }
         }
 
         Vector3 PosInScreen(Vector3 posWorld)
