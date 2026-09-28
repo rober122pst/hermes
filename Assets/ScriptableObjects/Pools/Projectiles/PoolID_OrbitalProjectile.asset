@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 280c9a0da0f0b49469f929afab0910ed, type: 3}
   m_Name: PoolID_OrbitalProjectile
   m_EditorClassIdentifier: Assembly-CSharp::PoolID
-  prefab: {fileID: 4891890963685255991, guid: a1fb875c3206f794a84529449888dcae, type: 3}
+  prefab: {fileID: 6078891678152641227, guid: 7a06a1174f0df4e4a9830da62e928e00, type: 3}
   amount: 5

@@ -15,48 +15,39 @@ namespace Player
         [SerializeField]
         float multVelocidadeRotacao = 0.05f;
 
-        [Header("Configurações de Tiro")]
-        [SerializeField]
-        float tempoEntreTiros = 0.5f;
-        float tempoUltimoTiro = 0f;
-        [SerializeField]
-        float danoDoTiro = 10f;
-        [SerializeField]
-        float distanciaDaMira = 500f;
-        [SerializeField]
-        float distanciaMinima = 20f;
 
         [Header("Audios")]
         [SerializeField]
         private AudioClip tiroAudioClip;
-
         private Rigidbody rb;
         private StarterAssetsInputs input;
         private Camera cam;
-        private AudioSource audioSource;
+        // private AudioSource audioSource;
 
         [Space(10)]
         [SerializeField]
         List<GameObject> weapons;
         public WeaponManager weaponManager;
-        public WeaponData weaponData;
+        public WeaponData[] weaponData;
+        int index = 1;
 
         private void Awake()
         {
             cam = Camera.main;
             rb = GetComponent<Rigidbody>();
             input = GetComponent<StarterAssetsInputs>();
-            audioSource = GetComponent<AudioSource>();
-            weaponManager.EquipWeapon(weaponData);
+            weaponManager.EquipWeapon(weaponData[0]);
         }
 
-        // private void Update()
-        // {
-        //     if (input.fire && Time.time > tempoUltimoTiro)
-        //     {
-        //         Atirar();
-        //     }
-        // }
+        private void Update()
+        {
+            if (input.jump && index <= 1)
+            {
+                Debug.Log(index);
+                weaponManager.EquipWeapon(weaponData[index]);
+                index++;
+            }
+        }
 
         private void FixedUpdate()
         {

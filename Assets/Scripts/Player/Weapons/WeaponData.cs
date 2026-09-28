@@ -4,6 +4,7 @@ using UnityEngine;
 public class WeaponData : ScriptableObject
 {
     [Header("Configurações da Arma")]
+    public Texture weaponSprite;
     public float attackCooldown = 2f;
     public float projectileCooldown = 0.2f;
     public int projectileAmount = 2;

@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec8e354a32d86c94aa5b2d1313e6cd97, type: 3}
   m_Name: OrbitalData
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
-  attackCooldown: 2
+  weaponSprite: {fileID: 2800000, guid: 82bfac0b00bed9e4ea81d701725fbfb9, type: 3}
+  attackCooldown: 6
   projectileCooldown: 0.2
-  projectileAmount: 1
+  projectileAmount: 2
   projectileScale: 1
   speedMult: 1
   speed: 120
   lifetime: 2
+  damage: 5
   weaponLogicPrefab: {fileID: 8220193705518072167, guid: c243921aaa5949d4783d4dfb48d37846, type: 3}
   projectilePoolID: {fileID: 11400000, guid: 003eab7265d3d1a48a84ea2b42c8e5fd, type: 2}

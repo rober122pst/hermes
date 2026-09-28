@@ -8,6 +8,7 @@ TagManager:
   - Bullets
   - Popup
   - LaserWeapon
+  - WeaponSlotUI
   layers:
   - Default
   - TransparentFX

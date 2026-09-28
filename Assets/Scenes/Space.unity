@@ -5545,7 +5545,7 @@ GameObject:
   - component: {fileID: 273378911}
   m_Layer: 5
   m_Name: WeaponSprite
-  m_TagString: Untagged
+  m_TagString: WeaponSlotUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5973,7 +5973,7 @@ GameObject:
   - component: {fileID: 362098959}
   m_Layer: 5
   m_Name: WeaponSprite
-  m_TagString: Untagged
+  m_TagString: WeaponSlotUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7768,14 +7768,12 @@ MonoBehaviour:
   velocidadeSprint: 8
   multAnguloVelocidade: 0.15
   multVelocidadeRotacao: 0.15
-  tempoEntreTiros: 0.2
-  danoDoTiro: 5
-  distanciaDaMira: 600
-  distanciaMinima: 60
   tiroAudioClip: {fileID: 8300000, guid: 06bb985c7a4faea4a888bc016211c42c, type: 3}
   weapons: []
   weaponManager: {fileID: 1270151984}
-  weaponData: {fileID: 11400000, guid: c3cd45a2bb2f8b04ca6b813d47a5aea8, type: 2}
+  weaponData:
+  - {fileID: 11400000, guid: c3cd45a2bb2f8b04ca6b813d47a5aea8, type: 2}
+  - {fileID: 11400000, guid: 06fed1c55f1f0884eb44cd3981fd577a, type: 2}
 --- !u!4 &1270151981
 Transform:
   m_ObjectHideFlags: 0
@@ -7925,6 +7923,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66c144631e8505a4f8f6d495e96ded0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponManager
+  weaponsSlots:
+  - {fileID: 1579962595}
+  - {fileID: 362098959}
+  - {fileID: 273378911}
 --- !u!114 &1270151985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8486,7 +8488,7 @@ GameObject:
   - component: {fileID: 1579962595}
   m_Layer: 5
   m_Name: WeaponSprite
-  m_TagString: Untagged
+  m_TagString: WeaponSlotUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8517,7 +8519,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1579962593}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
@@ -8530,7 +8532,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 68d5b54387e32064d94e313720f4150c, type: 3}
+  m_Texture: {fileID: 2800000, guid: 82bfac0b00bed9e4ea81d701725fbfb9, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
