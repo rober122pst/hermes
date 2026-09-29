@@ -41,7 +41,7 @@ namespace Player
 
         private void Update()
         {
-            if (input.jump && index <= 1)
+            if (input.jump && index <= weaponData.Length - 1)
             {
                 Debug.Log(index);
                 weaponManager.EquipWeapon(weaponData[index]);

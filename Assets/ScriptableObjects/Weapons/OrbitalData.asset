@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: OrbitalData
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   weaponSprite: {fileID: 2800000, guid: 82bfac0b00bed9e4ea81d701725fbfb9, type: 3}
-  attackCooldown: 6
-  projectileCooldown: 0.2
+  attackCooldown: 3
+  projectileCooldown: 0.5
   projectileAmount: 2
   projectileScale: 1
   speedMult: 1
   speed: 120
-  lifetime: 2
-  damage: 5
+  lifetime: 6
+  damage: 12
   weaponLogicPrefab: {fileID: 8220193705518072167, guid: c243921aaa5949d4783d4dfb48d37846, type: 3}
   projectilePoolID: {fileID: 11400000, guid: 003eab7265d3d1a48a84ea2b42c8e5fd, type: 2}

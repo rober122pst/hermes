@@ -44,11 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae30dbd610d345544bd1b77fc9587b75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OrbitalWeapon
-  orbitRadius: 10
+  orbitRadius: 12
   hitRadius: 0.5
   enemyLayer:
     serializedVersion: 2
     m_Bits: 256
-  damageCooldown: 0.5
   scaleTransitionTime: 0.3
   maxProjectileScale: {x: 1, y: 1, z: 1}

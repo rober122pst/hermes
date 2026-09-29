@@ -9,7 +9,6 @@ public class OrbitalWeapon : WeaponBase
     [Header("Configurações de Colisão")]
     public float hitRadius = 0.5f;
     public LayerMask enemyLayer;
-    public float damageCooldown = 0.5f;
 
     [Header("Configurações de Ciclo (Escala)")]
     public float scaleTransitionTime = 0.3f; // Tempo para a animação de aumentar/diminuir
@@ -25,6 +24,7 @@ public class OrbitalWeapon : WeaponBase
     // Variáveis de controle de ciclo (Ativo / Inativo)
     private float cycleTimer = 0f;
     private bool isActivePhase = true;
+    private float cooldown;
 
     public override void Initialize(WeaponData data, Transform player)
     {
@@ -39,6 +39,7 @@ public class OrbitalWeapon : WeaponBase
             GameObject p = ObjectPool.Instance.GetInstance(weaponData.projectilePoolID);
             p.transform.localScale = Vector3.zero; // Começa invisível/pequeno
             p.SetActive(true);
+            cooldown = weaponData.lifetime;
             activeProjectiles.Add(p);
         }
     }
@@ -70,9 +71,10 @@ public class OrbitalWeapon : WeaponBase
         if (isActivePhase)
         {
             // Se o tempo ativo acabou, muda para a fase inativa
-            if (cycleTimer >= weaponData.attackCooldown)
+            if (cycleTimer >= cooldown)
             {
                 isActivePhase = false;
+                cooldown = weaponData.attackCooldown;
                 cycleTimer = 0f;
                 SetProjectilesActive(false); // Otimização: Desativa renderizadores/scripts
             }
@@ -85,13 +87,13 @@ public class OrbitalWeapon : WeaponBase
         else
         {
             // Fase inativa (dura o mesmo tempo que attackCooldown)
-            if (cycleTimer >= weaponData.attackCooldown)
+            if (cycleTimer >= cooldown)
             {
                 isActivePhase = true;
                 cycleTimer = 0f;
+                cooldown = weaponData.lifetime;
                 SetProjectilesActive(true);
 
-                // Reposiciona imediatamente sem gerar Cast longo de teletransporte
                 ForceUpdatePositions();
             }
         }
@@ -100,7 +102,7 @@ public class OrbitalWeapon : WeaponBase
     private void UpdateScaleBasedOnTimer()
     {
         // Garante que o tempo de crescer/diminuir não seja maior que a metade do tempo total ativo
-        float clampedTransition = Mathf.Min(scaleTransitionTime, weaponData.attackCooldown / 2f);
+        float clampedTransition = Mathf.Min(scaleTransitionTime, cooldown / 2f);
         float scaleMultiplier = 1f;
 
         if (cycleTimer < clampedTransition)
@@ -108,10 +110,10 @@ public class OrbitalWeapon : WeaponBase
             // Fase: Crescendo (0 até 1)
             scaleMultiplier = cycleTimer / clampedTransition;
         }
-        else if (cycleTimer > weaponData.attackCooldown - clampedTransition)
+        else if (cycleTimer > cooldown - clampedTransition)
         {
             // Fase: Diminuindo (1 até 0)
-            float shrinkTimer = cycleTimer - (weaponData.attackCooldown - clampedTransition);
+            float shrinkTimer = cycleTimer - (cooldown - clampedTransition);
             scaleMultiplier = 1f - (shrinkTimer / clampedTransition);
         }
 
@@ -180,13 +182,14 @@ public class OrbitalWeapon : WeaponBase
                 for (int j = 0; j < hitCount; j++)
                 {
                     Collider hitCollider = hitResults[j].collider;
+                    Debug.Log($"Colidiu {hitCollider.name}");
 
                     if (CanHitTarget(hitCollider))
                     {
                         hitCooldowns[hitCollider] = Time.time;
 
                         IDamageable target = hitCollider.GetComponentInParent<IDamageable>();
-                        target?.TakeDamage(weaponData.damage);
+                        target.TakeDamage(weaponData.damage);
                     }
                 }
             }
@@ -201,7 +204,7 @@ public class OrbitalWeapon : WeaponBase
         {
             return true;
         }
-        return Time.time >= hitCooldowns[target] + damageCooldown;
+        return Time.time >= hitCooldowns[target] + weaponData.projectileCooldown;
     }
 
     private void CleanUpCooldowns()
@@ -210,7 +213,7 @@ public class OrbitalWeapon : WeaponBase
 
         foreach (var kvp in hitCooldowns)
         {
-            if (kvp.Key == null || !kvp.Key.gameObject.activeInHierarchy || Time.time >= kvp.Value + damageCooldown)
+            if (kvp.Key == null || !kvp.Key.gameObject.activeInHierarchy || Time.time >= kvp.Value + weaponData.projectileCooldown)
             {
                 collidersToRemove.Add(kvp.Key);
             }
