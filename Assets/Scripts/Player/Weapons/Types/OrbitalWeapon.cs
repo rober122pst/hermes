@@ -182,7 +182,6 @@ public class OrbitalWeapon : WeaponBase
                 for (int j = 0; j < hitCount; j++)
                 {
                     Collider hitCollider = hitResults[j].collider;
-                    Debug.Log($"Colidiu {hitCollider.name}");
 
                     if (CanHitTarget(hitCollider))
                     {
