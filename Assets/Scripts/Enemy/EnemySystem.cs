@@ -17,6 +17,8 @@ public class EnemySystem : MonoBehaviour, IDamageable
     private DamagePopup lastPopup;
     private float lastDamageTime = -1f;
 
+    private float attackTimer = 0f;
+
     Transform player;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -43,14 +45,33 @@ public class EnemySystem : MonoBehaviour, IDamageable
         Vector3 direcao = (player.position - transform.position).normalized;
         transform.position += direcao * speed * Time.deltaTime;
 
+        if (speed <= 0.2f)
+        {
+            Attack();
+        }
+
         transform.LookAt(player);
+    }
+
+    void Attack()
+    {
+        if (attackTimer <= 0f)
+        {
+            GameObject p = ObjectPool.Instance.GetInstance(config.bulletPool);
+            p.SetActive(true);
+            p.transform.position = transform.position;
+            p.transform.rotation = transform.rotation;
+            Projectile.Instance.AddBullet(p);
+            attackTimer = config.attackCooldown;
+        }
+        attackTimer -= Time.deltaTime;
     }
 
     void Die()
     {
         if (WaveManager.Instance != null)
         {
-                
+
         }
         else
         {

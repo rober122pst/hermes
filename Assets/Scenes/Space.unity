@@ -6043,6 +6043,7 @@ GameObject:
   - component: {fileID: 366935426}
   - component: {fileID: 366935428}
   - component: {fileID: 366935427}
+  - component: {fileID: 366935429}
   m_Layer: 5
   m_Name: WeaponSlot (2)
   m_TagString: Untagged
@@ -6083,7 +6084,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RawImage
   m_Material: {fileID: 0}
-  m_Color: {r: 0.7846246, g: 0, b: 1, a: 1}
+  m_Color: {r: 0.6603774, g: 0, b: 0.061082214, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6105,6 +6106,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 366935425}
   m_CullTransparentMesh: 1
+--- !u!114 &366935429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 366935425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b3f3948cb4641141aceba9c7dbc1268, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ThemeApplier
+  currentTheme: {fileID: 11400000, guid: fd394c5ef95830d4f87326d3a12c0cb9, type: 2}
+  colorType: 0
 --- !u!1 &378262300
 GameObject:
   m_ObjectHideFlags: 0
@@ -7373,7 +7388,7 @@ GameObject:
   - component: {fileID: 1022581259}
   - component: {fileID: 1022581260}
   m_Layer: 0
-  m_Name: Bullets
+  m_Name: ObjectPools
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7410,6 +7425,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e37a48246836cdd4183da15873624b39, type: 2}
   - {fileID: 11400000, guid: 003eab7265d3d1a48a84ea2b42c8e5fd, type: 2}
   - {fileID: 11400000, guid: 0d7b08d676e54be42bc8feb7a3629c5a, type: 2}
+  - {fileID: 11400000, guid: 1c7dedc87e773964a86f59dd572cba1e, type: 2}
   - {fileID: 11400000, guid: 378084a32ac804a4d823d40862e6112f, type: 2}
   parent: {fileID: 1022581259}
 --- !u!1001 &1085884911
@@ -7798,7 +7814,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1270151976}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dfeb9e36788af584cafe184a427ffcc0, type: 3}
   m_Name: 
@@ -8066,6 +8082,7 @@ GameObject:
   - component: {fileID: 1338943512}
   - component: {fileID: 1338943514}
   - component: {fileID: 1338943513}
+  - component: {fileID: 1338943515}
   m_Layer: 5
   m_Name: WeaponSlot (3)
   m_TagString: Untagged
@@ -8106,7 +8123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RawImage
   m_Material: {fileID: 0}
-  m_Color: {r: 0.7846246, g: 0, b: 1, a: 1}
+  m_Color: {r: 0.6603774, g: 0, b: 0.061082214, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -8128,6 +8145,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1338943511}
   m_CullTransparentMesh: 1
+--- !u!114 &1338943515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1338943511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b3f3948cb4641141aceba9c7dbc1268, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ThemeApplier
+  currentTheme: {fileID: 11400000, guid: fd394c5ef95830d4f87326d3a12c0cb9, type: 2}
+  colorType: 0
 --- !u!1 &1420681996
 GameObject:
   m_ObjectHideFlags: 0
@@ -8566,7 +8597,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1675830217
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8659,6 +8690,7 @@ GameObject:
   - component: {fileID: 1679344932}
   - component: {fileID: 1679344934}
   - component: {fileID: 1679344933}
+  - component: {fileID: 1679344935}
   m_Layer: 5
   m_Name: WeaponSlot (1)
   m_TagString: Untagged
@@ -8699,7 +8731,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RawImage
   m_Material: {fileID: 0}
-  m_Color: {r: 0.7846246, g: 0, b: 1, a: 1}
+  m_Color: {r: 0.6603774, g: 0, b: 0.061082214, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -8721,6 +8753,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1679344931}
   m_CullTransparentMesh: 1
+--- !u!114 &1679344935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1679344931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b3f3948cb4641141aceba9c7dbc1268, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ThemeApplier
+  currentTheme: {fileID: 11400000, guid: fd394c5ef95830d4f87326d3a12c0cb9, type: 2}
+  colorType: 0
 --- !u!1 &1706183336
 GameObject:
   m_ObjectHideFlags: 0
@@ -8977,6 +9023,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2035492010}
+  - component: {fileID: 2035492011}
   m_Layer: 0
   m_Name: ProjectileManager
   m_TagString: Untagged
@@ -8999,6 +9046,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2035492011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2035492008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c17b849750f3284f8f9ab03f812dc8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Projectile
+  lifetime: 2
+  speed: 40
 --- !u!1 &2069765579
 GameObject:
   m_ObjectHideFlags: 0

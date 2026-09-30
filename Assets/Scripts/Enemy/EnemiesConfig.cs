@@ -17,6 +17,7 @@ public class EnemiesConfig : ScriptableObject
     [Header("Enemy Stats")]
     public float maxHealth;
     public float speed;
+    public PoolID bulletPool;
     public float damage;
     public float attackRange;
     public float attackCooldown;
