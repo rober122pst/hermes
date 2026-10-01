@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1987545263352046297}
   - component: {fileID: 5550042228650580051}
-  - component: {fileID: 3661807587998416427}
   m_Layer: 8
   m_Name: FastEnemy
   m_TagString: Untagged
@@ -49,33 +48,6 @@ MonoBehaviour:
   config: {fileID: 11400000, guid: c1d5654a7bd13c64a871b85d32a6548f, type: 2}
   combineTimeWindow: 0.1
   popupSpawnPoint: {fileID: 0}
---- !u!54 &3661807587998416427
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3564160837023805701}
-  serializedVersion: 5
-  m_Mass: 100
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &5092631451342426580
 GameObject:
   m_ObjectHideFlags: 0

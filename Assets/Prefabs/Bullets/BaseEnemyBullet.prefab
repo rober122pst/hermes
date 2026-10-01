@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 990041800540874489}
   - component: {fileID: 1722727725469288213}
   - component: {fileID: 5630674396001090196}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -67,7 +67,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: c3f5b02cc544c19419fec8871a52c40a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -121,7 +121,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8469137178934286555}
-  m_Layer: 0
+  - component: {fileID: 7982645703126170441}
+  m_Layer: 8
   m_Name: BaseEnemyBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,3 +145,15 @@ Transform:
   - {fileID: 6722752738465214669}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7982645703126170441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6677355136102795500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40b6f506224997046bad9daa2e0dddb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyBullet

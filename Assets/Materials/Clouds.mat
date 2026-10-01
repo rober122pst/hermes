@@ -47,7 +47,7 @@ Material:
     - _VertexOffset: 0.03
     m_Colors:
     - _CloudsSpeed: {r: 0.002, g: 0.002, b: 0, a: 0}
-    - _Color: {r: 3.6886058, g: 3.6886058, b: 3.6886058, a: 1}
+    - _Color: {r: 7.3772116, g: 7.3772116, b: 7.3772116, a: 1}
     - _DistorceSpeed: {r: 0.01, g: 0.005, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

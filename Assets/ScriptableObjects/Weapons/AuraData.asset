@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   weaponSprite: {fileID: 2800000, guid: e3725ee5c6b313444b76824818c9dfc0, type: 3}
   attackCooldown: 2
-  projectileCooldown: 0.2
+  projectileCooldown: 1
   projectileAmount: 1
   projectileScale: 1
   speedMult: 1

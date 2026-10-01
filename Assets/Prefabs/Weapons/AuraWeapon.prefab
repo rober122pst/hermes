@@ -45,9 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AuraWeapon
   auraPrefab: {fileID: 4891890963685255991, guid: a1fb875c3206f794a84529449888dcae, type: 3}
-  auraRadius: 20
+  auraRadius: 10
   castDistance: 0.1
   enemyLayer:
     serializedVersion: 2
     m_Bits: 256
-  auraDamage: 10

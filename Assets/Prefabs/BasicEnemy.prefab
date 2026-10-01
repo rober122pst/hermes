@@ -124,7 +124,6 @@ GameObject:
   m_Component:
   - component: {fileID: 9924873835651608}
   - component: {fileID: 5931935699687101077}
-  - component: {fileID: 6582166439516845572}
   m_Layer: 8
   m_Name: BasicEnemy
   m_TagString: Untagged
@@ -163,30 +162,3 @@ MonoBehaviour:
   config: {fileID: 11400000, guid: 2635e2c6efe6a9148af512fcbef501e1, type: 2}
   combineTimeWindow: 0.1
   popupSpawnPoint: {fileID: 0}
---- !u!54 &6582166439516845572
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4374582424730688564}
-  serializedVersion: 5
-  m_Mass: 100
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0

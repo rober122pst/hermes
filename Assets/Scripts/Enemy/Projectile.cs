@@ -18,6 +18,18 @@ public class Projectile : MonoBehaviour
         activeBullets.Add((bullet, lifetime));
     }
 
+    public void RemoveBullet(GameObject bullet)
+    {
+        for (int i = activeBullets.Count - 1; i >= 0; i--)
+        {
+            if (activeBullets[i].bullet == bullet)
+            {
+                activeBullets.RemoveAt(i);
+                break;
+            }
+        }
+    }
+
     void Update()
     {
         UpdateBullets();

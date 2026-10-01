@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 280c9a0da0f0b49469f929afab0910ed, type: 3}
   m_Name: PoolID_EnemyBase
   m_EditorClassIdentifier: Assembly-CSharp::PoolID
-  prefab: {fileID: 4374582424730688564, guid: c83b83ab06257f34597a09993585a446, type: 3}
+  prefab: {fileID: 3564160837023805701, guid: 17a6ccf5ac254804397f53952b61ff2b, type: 3}
   amount: 25
