@@ -46,6 +46,7 @@ public class BlackHoleWeapon : WeaponBase
     private readonly List<ActiveObject> activeObjects = new List<ActiveObject>();
     // Escala original de cada objeto da pool (capturada na primeira vez que aparece)
     private readonly Dictionary<GameObject, Vector3> baseScales = new Dictionary<GameObject, Vector3>();
+    private readonly RaycastHit[] hitResults = new RaycastHit[10];
 
     public override void Initialize(WeaponData data, Transform player)
     {
@@ -66,6 +67,45 @@ public class BlackHoleWeapon : WeaponBase
         }
 
         UpdateLifetimes();
+        UpdateBlackHole();
+    }
+
+    // ---------------------------------------------------------------- Update
+
+    private void UpdateBlackHole()
+    {
+        for (int i = activeObjects.Count - 1; i >= 0; i--)
+        {
+            ActiveObject item = activeObjects[i];
+
+            if (item.obj == null)
+            {
+                activeObjects.RemoveAt(i);
+                continue;
+            }
+
+            Vector3 pos = item.obj.transform.position;
+            float radius = item.obj.transform.localScale.x * 0.5f; // assume esfera uniforme
+
+
+            int hitCount = Physics.SphereCastNonAlloc(pos, radius, Vector3.up, hitResults, 0f, enemyLayer);
+
+            for (int h = 0; h < hitCount; h++)
+            {
+                Collider col = hitResults[h].collider;
+
+                if (CanHitTarget(col))
+                {
+                    hitCooldowns[col] = Time.time;
+
+                    IDamageable enemy = col.GetComponentInParent<IDamageable>();
+                    if (enemy != null)
+                    {
+                        enemy.TakeDamage(weaponData.damage);
+                    }
+                }
+            }
+        }
     }
 
     // ---------------------------------------------------------------- Spawn

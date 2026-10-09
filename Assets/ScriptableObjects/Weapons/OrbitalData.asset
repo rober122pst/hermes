@@ -20,6 +20,6 @@ MonoBehaviour:
   speedMult: 1
   speed: 120
   lifetime: 6
-  damage: 12
+  damage: 25
   weaponLogicPrefab: {fileID: 8220193705518072167, guid: c243921aaa5949d4783d4dfb48d37846, type: 3}
   projectilePoolID: {fileID: 11400000, guid: 003eab7265d3d1a48a84ea2b42c8e5fd, type: 2}

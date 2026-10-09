@@ -21,5 +21,5 @@ MonoBehaviour:
   attackRange: 0
   attackCooldown: 3
   cost: 3
-  distanceToStop: 60
+  distanceToStop: 40
   hitAudio: {fileID: 8300000, guid: 8a37293db56a4bd42b349d77f1e4158b, type: 3}

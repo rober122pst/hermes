@@ -13,9 +13,11 @@ public class Boresight : MonoBehaviour
     [Header("Configuração de Oclusão")]
     public CanvasGroup reticleCanvasGroup;
 
+    private Vector3 initialPosition;
+
     void Start()
     {
-
+        initialPosition = uiDot.localPosition;
     }
 
     void FixedUpdate()
@@ -34,13 +36,12 @@ public class Boresight : MonoBehaviour
         // Lança o raycast da arma
         if (Physics.Raycast(ray, out RaycastHit hit, maxDistance, collisionMask))
         {
-            uiDot.gameObject.SetActive(true);
             targetPosition = hit.point;
         }
         else
         {
-            uiDot.gameObject.SetActive(false);
-            targetPosition = rayOrigin.position + rayOrigin.forward * maxDistance;
+            uiDot.localPosition = initialPosition;
+            return;
         }
 
         // Converte a coordenada 3D do mundo em uma coordenada 2D de tela em pixels
@@ -61,7 +62,7 @@ public class Boresight : MonoBehaviour
         }
         else
         {
-            uiDot.gameObject.SetActive(false);
+            uiDot.localPosition = initialPosition;
         }
     }
 }

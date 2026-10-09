@@ -9,6 +9,8 @@ public class LaserWeapon : WeaponBase
     private List<(GameObject projectile, float lifetime)> activeProjectiles = new List<(GameObject, float)>();
     private float timer;
 
+    public LayerMask enemyLayer;
+
     public override void Initialize(WeaponData data, Transform player)
     {
         base.Initialize(data, player);
@@ -55,7 +57,7 @@ public class LaserWeapon : WeaponBase
             Vector3 direction = activeProjectile.projectile.transform.forward;
             float distance = weaponData.speed * Time.deltaTime;
 
-            if (Physics.Raycast(activeProjectile.projectile.transform.position, direction, out RaycastHit hit, distance))
+            if (Physics.Raycast(activeProjectile.projectile.transform.position, direction, out RaycastHit hit, distance, enemyLayer))
             {
                 // Atingiu um alvo! Verifica se tem a tag ou componente de inimigo
                 IDamageable enemy = hit.collider.GetComponentInParent<IDamageable>();

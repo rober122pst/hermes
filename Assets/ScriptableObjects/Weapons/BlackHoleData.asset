@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   weaponSprite: {fileID: 0}
   attackCooldown: 6
-  projectileCooldown: 0.2
+  projectileCooldown: 1
   projectileAmount: 4
   projectileScale: 1
   speedMult: 1
-  speed: 5
+  speed: 30
   lifetime: 2
   damage: 5
   weaponLogicPrefab: {fileID: 8220193705518072167, guid: 94585d35a3ec30148b11c311ec41ac6e, type: 3}

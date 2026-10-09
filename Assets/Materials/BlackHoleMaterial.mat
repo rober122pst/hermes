@@ -36,7 +36,7 @@ Material:
     - _HorizonRadius: 0.6
     - _HorizonSoftness: 0.17
     - _NoiseSpeed: 0.45
-    - _NoiseStrength: 0.3
+    - _NoiseStrength: 0.502
     - _NoiseWarp: 1.95
     - _PulseSpeed: 1.5
     - _RingIntensity: 1.5

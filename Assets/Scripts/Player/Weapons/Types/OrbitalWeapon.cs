@@ -18,9 +18,6 @@ public class OrbitalWeapon : WeaponBase
     private List<GameObject> activeProjectiles = new List<GameObject>();
     private RaycastHit[] hitResults = new RaycastHit[10];
 
-    private Dictionary<Collider, float> hitCooldowns = new Dictionary<Collider, float>();
-    private List<Collider> collidersToRemove = new List<Collider>();
-
     // Variáveis de controle de ciclo (Ativo / Inativo)
     private float cycleTimer = 0f;
     private bool isActivePhase = true;
@@ -197,32 +194,7 @@ public class OrbitalWeapon : WeaponBase
         }
     }
 
-    private bool CanHitTarget(Collider target)
-    {
-        if (!hitCooldowns.ContainsKey(target))
-        {
-            return true;
-        }
-        return Time.time >= hitCooldowns[target] + weaponData.projectileCooldown;
-    }
 
-    private void CleanUpCooldowns()
-    {
-        collidersToRemove.Clear();
-
-        foreach (var kvp in hitCooldowns)
-        {
-            if (kvp.Key == null || !kvp.Key.gameObject.activeInHierarchy || Time.time >= kvp.Value + weaponData.projectileCooldown)
-            {
-                collidersToRemove.Add(kvp.Key);
-            }
-        }
-
-        for (int i = 0; i < collidersToRemove.Count; i++)
-        {
-            hitCooldowns.Remove(collidersToRemove[i]);
-        }
-    }
 
     private void OnDrawGizmosSelected()
     {

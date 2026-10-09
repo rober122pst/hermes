@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee64a4d9c29786e4f850891febebd2e8, type: 3}
   m_Name: ColorTheme
   m_EditorClassIdentifier: Assembly-CSharp::ColorTheme
-  primaryColor: {r: 0.6603774, g: 0, b: 0.061082214, a: 1}
+  primaryColor: {r: 0, g: 0.2961502, b: 1, a: 1}
   secondaryColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   backgroundColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}

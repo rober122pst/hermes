@@ -47,3 +47,6 @@ MonoBehaviour:
   spawnPoints:
   - {fileID: 0}
   - {fileID: 0}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 256
