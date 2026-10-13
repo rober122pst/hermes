@@ -7,20 +7,24 @@ public class AuraWeapon : WeaponBase
     private GameObject activeProjectile;
 
     [Header("Configuracoes da Colisao")]
-    public float auraRadius = 10f;
+    public float baseAuraRadius = 10f;
     public float castDistance = 0.1f;
     public LayerMask enemyLayer;
 
     // Variaveis para o controle de cooldown
     private float hitCooldown;
+    private float auraRadius;
     public override void Initialize(WeaponData data, Transform player)
     {
         base.Initialize(data, player);
+        auraRadius = data.projectileScale * baseAuraRadius;
         SpawnProjectiles();
     }
 
     private void SpawnProjectiles()
     {
+        auraRadius = weaponData.projectileScale * baseAuraRadius;
+        updated = false;
         GameObject p = Instantiate(auraPrefab, playerTransform);
         p.SetActive(true);
         activeProjectile = p;

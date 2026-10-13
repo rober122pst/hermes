@@ -8983,7 +8983,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShipManager
   activeShips: []
-  shipCollisionRadius: 4
+  shipCollisionRadius: 2
   maxSeparationSpeedPerFrame: 4
 --- !u!4 &2001856089
 Transform:

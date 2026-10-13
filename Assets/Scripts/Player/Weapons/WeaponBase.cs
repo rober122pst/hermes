@@ -1,5 +1,18 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+
+[Serializable]
+public struct WeaponStatsModifier
+{
+    public float attackCooldown;
+    public float projectileCooldown;
+    public int projectileAmount;
+    public float projectileScale;
+    public float speed;
+    public float lifetime;
+    public float damage;
+}
 
 public abstract class WeaponBase : MonoBehaviour
 {
@@ -7,6 +20,8 @@ public abstract class WeaponBase : MonoBehaviour
     protected Transform playerTransform;
     protected Dictionary<Collider, float> hitCooldowns = new Dictionary<Collider, float>();
     protected List<Collider> collidersToRemove = new List<Collider>();
+
+    protected bool updated = false;
 
     public virtual void Initialize(WeaponData data, Transform player)
     {
@@ -39,5 +54,17 @@ public abstract class WeaponBase : MonoBehaviour
         {
             hitCooldowns.Remove(collidersToRemove[i]);
         }
+    }
+
+    public void UpdateWeapon(WeaponStatsModifier modifier)
+    {
+        weaponData.attackCooldown *= modifier.attackCooldown;
+        weaponData.projectileCooldown *= modifier.projectileCooldown;
+        weaponData.projectileAmount += modifier.projectileAmount;
+        weaponData.projectileScale *= modifier.projectileScale;
+        weaponData.speed *= modifier.speed;
+        weaponData.lifetime *= modifier.lifetime;
+        weaponData.damage *= modifier.damage;
+        updated = true;
     }
 }

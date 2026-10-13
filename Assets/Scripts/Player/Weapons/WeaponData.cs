@@ -11,7 +11,6 @@ public class WeaponData : ScriptableObject
     [Range(1f, 2f)]
     public float projectileScale = 1f;
     [Range(1f, 2f)]
-    public float speedMult = 1f;
     public float speed = 5f;
     public float lifetime = 2f;
     public float damage = 5f;

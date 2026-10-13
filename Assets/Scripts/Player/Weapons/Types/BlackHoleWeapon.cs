@@ -310,7 +310,7 @@ public class BlackHoleWeapon : WeaponBase
             : 1f;
 
         float factor = easeCurve.Evaluate(appearT) * easeCurve.Evaluate(disappearT);
-        item.obj.transform.localScale = item.baseScale * Mathf.Max(0f, factor);
+        item.obj.transform.localScale = item.baseScale * Mathf.Max(0f, factor) * weaponData.projectileScale;
     }
 
     // ------------------------------------------------------------- Gizmos

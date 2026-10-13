@@ -16,11 +16,11 @@ public class LaserWeapon : WeaponBase
         base.Initialize(data, player);
         GameObject[] weaponsFind = GameObject.FindGameObjectsWithTag("LaserWeapon");
         spawnPoints = new List<GameObject>(weaponsFind);
-        SpawnProjectiles();
     }
 
     private void SpawnProjectiles()
     {
+        updated = false;
         for (int i = 0; i < weaponData.projectileAmount; i++)
         {
             GameObject p = ObjectPool.Instance.GetInstance(weaponData.projectilePoolID);
@@ -29,6 +29,7 @@ public class LaserWeapon : WeaponBase
             {
                 p.transform.position = spawnPoints[i].transform.position;
                 p.transform.rotation = spawnPoints[i].transform.rotation;
+                p.transform.localScale = new Vector3(weaponData.projectileScale, weaponData.projectileScale, weaponData.projectileScale);
             }
             p.SetActive(true);
             activeProjectiles.RemoveAll(item => item.projectile == p);

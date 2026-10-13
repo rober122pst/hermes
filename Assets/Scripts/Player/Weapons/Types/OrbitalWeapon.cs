@@ -1,10 +1,11 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class OrbitalWeapon : WeaponBase
 {
     [Header("Configurações Orbitais")]
-    public float orbitRadius = 10f;
+    public float baseOrbitRadius = 10f;
 
     [Header("Configurações de Colisão")]
     public float hitRadius = 0.5f;
@@ -15,6 +16,7 @@ public class OrbitalWeapon : WeaponBase
     public Vector3 maxProjectileScale = Vector3.one; // Escala máxima que o projétil alcançará
 
     private float currentAngle = 0f;
+    private float orbitRadius;
     private List<GameObject> activeProjectiles = new List<GameObject>();
     private RaycastHit[] hitResults = new RaycastHit[10];
 
@@ -26,11 +28,14 @@ public class OrbitalWeapon : WeaponBase
     public override void Initialize(WeaponData data, Transform player)
     {
         base.Initialize(data, player);
+        orbitRadius = baseOrbitRadius * data.projectileScale;
         SpawnProjectiles();
     }
 
     private void SpawnProjectiles()
     {
+        orbitRadius = baseOrbitRadius * weaponData.projectileScale;
+        updated = false;
         for (int i = 0; i < weaponData.projectileAmount; i++)
         {
             GameObject p = ObjectPool.Instance.GetInstance(weaponData.projectilePoolID);
@@ -58,7 +63,7 @@ public class OrbitalWeapon : WeaponBase
         // Prevenção de divisão por zero: se não houver cooldown, fica sempre ativo
         if (weaponData.attackCooldown <= 0.05f)
         {
-            UpdateScale(1f);
+            UpdateScale(Math.Clamp(weaponData.projectileScale, 1f, weaponData.projectileScale * 0.75f));
             UpdateOrbitsAndCheckCollisions();
             return;
         }
@@ -193,8 +198,6 @@ public class OrbitalWeapon : WeaponBase
             activeProjectiles[i].transform.position = newPosition;
         }
     }
-
-
 
     private void OnDrawGizmosSelected()
     {

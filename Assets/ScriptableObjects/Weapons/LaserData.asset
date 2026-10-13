@@ -17,8 +17,7 @@ MonoBehaviour:
   projectileCooldown: 0.2
   projectileAmount: 2
   projectileScale: 1
-  speedMult: 1
-  speed: 300
+  speed: 2
   lifetime: 2
   damage: 10
   weaponLogicPrefab: {fileID: 8220193705518072167, guid: 0a87567ac44a96b42a90d845ff0d83e6, type: 3}
