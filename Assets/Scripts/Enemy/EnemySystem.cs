@@ -4,8 +4,6 @@ public class EnemySystem : MonoBehaviour, IDamageable
 {
     public EnemiesConfig config;
 
-    DamageReceiver damageReceiver;
-
     private float life;
     private float speed = 0;
     private float targetSpd = 0;
@@ -20,10 +18,11 @@ public class EnemySystem : MonoBehaviour, IDamageable
     private float attackTimer = 0f;
 
     Transform player;
+
+    public PoolID gemPool;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        damageReceiver = gameObject.GetComponent<DamageReceiver>();
         life = config.maxHealth;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         audioSource = player.GetComponent<AudioSource>();
@@ -78,13 +77,16 @@ public class EnemySystem : MonoBehaviour, IDamageable
             Debug.LogWarning("WaveManager instance is null. Cannot register defeated enemy.");
         }
 
-        gameObject.SetActive(false);
+        GameObject gem = ObjectPool.Instance.GetInstance(gemPool);
+        gem.transform.position = gameObject.transform.position;
+        gem.SetActive(true);
         CinemachineShake.Instance.ShakeCamera(1f, 0.25f);
+
+        gameObject.SetActive(false);
     }
 
     public void TakeDamage(float damage)
     {
-        Debug.Log("Dano sofrido: " + damage);
         audioSource.PlayOneShot(config.hitAudio);
         life -= damage;
         ShowDamagePopup(damage);

@@ -9,6 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec8e354a32d86c94aa5b2d1313e6cd97, type: 3}
-  m_Name: Teste
-  m_EditorClassIdentifier: Assembly-CSharp::WeaponBehaviours
+  m_Script: {fileID: 11500000, guid: 280c9a0da0f0b49469f929afab0910ed, type: 3}
+  m_Name: PoolID_Gems
+  m_EditorClassIdentifier: Assembly-CSharp::PoolID
+  prefab: {fileID: 5193843085406320986, guid: 1b4de7651825725469b923a922deaeca, type: 3}
+  amount: 50

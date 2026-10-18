@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec8e354a32d86c94aa5b2d1313e6cd97, type: 3}
   m_Name: BlackHoleData
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
+  weaponName: Black Hole
   weaponSprite: {fileID: 0}
   attackCooldown: 6
-  projectileCooldown: 1
+  projectileCooldown: 1.25
   projectileAmount: 4
   projectileScale: 1
-  speedMult: 1
   speed: 30
   lifetime: 2
-  damage: 5
+  damage: 30
   weaponLogicPrefab: {fileID: 8220193705518072167, guid: 94585d35a3ec30148b11c311ec41ac6e, type: 3}
   projectilePoolID: {fileID: 11400000, guid: 0646343d621a5734cb758cdc7e651511, type: 2}
+  updates: {fileID: 11400000, guid: 1e3266dbbb89af2459776334785c6382, type: 2}

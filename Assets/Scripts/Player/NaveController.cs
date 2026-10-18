@@ -3,13 +3,41 @@ using System.Collections.Generic;
 
 namespace Player
 {
+    [System.Serializable]
+    public struct Stats
+    {
+        [Header("Dados do player")]
+        [SerializeField] private float speed;
+        [SerializeField] private float sprintSpeed;
+        [SerializeField] private float experience;
+        [SerializeField] private float maxExperience;
+        [SerializeField] private float incrementExperience;
+        [SerializeField] private float magnetismForce;
+
+        public float Speed => speed;
+        public float SprintSpeed => sprintSpeed;
+        public float Experience => experience;
+        public float MaxExperience => maxExperience;
+        public float IncrementExperience => incrementExperience;
+        public float MagnetismForce => magnetismForce;
+
+        public void AddExperience(float amount)
+        {
+            experience += amount;
+            if (experience >= maxExperience)
+            {
+                experience -= maxExperience;
+                maxExperience *= 1.5f;
+                UIManager.Instance.ShowLevelUpScreen();
+            }
+        }
+    }
+
     public class NaveController : MonoBehaviour
     {
-        [Header("Configurações de Movimento")]
-        public float velocidade = 1f;
-        public float velocidadeSprint = 5f;
+        public Stats stats = new Stats();
 
-        [Header("Configurações de Rotação (Espaço)")]
+        [Header("Configurações de Rotação")]
         [SerializeField]
         float multAnguloVelocidade = 0.5f;
         [SerializeField]
@@ -19,39 +47,19 @@ namespace Player
         [Header("Audios")]
         [SerializeField]
         private AudioClip tiroAudioClip;
+
         private Rigidbody rb;
         private StarterAssetsInputs input;
-        private Camera cam;
-        // private AudioSource audioSource;
-
-        [Space(10)]
-        [SerializeField]
-        List<GameObject> weapons;
-        public WeaponManager weaponManager;
-        public WeaponData[] weaponData;
-        int index = 1;
 
         private void Awake()
         {
-            cam = Camera.main;
             rb = GetComponent<Rigidbody>();
             input = GetComponent<StarterAssetsInputs>();
-            weaponManager.EquipWeapon(weaponData[0]);
-        }
-
-        private void Update()
-        {
-            if (input.jump && index <= weaponData.Length - 1)
-            {
-                Debug.Log(index);
-                weaponManager.EquipWeapon(weaponData[index]);
-                index++;
-            }
         }
 
         private void FixedUpdate()
         {
-            float velocidadeAlvo = input.sprint ? velocidadeSprint : velocidade;
+            float velocidadeAlvo = input.sprint ? stats.SprintSpeed : stats.Speed;
 
             rb.AddForce(rb.transform.TransformDirection(Vector3.forward) * input.move.y * velocidadeAlvo, ForceMode.VelocityChange);
             rb.AddForce(rb.transform.TransformDirection(Vector3.right) * input.move.x * velocidadeAlvo, ForceMode.VelocityChange);
@@ -62,17 +70,6 @@ namespace Player
             rb.AddTorque(rb.transform.forward * multVelocidadeRotacao * -input.roll.x, ForceMode.VelocityChange);
         }
 
-        Vector3 PosInScreen(Vector3 posWorld)
-        {
-            Vector3 posScreen = cam.WorldToScreenPoint(posWorld);
 
-            if (cam.targetTexture != null)
-            {
-                posScreen.x *= (float)Screen.width / cam.targetTexture.width;
-                posScreen.y *= (float)Screen.height / cam.targetTexture.height;
-            }
-
-            return posScreen;
-        }
     }
 }

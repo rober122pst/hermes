@@ -48,6 +48,7 @@ MonoBehaviour:
   config: {fileID: 11400000, guid: c1d5654a7bd13c64a871b85d32a6548f, type: 2}
   combineTimeWindow: 0.1
   popupSpawnPoint: {fileID: 0}
+  gemPool: {fileID: 11400000, guid: 55d30d058bcdf3d45880842d176faffb, type: 2}
 --- !u!1 &5092631451342426580
 GameObject:
   m_ObjectHideFlags: 0

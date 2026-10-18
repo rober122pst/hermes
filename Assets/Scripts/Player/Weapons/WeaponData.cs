@@ -18,4 +18,5 @@ public class WeaponData : ScriptableObject
     [Header("Dependencias")]
     public GameObject weaponLogicPrefab;
     public PoolID projectilePoolID;
+    public WeaponLevelsUpdates updates;
 }
