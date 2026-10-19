@@ -28,13 +28,11 @@ public class OrbitalWeapon : WeaponBase
     public override void Initialize(WeaponData data, Transform player)
     {
         base.Initialize(data, player);
-        orbitRadius = baseOrbitRadius * data.projectileScale;
         SpawnProjectiles();
     }
 
     private void SpawnProjectiles()
     {
-        orbitRadius = baseOrbitRadius * weaponData.projectileScale;
         updated = false;
         for (int i = 0; i < weaponData.projectileAmount; i++)
         {
@@ -136,6 +134,9 @@ public class OrbitalWeapon : WeaponBase
 
     private void SetProjectilesActive(bool state)
     {
+        orbitRadius = baseOrbitRadius * weaponData.projectileScale;
+        Debug.Log("Tamanho: " + orbitRadius);
+
         for (int i = 0; i < activeProjectiles.Count; i++)
         {
             if (activeProjectiles[i] != null)

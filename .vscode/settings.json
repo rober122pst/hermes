@@ -67,5 +67,5 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "Jogo-Da-Mulher-2026-07-01_13-49-24.slnx"
+    "dotnet.defaultSolution": "Jogo Da Mulher.slnx"
 }

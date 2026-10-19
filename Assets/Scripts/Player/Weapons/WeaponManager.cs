@@ -1,10 +1,11 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class WeaponManager : MonoBehaviour
 {
+    [Header("Todas as armas do jogo")]
+    public List<WeaponData> allWeapons;
     public static WeaponManager Instance { get; private set; }
     public List<RawImage> weaponsSlots;
     private List<(int level, WeaponBase weapon)> equipedWeapons = new List<(int, WeaponBase)>();
@@ -30,6 +31,7 @@ public class WeaponManager : MonoBehaviour
             if (level == 8) return;
 
             UpdateWeapon(weaponLevels[level - 1], weapon.weaponData);
+            // equipedWeapons[index] = (level++, equipedWeapons[index].weapon);
 
             return;
         }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class WeaponBase : MonoBehaviour
 {
-    public WeaponData weaponData { get; private set; }
+    public WeaponData weaponData;
     protected Transform playerTransform;
     protected Dictionary<Collider, float> hitCooldowns = new Dictionary<Collider, float>();
     protected List<Collider> collidersToRemove = new List<Collider>();
@@ -26,7 +26,6 @@ public abstract class WeaponBase : MonoBehaviour
         }
         return Time.time >= hitCooldowns[target] + weaponData.projectileCooldown;
     }
-
     protected virtual void CleanUpCooldowns()
     {
         collidersToRemove.Clear();

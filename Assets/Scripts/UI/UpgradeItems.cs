@@ -46,6 +46,7 @@ public class UpgradeItems : MonoBehaviour
     void Update()
     {
         Time.timeScale = 0f;
+        Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
 
@@ -63,6 +64,7 @@ public class UpgradeItems : MonoBehaviour
         Time.timeScale = 1f;
         inputs.cursorLocked = true;
         inputs.cursorInputForLook = true;
+        Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 }
