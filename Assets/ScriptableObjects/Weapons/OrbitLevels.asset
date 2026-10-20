@@ -16,34 +16,34 @@ MonoBehaviour:
   - attackCooldown: 1
     projectileCooldown: 1
     projectileAmount: 0
-    projectileScale: 1.25
+    projectileScale: 1.5
     speed: 1
     lifetime: 1
     damage: 1
     description: "Aumenta o tamanho do proj\xE9til em 25%"
   - attackCooldown: 1
     projectileCooldown: 1
-    projectileAmount: 0
+    projectileAmount: 1
     projectileScale: 1
-    speed: 1
+    speed: 1.1
     lifetime: 1
     damage: 1
     description: 
-  - attackCooldown: 1
+  - attackCooldown: 0.85
     projectileCooldown: 1
     projectileAmount: 0
     projectileScale: 1
     speed: 1
     lifetime: 1
-    damage: 1
+    damage: 1.5
     description: 
   - attackCooldown: 1
     projectileCooldown: 1
-    projectileAmount: 0
+    projectileAmount: 1
     projectileScale: 1
-    speed: 1
+    speed: 1.25
     lifetime: 1
-    damage: 1
+    damage: 1.25
     description: 
   - attackCooldown: 1
     projectileCooldown: 1

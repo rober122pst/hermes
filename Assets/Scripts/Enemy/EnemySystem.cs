@@ -70,7 +70,7 @@ public class EnemySystem : MonoBehaviour, IDamageable
     {
         if (WaveManager.Instance != null)
         {
-
+            WaveManager.Instance.RegisterEnemyDeath();
         }
         else
         {

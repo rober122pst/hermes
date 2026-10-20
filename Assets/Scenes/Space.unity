@@ -6335,6 +6335,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &426780667
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 426780668}
+  m_Layer: 0
+  m_Name: SpawnPoint (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &426780668
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 426780667}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.8, y: 2.1, z: -662}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &471558484
 GameObject:
   m_ObjectHideFlags: 0
@@ -6365,29 +6396,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c26ea210b613104fa65f02d770b6400, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveManager
-  poolID: {fileID: 11400000, guid: 378084a32ac804a4d823d40862e6112f, type: 2}
-  enemyPools:
-  - type: 0
-    pool: {fileID: 0}
-  - type: 1
-    pool: {fileID: 0}
-  - type: 2
-    pool: {fileID: 0}
-  enemies:
-  - {fileID: 11400000, guid: 2635e2c6efe6a9148af512fcbef501e1, type: 2}
-  - {fileID: 11400000, guid: c1d5654a7bd13c64a871b85d32a6548f, type: 2}
-  - {fileID: 11400000, guid: 5a56df245d215e04dbd19af6e4b2e51c, type: 2}
-  currWave: 0
-  enemiesToSpawn: 0
-  spawnLocation:
-  - {fileID: 1501807738}
-  - {fileID: 1420681997}
+  initialWaveSize: 500
+  waveSizeIncrease: 100
+  batchSize: 50
+  maxActiveEnemies: 120
+  delayBetweenSpawns: 0.35
+  delayBetweenBatches: 4
+  mapSpawnPoints:
   - {fileID: 1093121540}
-  spawnIndex: 0
-  minTotalEnemies: 100
-  totalSubWaves: 10
-  spawnInterval: 15
-  spawnedEnemies: []
+  - {fileID: 1420681997}
+  - {fileID: 1501807738}
+  - {fileID: 426780668}
+  - {fileID: 952474992}
+  activeSpawnsPerBatch: 3
+  enemyEntries:
+  - config: {fileID: 11400000, guid: 2635e2c6efe6a9148af512fcbef501e1, type: 2}
+    poolID: {fileID: 11400000, guid: 378084a32ac804a4d823d40862e6112f, type: 2}
+    customWeight: 10
+    isRare: 0
+  - config: {fileID: 11400000, guid: c1d5654a7bd13c64a871b85d32a6548f, type: 2}
+    poolID: {fileID: 11400000, guid: 88b28fdea1128e049bb19b3d858038ac, type: 2}
+    customWeight: 15
+    isRare: 0
+  - config: {fileID: 11400000, guid: c1d5654a7bd13c64a871b85d32a6548f, type: 2}
+    poolID: {fileID: 11400000, guid: 84b97ac10f222a843b0ad56f1e630778, type: 2}
+    customWeight: 90
+    isRare: 1
+  useInverseCostAsWeight: 1
+  minSpacingBetweenRares: 8
 --- !u!4 &471558486
 Transform:
   m_ObjectHideFlags: 0
@@ -7136,6 +7172,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -46.931, z: 0}
+--- !u!1 &952474991
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 952474992}
+  m_Layer: 0
+  m_Name: SpawnPoint (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &952474992
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 952474991}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.8, y: 538, z: -242}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &953039472
 GameObject:
   m_ObjectHideFlags: 0
@@ -7712,6 +7779,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0d7b08d676e54be42bc8feb7a3629c5a, type: 2}
   - {fileID: 11400000, guid: 1c7dedc87e773964a86f59dd572cba1e, type: 2}
   - {fileID: 11400000, guid: 378084a32ac804a4d823d40862e6112f, type: 2}
+  - {fileID: 11400000, guid: 84b97ac10f222a843b0ad56f1e630778, type: 2}
+  - {fileID: 11400000, guid: 88b28fdea1128e049bb19b3d858038ac, type: 2}
   - {fileID: 11400000, guid: 0646343d621a5734cb758cdc7e651511, type: 2}
   - {fileID: 11400000, guid: 55d30d058bcdf3d45880842d176faffb, type: 2}
   parent: {fileID: 1022581259}
@@ -8563,6 +8632,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66c144631e8505a4f8f6d495e96ded0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponManager
+  allWeapons:
+  - {fileID: 11400000, guid: 70a3698ad35ccc245853cc16ef53fba7, type: 2}
+  - {fileID: 11400000, guid: 8f3d6cf3f620f2e4e8fe0aa94fbac67c, type: 2}
+  - {fileID: 11400000, guid: c3cd45a2bb2f8b04ca6b813d47a5aea8, type: 2}
+  - {fileID: 11400000, guid: 06fed1c55f1f0884eb44cd3981fd577a, type: 2}
   weaponsSlots:
   - {fileID: 1579962595}
   - {fileID: 362098959}
@@ -8810,7 +8884,7 @@ Transform:
   m_GameObject: {fileID: 1420681996}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.8, y: 2.1, z: 0}
+  m_LocalPosition: {x: -3.8, y: 2.1, z: 153}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9157,7 +9231,7 @@ Transform:
   m_GameObject: {fileID: 1501807737}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 130.7, y: 2.1, z: 0}
+  m_LocalPosition: {x: 401, y: 2.1, z: -112}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9331,11 +9405,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26cb37feebbdcd148871ac13d9a07180, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeItems
-  weapons:
-  - {fileID: 11400000, guid: 70a3698ad35ccc245853cc16ef53fba7, type: 2}
-  - {fileID: 11400000, guid: 8f3d6cf3f620f2e4e8fe0aa94fbac67c, type: 2}
-  - {fileID: 11400000, guid: c3cd45a2bb2f8b04ca6b813d47a5aea8, type: 2}
-  - {fileID: 11400000, guid: 06fed1c55f1f0884eb44cd3981fd577a, type: 2}
   buttons:
   - {fileID: 182968154}
   - {fileID: 1209272386}
@@ -10521,6 +10590,8 @@ SceneRoots:
   - {fileID: 1501807738}
   - {fileID: 1420681997}
   - {fileID: 1093121540}
+  - {fileID: 426780668}
+  - {fileID: 952474992}
   - {fileID: 471558486}
   - {fileID: 2001856089}
   - {fileID: 378262303}

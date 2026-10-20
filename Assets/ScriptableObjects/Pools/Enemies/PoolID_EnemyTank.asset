@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 280c9a0da0f0b49469f929afab0910ed, type: 3}
-  m_Name: PoolID_EnemyBase
+  m_Name: PoolID_EnemyTank
   m_EditorClassIdentifier: Assembly-CSharp::PoolID
-  prefab: {fileID: 3564160837023805701, guid: 17a6ccf5ac254804397f53952b61ff2b, type: 3}
+  prefab: {fileID: 588246369752594920, guid: 8ca7a2134459af745bed6d277af378b0, type: 3}
   amount: 25

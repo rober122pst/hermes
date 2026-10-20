@@ -7,30 +7,25 @@ using Player;
 
 public class UpgradeItems : MonoBehaviour
 {
-    public List<WeaponData> weapons;
     public List<Button> buttons;
     public StarterAssetsInputs inputs;
 
-    private List<WeaponData> sortedWeapons;
+    private List<WeaponData> randomWeapons;
 
     void OnEnable()
     {
         inputs.cursorLocked = false;
         inputs.cursorInputForLook = false;
 
-        sortedWeapons = new List<WeaponData>(weapons);
-        while (sortedWeapons.Count > buttons.Count)
-        {
-            sortedWeapons.RemoveAt(Random.Range(0, sortedWeapons.Count));
-        }
+        randomWeapons = WeaponManager.Instance.GetRandomWeapons();
 
         CleanListeners();
 
         for (int i = 0; i <= buttons.Count - 1; i++)
         {
             TextMeshProUGUI bntText = buttons[i].GetComponentInChildren<TextMeshProUGUI>();
-            bntText.text = sortedWeapons[i].weaponName;
-            buttons[i].onClick.AddListener(BuyItem(sortedWeapons[i]));
+            bntText.text = randomWeapons[i].weaponName;
+            buttons[i].onClick.AddListener(BuyItem(randomWeapons[i]));
         }
     }
 

@@ -31,7 +31,7 @@ public class WeaponManager : MonoBehaviour
             if (level == 8) return;
 
             UpdateWeapon(weaponLevels[level - 1], weapon.weaponData);
-            // equipedWeapons[index] = (level++, equipedWeapons[index].weapon);
+            equipedWeapons[index] = (level + 1, equipedWeapons[index].weapon);
 
             return;
         }
@@ -61,5 +61,53 @@ public class WeaponManager : MonoBehaviour
         weaponData.speed *= modifier.speed;
         weaponData.lifetime *= modifier.lifetime;
         weaponData.damage *= modifier.damage;
+    }
+
+    public List<WeaponData> GetRandomWeapons()
+    {
+        List<WeaponData> candidatePool = new List<WeaponData>();
+        List<WeaponData> drawnWeapons = new List<WeaponData>();
+
+        int maxEquipped = weaponsSlots.Count;
+        int maxLevel = 8;
+
+        // Se atingiu o limite de armas equipadas, filtra apenas as que o jogador já possui no inventário
+        if (equipedWeapons.Count >= maxEquipped)
+        {
+            foreach (var item in equipedWeapons)
+            {
+                if (item.level < maxLevel)
+                {
+                    candidatePool.Add(item.weapon.weaponData);
+                }
+            }
+        }
+        // Se ainda há espaço sobrando, libera todas as armas (exceto as equipadas que já estão no nível 8)
+        else
+        {
+            foreach (WeaponData weapon in allWeapons)
+            {
+                int equippedIndex = equipedWeapons.FindIndex(
+                    item => item.weapon.weaponData.weaponName == weapon.weaponName
+                );
+
+                // Entra no sorteio se não estiver equipada OU se estiver equipada abaixo do nível 8
+                if (equippedIndex == -1 || equipedWeapons[equippedIndex].level < maxLevel)
+                {
+                    candidatePool.Add(weapon);
+                }
+            }
+        }
+
+        // Sorteia até 3 armas sem repetir a mesma arma no mesmo sorteio
+        int drawCount = Mathf.Min(3, candidatePool.Count);
+        for (int i = 0; i < drawCount; i++)
+        {
+            int randomIndex = Random.Range(0, candidatePool.Count);
+            drawnWeapons.Add(candidatePool[randomIndex]);
+            candidatePool.RemoveAt(randomIndex); // Remove da piscina temporária para evitar duplicatas
+        }
+
+        return drawnWeapons;
     }
 }

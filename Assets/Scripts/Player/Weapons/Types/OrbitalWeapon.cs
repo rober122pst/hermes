@@ -92,6 +92,8 @@ public class OrbitalWeapon : WeaponBase
                 isActivePhase = true;
                 cycleTimer = 0f;
                 cooldown = weaponData.lifetime;
+                orbitRadius = baseOrbitRadius * weaponData.projectileScale;
+
                 SetProjectilesActive(true);
 
                 ForceUpdatePositions();
@@ -134,15 +136,18 @@ public class OrbitalWeapon : WeaponBase
 
     private void SetProjectilesActive(bool state)
     {
-        orbitRadius = baseOrbitRadius * weaponData.projectileScale;
-        Debug.Log("Tamanho: " + orbitRadius);
-
         for (int i = 0; i < activeProjectiles.Count; i++)
         {
             if (activeProjectiles[i] != null)
             {
                 activeProjectiles[i].SetActive(state);
             }
+        }
+
+        if (!state)
+        {
+            activeProjectiles.Clear();
+            SpawnProjectiles();
         }
     }
 

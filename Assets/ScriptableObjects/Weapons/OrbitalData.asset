@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   weaponName: Orbital
   weaponSprite: {fileID: 2800000, guid: 82bfac0b00bed9e4ea81d701725fbfb9, type: 3}
-  attackCooldown: 3
+  attackCooldown: 2.5
   projectileCooldown: 0.5
   projectileAmount: 2
   projectileScale: 1
-  speed: 30
+  speed: 80
   lifetime: 6
   damage: 25
   weaponLogicPrefab: {fileID: 8220193705518072167, guid: c243921aaa5949d4783d4dfb48d37846, type: 3}
