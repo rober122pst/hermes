@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemiesConfig
   enemyType: 0
   enemyPrefab: {fileID: 4374582424730688564, guid: c83b83ab06257f34597a09993585a446, type: 3}
-  maxHealth: 120
+  maxHealth: 30
   speed: 30
   bulletPool: {fileID: 11400000, guid: 1c7dedc87e773964a86f59dd572cba1e, type: 2}
   damage: 15

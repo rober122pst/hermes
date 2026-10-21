@@ -109,4 +109,15 @@ public class ShipManager : MonoBehaviour
             activeShips.Add(ship);
         }
     }
+    public void RemoveDisabledShips()
+    {
+        for (int i = 0; i < activeShips.Count; i++)
+        {
+            if (!activeShips[i].gameObject.activeInHierarchy)
+            {
+                activeShips.RemoveAt(i);
+                break;
+            }
+        }
+    }
 }

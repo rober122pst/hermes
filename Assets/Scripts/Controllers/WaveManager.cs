@@ -274,6 +274,8 @@ public class WaveManager : MonoBehaviour
             enemyObj.transform.SetPositionAndRotation(spawnPosition, spawnPoint.rotation);
             enemyObj.SetActive(true);
 
+            ShipManager.Instance.AddActiveShip(enemyObj.transform);
+
             activeEnemiesCount++;
         }
     }
@@ -284,5 +286,6 @@ public class WaveManager : MonoBehaviour
     public void RegisterEnemyDeath()
     {
         activeEnemiesCount = Mathf.Max(0, activeEnemiesCount - 1);
+        ShipManager.Instance.RemoveDisabledShips();
     }
 }
