@@ -13,59 +13,59 @@ MonoBehaviour:
   m_Name: OrbitLevels
   m_EditorClassIdentifier: Assembly-CSharp::WeaponLevelsUpdates
   weaponLevels:
-  - attackCooldown: 1
-    projectileCooldown: 1
-    projectileAmount: 0
-    projectileScale: 1.5
-    speed: 1
-    lifetime: 1
-    damage: 1
-    description: "Aumenta o tamanho do proj\xE9til em 25%"
-  - attackCooldown: 1
-    projectileCooldown: 1
-    projectileAmount: 1
-    projectileScale: 1
-    speed: 1.1
-    lifetime: 1
-    damage: 1
-    description: 
-  - attackCooldown: 0.85
+  - attackCooldown: 0.75
     projectileCooldown: 1
     projectileAmount: 0
     projectileScale: 1
     speed: 1
-    lifetime: 1
-    damage: 1.5
-    description: 
-  - attackCooldown: 1
-    projectileCooldown: 1
-    projectileAmount: 1
-    projectileScale: 1
-    speed: 1.25
     lifetime: 1
     damage: 1.25
-    description: 
+    description: -25% de cooldown,  +25% de dano
+  - attackCooldown: 1
+    projectileCooldown: 1
+    projectileAmount: 1
+    projectileScale: 1.25
+    speed: 1
+    lifetime: 1
+    damage: 1
+    description: "+25% de raio da orbita, +1 pr\xF3jetil"
   - attackCooldown: 1
     projectileCooldown: 1
     projectileAmount: 0
     projectileScale: 1
+    speed: 1.35
+    lifetime: 1
+    damage: 1.25
+    description: '+25% de dano, +35% de velocidade '
+  - attackCooldown: 0.7
+    projectileCooldown: 1
+    projectileAmount: 0
+    projectileScale: 1.3
     speed: 1
     lifetime: 1
     damage: 1
-    description: 
+    description: +30% no raio da orbita, -30% de cooldown
   - attackCooldown: 1
     projectileCooldown: 1
-    projectileAmount: 0
+    projectileAmount: 1
     projectileScale: 1
     speed: 1
     lifetime: 1
     damage: 1
-    description: 
+    description: "+1 pr\xF3jetil"
   - attackCooldown: 1
     projectileCooldown: 1
     projectileAmount: 0
     projectileScale: 1
+    speed: 1.2
+    lifetime: 1.25
+    damage: 1
+    description: "+20% velocidade, +25% de dura\xE7\xE3o"
+  - attackCooldown: 1
+    projectileCooldown: 1
+    projectileAmount: 1
+    projectileScale: 1.2
     speed: 1
     lifetime: 1
-    damage: 1
-    description: 
+    damage: 1.3
+    description: "+30% de dano, +20% de escala, +1 pr\xF3jetil"

@@ -8,13 +8,10 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private GameObject levelUpScreen;
 
+    public GameObject LevelUpScreen => levelUpScreen;
+
     private void Start()
     {
         Instance = this;
-    }
-
-    public void ShowLevelUpScreen()
-    {
-        levelUpScreen.SetActive(true);
     }
 }

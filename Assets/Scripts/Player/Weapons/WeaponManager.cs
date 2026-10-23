@@ -110,4 +110,16 @@ public class WeaponManager : MonoBehaviour
 
         return drawnWeapons;
     }
+
+    public int GetLevelByName(string weaponName)
+    {
+        foreach (var item in equipedWeapons)
+        {
+            if (weaponName == item.weapon.weaponData.weaponName)
+            {
+                return item.level;
+            }
+        }
+        return 0;
+    }
 }

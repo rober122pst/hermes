@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 namespace Player
 {
@@ -14,23 +15,35 @@ namespace Player
         [SerializeField] private float incrementExperience;
         [SerializeField] private float magnetismForce;
 
+        public event Action<float> OnExperienceChanged;
+
         public float Speed => speed;
         public float SprintSpeed => sprintSpeed;
-        public float Experience => experience;
-        public float MaxExperience => maxExperience;
-        public float IncrementExperience => incrementExperience;
-        public float MagnetismForce => magnetismForce;
-
-        public void AddExperience(float amount)
+        public float Experience
         {
-            experience += amount;
-            if (experience >= maxExperience)
+            get => experience;
+            set
             {
-                experience -= maxExperience;
-                maxExperience *= 1.5f;
-                UIManager.Instance.ShowLevelUpScreen();
+                if (experience != value)
+                {
+                    experience = value;
+                    OnExperienceChanged?.Invoke(experience);
+                }
             }
         }
+        public float MaxExperience
+        {
+            get => maxExperience;
+            set
+            {
+                if (maxExperience != value)
+                {
+                    maxExperience = value;
+                }
+            }
+        }
+        public float IncrementExperience => incrementExperience;
+        public float MagnetismForce => magnetismForce;
     }
 
     public class NaveController : MonoBehaviour
@@ -70,6 +83,17 @@ namespace Player
             rb.AddTorque(rb.transform.forward * multVelocidadeRotacao * -input.roll.x, ForceMode.VelocityChange);
         }
 
-
+        private void Update()
+        {
+            if (stats.Experience >= stats.MaxExperience)
+            {
+                if (!UIManager.Instance.LevelUpScreen.activeInHierarchy)
+                {
+                    stats.Experience -= stats.MaxExperience;
+                    stats.MaxExperience *= 1.1f;
+                    UIManager.Instance.LevelUpScreen.SetActive(true);
+                }
+            }
+        }
     }
 }

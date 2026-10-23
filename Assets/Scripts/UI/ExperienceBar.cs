@@ -9,8 +9,18 @@ public class ExperienceBar : MonoBehaviour
     [SerializeField]
     private Slider xpBar;
 
-    private void Update()
+    private void OnEnable()
     {
-        xpBar.value = player.stats.Experience / player.stats.MaxExperience;
+        player.stats.OnExperienceChanged += UpdateXpBar;
+    }
+
+    private void OnDisable()
+    {
+        player.stats.OnExperienceChanged -= UpdateXpBar;
+    }
+
+    private void UpdateXpBar(float xp)
+    {
+        xpBar.value = xp / player.stats.MaxExperience;
     }
 }

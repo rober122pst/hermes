@@ -5,6 +5,6 @@ public class GemItem : Collectible
     public override void Collected()
     {
         base.Collected();
-        player.stats.AddExperience(player.stats.IncrementExperience);
+        player.stats.Experience += player.stats.IncrementExperience;
     }
 }
