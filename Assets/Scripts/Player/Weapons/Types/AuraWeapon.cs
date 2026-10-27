@@ -14,6 +14,7 @@ public class AuraWeapon : WeaponBase
     // Variaveis para o controle de cooldown
     private float hitCooldown;
     private float auraRadius;
+
     public override void Initialize(WeaponData data, Transform player)
     {
         base.Initialize(data, player);
@@ -23,11 +24,11 @@ public class AuraWeapon : WeaponBase
 
     private void SpawnProjectiles()
     {
-        auraRadius = weaponData.projectileScale * baseAuraRadius;
         updated = false;
         GameObject p = Instantiate(auraPrefab, playerTransform);
         p.SetActive(true);
         activeProjectile = p;
+        weaponData.OnScale += UpdateAuraSize;
         UpdateAuraSize();
     }
 
@@ -38,6 +39,8 @@ public class AuraWeapon : WeaponBase
 
     private void UpdateAuraSize()
     {
+        auraRadius = weaponData.projectileScale * baseAuraRadius;
+
         if (activeProjectile == null) return;
         Transform auraObject = activeProjectile.transform.GetChild(0);
         auraObject.localScale = new Vector3(auraRadius * 2, auraObject.localScale.y, auraRadius * 2);
@@ -75,6 +78,11 @@ public class AuraWeapon : WeaponBase
         }
 
         hitCooldown -= Time.deltaTime;
+    }
+
+    private void OnDisable()
+    {
+        weaponData.OnScale -= UpdateAuraSize;
     }
 
     // Metodo para desenhar a area da aura no editor, facilitando o ajuste do raio

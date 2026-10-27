@@ -17,10 +17,10 @@ MonoBehaviour:
   attackCooldown: 2
   projectileCooldown: 1
   projectileAmount: 1
-  projectileScale: 1
+  _projectileScale: 1
   speed: 5
   lifetime: 2
   damage: 10
   weaponLogicPrefab: {fileID: 8220193705518072167, guid: 2754ce59cf51d9b4881d3b918f7f8da7, type: 3}
   projectilePoolID: {fileID: 11400000, guid: 0dc7413b2eb2dd0418945d61aeba3fc9, type: 2}
-  updates: {fileID: 11400000, guid: 1e3266dbbb89af2459776334785c6382, type: 2}
+  updates: {fileID: 11400000, guid: 97d09c80cd54ec74e8079be11ff3578f, type: 2}

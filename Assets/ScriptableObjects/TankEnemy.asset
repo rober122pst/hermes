@@ -19,7 +19,7 @@ MonoBehaviour:
   bulletPool: {fileID: 11400000, guid: 1c7dedc87e773964a86f59dd572cba1e, type: 2}
   damage: 0
   attackRange: 0
-  attackCooldown: 3
+  attackCooldown: 20
   cost: 20
-  distanceToStop: 120
+  distanceToStop: 90
   hitAudio: {fileID: 8300000, guid: 7528083f4a66b7e488aa67500f05cc89, type: 3}
