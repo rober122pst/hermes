@@ -67,5 +67,5 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "Jogo Da Mulher.slnx"
+    "dotnet.defaultSolution": "hermes.slnx"
 }

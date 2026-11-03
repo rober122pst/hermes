@@ -64,6 +64,10 @@ namespace Player
         private Rigidbody rb;
         private StarterAssetsInputs input;
 
+        [Header("Interação")]
+        [SerializeField] private float detectionRadius;
+        [SerializeField] private LayerMask searchLayer;
+
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();

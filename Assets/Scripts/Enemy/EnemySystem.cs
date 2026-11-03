@@ -87,7 +87,6 @@ public class EnemySystem : MonoBehaviour, IDamageable
 
     public void TakeDamage(float damage)
     {
-        audioSource.PlayOneShot(config.hitAudio);
         life -= damage;
         ShowDamagePopup(damage);
 
