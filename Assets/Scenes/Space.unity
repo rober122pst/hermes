@@ -5991,8 +5991,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 350206723}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.006049114, y: -0.000000163587, z: -0.000000028744052, w: 0.9999817}
-  m_LocalPosition: {x: 0.00000054836255, y: 9.199995, z: -183.9}
+  m_LocalRotation: {x: 0.005370322, y: 0.4601986, z: -0.0027838, w: 0.8877954}
+  m_LocalPosition: {x: -34.693443, y: 9.19999, z: -165.93619}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6441,7 +6441,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RawImage
-  m_Material: {fileID: 2100000, guid: 2454f081ac9c11d4da85e29777ca8ba1, type: 2}
+  m_Material: {fileID: 2100000, guid: b7ee21c9a02326247a8b28231248ddc7, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -7604,8 +7604,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 961739749}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.006049114, y: -0.00000016358659, z: -0.000000028813279, w: 0.9999817}
-  m_LocalPosition: {x: 0.00000054836255, y: 9.199995, z: -183.9}
+  m_LocalRotation: {x: 0.005370322, y: 0.4601986, z: -0.0027837995, w: 0.8877954}
+  m_LocalPosition: {x: -34.693443, y: 9.19999, z: -165.93619}
   m_LocalScale: {x: 1.7557241, y: 1.001051, z: 0.73841524}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8568,14 +8568,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1270151976}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -143.4}
+  m_LocalRotation: {x: -0, y: 0.46020693, z: -0, w: 0.88781166}
+  m_LocalPosition: {x: -1.5986885, y: 0, z: -142.59122}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 787616833}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 54.801, z: 0}
 --- !u!114 &1270151982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8753,12 +8753,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteractor
   mainCamera: {fileID: 961739752}
-  interactionDistance: 90
-  crosshairToleranceRadius: 10
+  interactionDistance: 100
+  crosshairToleranceRadius: 24
   interactableLayer:
     serializedVersion: 2
     m_Bits: 64
-  playerController: {fileID: 1270151980}
+  playerController: {fileID: 0}
 --- !u!1 &1273185932
 GameObject:
   m_ObjectHideFlags: 0

@@ -46,7 +46,9 @@ public class PlayerInteractor : MonoBehaviour
                 // Atualiza a UI apenas se o objeto focado mudou
                 if (currentInteractable != interactive)
                 {
+                    Debug.Log($"Objeto interativo detectado: {interactive}");
                     currentInteractable = interactive;
+                    currentInteractable.ShowDialogueBox();
                 }
                 return;
             }
@@ -60,6 +62,7 @@ public class PlayerInteractor : MonoBehaviour
     {
         if (currentInteractable != null)
         {
+            currentInteractable.HideDialogueBox();
             currentInteractable = null;
         }
     }
@@ -70,7 +73,7 @@ public class PlayerInteractor : MonoBehaviour
         if (mainCamera == null) return;
 
         Gizmos.color = currentInteractable != null ? Color.green : Color.yellow;
-        
+
         Vector3 origin = mainCamera.transform.position;
         Vector3 direction = mainCamera.transform.forward;
         Vector3 endPosition = origin + (direction * interactionDistance);

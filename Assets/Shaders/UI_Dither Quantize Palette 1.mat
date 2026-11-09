@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI_Dither Quantize Palette 1
+  m_Shader: {fileID: 4800000, guid: 7a11ac1b09624734bb0aed7491076bc2, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - _DITHER_ON
+  - _PALETTE_ON
+  - _QUANT_ON
+  - _SATLAYERS_ON
+  m_InvalidKeywords:
+  - _WORKINGAMMA_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _DitherTex:
+        m_Texture: {fileID: 2800000, guid: 7d50908718f037a4087723b6573cf9e6, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _PaletteTex:
+        m_Texture: {fileID: 2800000, guid: 554c5efa0700ba8469dc3a174bac3bba, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _DitherEnabled: 1
+    - _DitherScale: 1
+    - _DitherStrength: 0.5
+    - _PaletteEnabled: 1
+    - _PaletteStrength: 0.75
+    - _QuantEnabled: 1
+    - _QuantizationLevel: 8
+    - _QuantizationStrength: 1
+    - _SatLayers: 8
+    - _SatLayersEnabled: 1
+    - _SatLayersStrength: 1
+    - _SatMax: 1
+    - _SatMin: 0.15
+    - _Smoothing: 0
+    - _SmoothingRadius: 1
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    - _WorkInGamma: 1
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

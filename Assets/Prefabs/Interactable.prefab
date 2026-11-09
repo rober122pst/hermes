@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5584090882624072917}
   - component: {fileID: 5541670283898131931}
+  - component: {fileID: 9127109888974125282}
   m_Layer: 0
   m_Name: Interactable
   m_TagString: Untagged
@@ -91,3 +92,23 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &9127109888974125282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1907098247531669708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e2d1a70b8b9a424c9381435856acb1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PromptOrbit
+  baseOffset: {x: -10, y: 5, z: 0}
+  smoothTime: 0.15
+  floatFrequency: 2
+  floatAmplitude: 0.08
+  cameraPullStrength: 0.25
+  maxPullDistance: 0.6
+  rotationSpeed: 10
+  lockYAxisOnly: 0
