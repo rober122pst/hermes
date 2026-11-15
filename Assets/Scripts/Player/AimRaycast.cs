@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
+using UnityEngine.Serialization;
 
 namespace Player.UI
 {
@@ -11,13 +11,18 @@ namespace Player.UI
         public Animator animator;
 
         [Header("Configurações do Ímã e Drag")]
-        public LayerMask objetosInterativos;
-        public float raioDeDeteccao = 1.5f;
-        public float velocidadeDoDrag = 15f; // Define a suavidade ao arrastar o objeto 3D
-        public float distanciaDaCamera = 70f;
+        [FormerlySerializedAs("objetosInterativos")]
+        public LayerMask interactableLayers;
+        [FormerlySerializedAs("raioDeDeteccao")]
+        public float detectionRadius = 1.5f;
+        [FormerlySerializedAs("velocidadeDoDrag")]
+        public float dragSpeed = 15f; // Define a suavidade ao arrastar o objeto 3D.
+        [FormerlySerializedAs("distanciaDaCamera")]
+        public float cameraDistance = 70f;
 
         [Header("Configurações de Arremesso")]
-        public float multiplicadorDeForca = 1.2f; // Ajusta a agressividade do arremesso
+        [FormerlySerializedAs("multiplicadorDeForca")]
+        public float throwForceMultiplier = 1.2f; // Ajusta a agressividade do arremesso.
         public float shakeDuracao = 0.15f;
         public float shakeMagnitude = 5f;
 
@@ -29,43 +34,45 @@ namespace Player.UI
         private StarterAssetsInputs inputs;
 
         // Variáveis de controle de drag
-        private Transform objetoSegurado;
-        private float distanciaDoDrag;
-        private Rigidbody rbSegurado;
-        private bool rbEraKinematic;
+        private Transform heldObject;
+        private float dragDistance;
+        private Rigidbody heldRigidbody;
+        private bool wasKinematic;
 
         // Variáveis para rastrear a inércia do movimento
-        private Vector3 posicaoAnterior;
-        private Vector3 velocidadeDoMovimento;
+        private Vector3 previousPosition;
+        private Vector3 movementVelocity;
 
-        bool canGrab, grab, blocked;
+        private bool canGrab;
+        private bool grab;
+        private bool blocked;
 
-        void Start()
+        private void Start()
         {
             cam = Camera.main;
             inputs = GetComponent<StarterAssetsInputs>();
             cursorInitialPos = cursorUI.position;
         }
 
-        void Update()
+        private void Update()
         {
             // O raio sempre sai do centro da tela (mira)
             Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
 
-            if (objetoSegurado != null)
+            if (heldObject != null)
             {
                 if (inputs.pull)
                 {
-                    ArrastarObjeto(ray);
+                    DragObject(ray);
                 }
                 else
                 {
-                    SoltarObjeto();
+                    ReleaseObject();
                 }
             }
             else
             {
-                ProcurarObjetos(ray);
+                FindObjects(ray);
             }
 
             animator.SetBool("isCanGrab", canGrab);
@@ -73,22 +80,22 @@ namespace Player.UI
             animator.SetBool("isBlocked", blocked);
         }
 
-        private void ProcurarObjetos(Ray ray)
+        private void FindObjects(Ray ray)
         {
             RaycastHit hit;
 
-            if (Physics.SphereCast(ray, raioDeDeteccao, out hit, 100f, objetosInterativos))
+            if (Physics.SphereCast(ray, detectionRadius, out hit, 100f, interactableLayers))
             {
-                Vector3 posicaoNaTela = PosInScreen(hit.transform.position);
-                cursorUI.position = Vector2.Lerp(cursorUI.position, posicaoNaTela, 0.2f);
+                Vector3 screenPosition = WorldToScreenPosition(hit.transform.position);
+                cursorUI.position = Vector2.Lerp(cursorUI.position, screenPosition, 0.2f);
 
-                if (hit.distance > distanciaDaCamera)
+                if (hit.distance > cameraDistance)
                 {
                     blocked = false;
                     canGrab = true;
-                    if (inputs.pull && objetoSegurado == null) // Verifica se o botão de puxar foi pressionado e se não há objeto segurado
+                    if (inputs.pull && heldObject == null) // Verifica se o botão de puxar foi pressionado e se não há objeto segurado.
                     {
-                        PegarObjeto(hit);
+                        GrabObject(hit);
                     }
                 }
                 else
@@ -104,64 +111,64 @@ namespace Player.UI
             }
         }
 
-        private void PegarObjeto(RaycastHit hit)
+        private void GrabObject(RaycastHit hit)
         {
-            objetoSegurado = hit.transform;
-            distanciaDoDrag = hit.distance; // Salva a distância exata para arrastar no mesmo eixo Z
+            heldObject = hit.transform;
+            dragDistance = hit.distance; // Salva a distância exata para arrastar no mesmo eixo Z.
 
             // Suspende a física para que o objeto não sofra influência de gravidade/colisão enquanto arrasta
-            if (objetoSegurado.TryGetComponent(out rbSegurado))
+            if (heldObject.TryGetComponent(out heldRigidbody))
             {
-                rbEraKinematic = rbSegurado.isKinematic;
-                rbSegurado.isKinematic = true;
+                wasKinematic = heldRigidbody.isKinematic;
+                heldRigidbody.isKinematic = true;
             }
         }
 
-        private void ArrastarObjeto(Ray ray)
+        private void DragObject(Ray ray)
         {
             grab = true;
             // Trava o UI Cursor no objeto enquanto ele é movido
-            Vector3 posicaoNaTela = PosInScreen(objetoSegurado.position);
-            cursorUI.position = Vector3.Lerp(cursorUI.position, posicaoNaTela, 0.6f);
+            Vector3 screenPosition = WorldToScreenPosition(heldObject.position);
+            cursorUI.position = Vector3.Lerp(cursorUI.position, screenPosition, 0.6f);
 
             // Move o objeto 3D para o ponto projetado na frente da câmera
-            Vector3 posicaoAlvo = ray.GetPoint(distanciaDoDrag);
-            objetoSegurado.position = Vector3.Lerp(objetoSegurado.position, posicaoAlvo, Time.deltaTime * velocidadeDoDrag);
+            Vector3 targetPosition = ray.GetPoint(dragDistance);
+            heldObject.position = Vector3.Lerp(heldObject.position, targetPosition, Time.deltaTime * dragSpeed);
 
             // Calcula a velocidade do movimento do objeto segurado para efeitos de inércia
-            velocidadeDoMovimento = (objetoSegurado.position - posicaoAnterior) / Time.deltaTime;
-            posicaoAnterior = objetoSegurado.position;
+            movementVelocity = (heldObject.position - previousPosition) / Time.deltaTime;
+            previousPosition = heldObject.position;
 
-            energyRay.DesenharArcoDeEnergia(objetoSegurado.transform);
+            energyRay.DrawEnergyArc(heldObject);
         }
 
-        private void SoltarObjeto()
+        private void ReleaseObject()
         {
-            energyRay.DesativarArco();
+            energyRay.DisableArc();
             // Devolve as configurações originais de física para o objeto
-            if (rbSegurado != null)
+            if (heldRigidbody != null)
             {
-                rbSegurado.isKinematic = rbEraKinematic;
-                rbSegurado.AddForce(velocidadeDoMovimento * multiplicadorDeForca, ForceMode.Impulse);
+                heldRigidbody.isKinematic = wasKinematic;
+                heldRigidbody.AddForce(movementVelocity * throwForceMultiplier, ForceMode.Impulse);
 
-                objetoSegurado = null;
+                heldObject = null;
             }
 
-            objetoSegurado = null;
+            heldObject = null;
             grab = false;
         }
 
-        Vector3 PosInScreen(Vector3 posWorld)
+        private Vector3 WorldToScreenPosition(Vector3 worldPosition)
         {
-            Vector3 posScreen = cam.WorldToScreenPoint(posWorld);
+            Vector3 screenPosition = cam.WorldToScreenPoint(worldPosition);
             
             if (cam.targetTexture != null)
             {
-                posScreen.x *= (float)Screen.width / cam.targetTexture.width;
-                posScreen.y *= (float)Screen.height / cam.targetTexture.height;
+                screenPosition.x *= (float)Screen.width / cam.targetTexture.width;
+                screenPosition.y *= (float)Screen.height / cam.targetTexture.height;
             }
 
-            return posScreen;
+            return screenPosition;
         }
     }
 }

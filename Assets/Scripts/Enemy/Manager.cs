@@ -45,7 +45,7 @@ namespace Enemy
 
         private int currentBatchIndex = 0;
 
-        // Lista reutilizável para evitar Garbage Collection na memória
+        // Lista reutilizada para reduzir alocações de memória.
         private List<Ship> queryBuffer;
 
         private void Awake()

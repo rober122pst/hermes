@@ -1,65 +1,71 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class EnergyRay : MonoBehaviour
 {
     public static EnergyRay Instance { get; private set; }
 
     [Header("Visual do Arco de Energia")]
-    public LineRenderer raioRenderer;
-    Transform origemDoRaio;
-    public int segmentosDoRaio = 20;
-    public float alturaDoArco = 0.2f; // Curvatura principal
-    public float oscilacaoEletrica = 0.3f; // Força do "choque" contorcido
-    public float velocidadeOscilacao = 25f; // Quão rápido a energia vibra
+    [FormerlySerializedAs("raioRenderer")]
+    public LineRenderer arcRenderer;
+    private Transform arcOrigin;
+    [FormerlySerializedAs("segmentosDoRaio")]
+    public int arcSegmentCount = 20;
+    [FormerlySerializedAs("alturaDoArco")]
+    public float arcHeight = 0.2f; // Curvatura principal.
+    [FormerlySerializedAs("oscilacaoEletrica")]
+    public float electricalOscillation = 0.3f; // Força do "choque" contorcido.
+    [FormerlySerializedAs("velocidadeOscilacao")]
+    public float oscillationSpeed = 25f; // Velocidade da vibração da energia.
     public GameObject beam;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake()
+    // Inicializa o componente antes do primeiro quadro.
+    private void Awake()
     {
-        origemDoRaio = gameObject.transform;
-        if (raioRenderer != null)
+        arcOrigin = transform;
+        if (arcRenderer != null)
         {
-            raioRenderer.positionCount = segmentosDoRaio;
-            raioRenderer.enabled = false;
+            arcRenderer.positionCount = arcSegmentCount;
+            arcRenderer.enabled = false;
             beam.SetActive(false);
         }
     }
 
-    void Start()
+    private void Start()
     {
         Instance = this;
     }
 
-    // Update is called once per frame
-    public void DesenharArcoDeEnergia(Transform destinoDoRaio)
+    // Atualiza o efeito a cada quadro.
+    public void DrawEnergyArc(Transform target)
     {
-        raioRenderer.enabled = true;
+        arcRenderer.enabled = true;
         beam.SetActive(true);
 
-        Vector3 origem = origemDoRaio.position;
-        Vector3 destino = destinoDoRaio.position;
+        Vector3 origin = arcOrigin.position;
+        Vector3 destination = target.position;
 
-        for (int i = 0; i < segmentosDoRaio; i++)
+        for (int i = 0; i < arcSegmentCount; i++)
         {
-            float t = (float)i / (segmentosDoRaio - 1);
+            float interpolation = (float)i / (arcSegmentCount - 1);
 
-            // Interpolamos linearmente do ponto A ao ponto B
-            Vector3 pontoBase = Vector3.Lerp(origem, destino, t);
+            // Interpola linearmente entre a origem e o destino.
+            Vector3 basePoint = Vector3.Lerp(origin, destination, interpolation);
 
-            // O fatorContorno cria um arco (0 nas pontas, 1 no meio) para travar o raio nos objetos
-            float fatorContorno = Mathf.Sin(t * Mathf.PI);
+            // Cria um arco que começa e termina nas extremidades do raio.
+            float arcFactor = Mathf.Sin(interpolation * Mathf.PI);
 
-            // Curva gravitacional base
-            Vector3 curvaArco = Vector3.up * (alturaDoArco * fatorContorno);
+            // Aplica a curvatura principal do arco.
+            Vector3 arcCurve = Vector3.up * (arcHeight * arcFactor);
 
-            // Aplica tudo ao ponto atual
-            raioRenderer.SetPosition(i, pontoBase + curvaArco);
+            // Atualiza a posição do segmento atual.
+            arcRenderer.SetPosition(i, basePoint + arcCurve);
         }
     }
 
-    public void DesativarArco()
+    public void DisableArc()
     {
-        raioRenderer.enabled = false;
+        arcRenderer.enabled = false;
         beam.SetActive(false);
     }
 }

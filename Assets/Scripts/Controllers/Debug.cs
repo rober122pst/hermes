@@ -9,7 +9,7 @@ namespace GameDebug
         public TextMeshProUGUI textMeshPro;
         float fps;
 
-        // Update is called once per frame
+        // Atualiza o componente a cada quadro.
         void Update()
         {
             fps = 1.0f / Time.deltaTime;

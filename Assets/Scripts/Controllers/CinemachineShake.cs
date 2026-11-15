@@ -8,26 +8,26 @@ public class CinemachineShake : MonoBehaviour
     private CinemachineCamera cinemachineCamera;
     private CinemachineBasicMultiChannelPerlin perlinNoise;
 
-    void Awake()
+    private void Awake()
     {
         Instance = this;
         cinemachineCamera = GetComponent<CinemachineCamera>();
         perlinNoise = cinemachineCamera.GetComponent<CinemachineBasicMultiChannelPerlin>();
     }
 
-    public void ShakeCamera(float intensidade, float tempo)
+    public void ShakeCamera(float intensity, float duration)
     {
-        perlinNoise.AmplitudeGain = intensidade;
-        StartCoroutine(WaitTime(tempo));
+        perlinNoise.AmplitudeGain = intensity;
+        StartCoroutine(WaitTime(duration));
     }
 
-    IEnumerator WaitTime(float shakeTime)
+    private IEnumerator WaitTime(float shakeTime)
     {
         yield return new WaitForSeconds(shakeTime);
         ResetIntensity();
     }
 
-    void ResetIntensity()
+    private void ResetIntensity()
     {
         perlinNoise.AmplitudeGain = 0f;
     }

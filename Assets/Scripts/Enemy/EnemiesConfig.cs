@@ -10,11 +10,11 @@ public enum EnemyType
 [CreateAssetMenu(fileName = "EnemiesConfig", menuName = "Game/Enemy/EnemiesConfig")]
 public class EnemiesConfig : ScriptableObject
 {
-    [Header("Enemy Configuration")]
+    [Header("Configuração do inimigo")]
     public EnemyType enemyType;
     public GameObject enemyPrefab;
 
-    [Header("Enemy Stats")]
+    [Header("Atributos do inimigo")]
     public float maxHealth;
     public float speed;
     public PoolID bulletPool;
@@ -25,6 +25,6 @@ public class EnemiesConfig : ScriptableObject
 
     public float distanceToStop = 1.5f;
 
-    [Header("Audio")]
+    [Header("Áudio")]
     public AudioClip hitAudio;
 }

@@ -19,7 +19,7 @@ public class ShipGizmoDebugger : MonoBehaviour
         {
             if (ship == null) continue;
 
-            float currentRadius = ShipManager.Instance.shipCollisionRadius; // Puxa o raio de colisão do modelo 3D configurado no manager[cite: 1]
+            float currentRadius = ShipManager.Instance.shipCollisionRadius; // Usa o raio de colisão configurado no gerenciador.
             Gizmos.color = safeColor;
 
             // Verifica visualmente se há sobreposição (overlap) para alterar a cor do Gizmo
@@ -38,16 +38,16 @@ public class ShipGizmoDebugger : MonoBehaviour
 
     private bool IsOverlapping(Transform currentShip, float radius)
     {
-        // Usa a mesma lógica base para comparar a nave atual com as outras[cite: 1]
+        // Usa a mesma lógica para comparar a nave atual com as demais.
         foreach (Transform otherShip in ShipManager.Instance.activeShips)
         {
-            // Ignora a checagem se for ela mesma[cite: 1]
+            // Ignora a comparação da nave com ela mesma.
             if (currentShip == otherShip || otherShip == null) continue;
 
             float distance = Vector3.Distance(currentShip.position, otherShip.position);
-            float combinedRadius = radius * 2f; // A soma dos raios das duas naves[cite: 1]
+            float combinedRadius = radius * 2f; // Soma os raios das duas naves.
 
-            // Se a distância for menor que a soma dos raios, desenha uma linha indicando a direção da separação[cite: 1]
+            // Se houver sobreposição, desenha uma linha na direção de separação.
             if (distance < combinedRadius)
             {
                 Gizmos.DrawLine(currentShip.position, otherShip.position);

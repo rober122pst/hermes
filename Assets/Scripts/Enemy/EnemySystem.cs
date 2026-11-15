@@ -20,29 +20,29 @@ public class EnemySystem : MonoBehaviour, IDamageable
     Transform player;
 
     public PoolID gemPool;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    // Inicializa os atributos e localiza o jogador antes do primeiro quadro.
+    private void Start()
     {
         life = config.maxHealth;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         audioSource = player.GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
-    void Update()
+    // Atualiza o movimento do inimigo a cada quadro.
+    private void Update()
     {
         Walk();
     }
 
-    void Walk()
+    private void Walk()
     {
         float distance = Vector3.Distance(transform.position, player.position);
 
         targetSpd = distance > config.distanceToStop ? config.speed : 0f;
 
         speed = Mathf.Lerp(speed, targetSpd, Time.deltaTime * 2f);
-        Vector3 direcao = (player.position - transform.position).normalized;
-        transform.position += direcao * speed * Time.deltaTime;
+        Vector3 direction = (player.position - transform.position).normalized;
+        transform.position += direction * speed * Time.deltaTime;
 
         if (speed <= 0.2f)
         {
@@ -52,7 +52,7 @@ public class EnemySystem : MonoBehaviour, IDamageable
         transform.LookAt(player);
     }
 
-    void Attack()
+    private void Attack()
     {
         if (attackTimer <= 0f)
         {
@@ -66,7 +66,7 @@ public class EnemySystem : MonoBehaviour, IDamageable
         attackTimer -= Time.deltaTime;
     }
 
-    void Die()
+    private void Die()
     {
         if (WaveManager.Instance != null)
         {
@@ -74,7 +74,7 @@ public class EnemySystem : MonoBehaviour, IDamageable
         }
         else
         {
-            Debug.LogWarning("WaveManager instance is null. Cannot register defeated enemy.");
+            Debug.LogWarning("A instância de WaveManager não foi encontrada. Não foi possível registrar a derrota do inimigo.");
         }
 
         GameObject gem = ObjectPool.Instance.GetInstance(gemPool);
@@ -96,7 +96,7 @@ public class EnemySystem : MonoBehaviour, IDamageable
         }
     }
 
-    void ShowDamagePopup(float damageAmount)
+    private void ShowDamagePopup(float damageAmount)
     {
         // Se existe um popup ativo e o tempo atual está dentro da janela permitida
         if (lastPopup != null && Time.time <= lastDamageTime + combineTimeWindow)

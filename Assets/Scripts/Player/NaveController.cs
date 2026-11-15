@@ -1,6 +1,6 @@
-using UnityEngine;
-using System.Collections.Generic;
 using System;
+using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Player
 {
@@ -51,15 +51,15 @@ namespace Player
         public Stats stats = new Stats();
 
         [Header("Configurações de Rotação")]
-        [SerializeField]
-        float multAnguloVelocidade = 0.5f;
-        [SerializeField]
-        float multVelocidadeRotacao = 0.05f;
+        [SerializeField, FormerlySerializedAs("multAnguloVelocidade")]
+        private float angleSpeedMultiplier = 0.5f;
+        [SerializeField, FormerlySerializedAs("multVelocidadeRotacao")]
+        private float rotationSpeedMultiplier = 0.05f;
 
 
         [Header("Audios")]
-        [SerializeField]
-        private AudioClip tiroAudioClip;
+        [SerializeField, FormerlySerializedAs("tiroAudioClip")]
+        private AudioClip shootAudioClip;
 
         private Rigidbody rb;
         private StarterAssetsInputs input;
@@ -76,15 +76,15 @@ namespace Player
 
         private void FixedUpdate()
         {
-            float velocidadeAlvo = input.sprint ? stats.SprintSpeed : stats.Speed;
+            float targetSpeed = input.sprint ? stats.SprintSpeed : stats.Speed;
 
-            rb.AddForce(rb.transform.TransformDirection(Vector3.forward) * input.move.y * velocidadeAlvo, ForceMode.VelocityChange);
-            rb.AddForce(rb.transform.TransformDirection(Vector3.right) * input.move.x * velocidadeAlvo, ForceMode.VelocityChange);
+            rb.AddForce(rb.transform.TransformDirection(Vector3.forward) * input.move.y * targetSpeed, ForceMode.VelocityChange);
+            rb.AddForce(rb.transform.TransformDirection(Vector3.right) * input.move.x * targetSpeed, ForceMode.VelocityChange);
 
-            rb.AddTorque(rb.transform.right * multAnguloVelocidade * input.look.y * -1, ForceMode.VelocityChange);
-            rb.AddTorque(rb.transform.up * multAnguloVelocidade * input.look.x, ForceMode.VelocityChange);
+            rb.AddTorque(rb.transform.right * angleSpeedMultiplier * input.look.y * -1, ForceMode.VelocityChange);
+            rb.AddTorque(rb.transform.up * angleSpeedMultiplier * input.look.x, ForceMode.VelocityChange);
 
-            rb.AddTorque(rb.transform.forward * multVelocidadeRotacao * -input.roll.x, ForceMode.VelocityChange);
+            rb.AddTorque(rb.transform.forward * rotationSpeedMultiplier * -input.roll.x, ForceMode.VelocityChange);
         }
 
         private void Update()
