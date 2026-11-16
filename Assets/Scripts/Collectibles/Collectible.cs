@@ -3,43 +3,35 @@ using UnityEngine;
 
 public abstract class Collectible : MonoBehaviour
 {
-    [SerializeField]
-    protected NaveController player;
+    [SerializeField] protected NaveController player;
+    [SerializeField] private float speed = 32f;
 
-    [Header("Distancia e Movimento")]
-    [SerializeField] private float speed = 5f;
+    private bool attracting;
 
-    private float currentSpeed;
-
-    private void Start()
+    private void OnEnable()
     {
-        if (player == null)
-        {
-            player = FindFirstObjectByType<NaveController>();
-        }
+        attracting = false;
+        if (player == null) player = FindFirstObjectByType<NaveController>();
     }
 
     private void Update()
     {
-        float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
-        float targetSpeed = distanceToPlayer <= player.stats.MagnetismForce ? speed : 0;
-        currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, 0.3f);
+        if (player == null || !player.IsAlive || Time.deltaTime <= 0f) return;
 
-        transform.position = Vector3.MoveTowards(
-            transform.position,
-            player.transform.position,
-            targetSpeed * Time.deltaTime
-        );
+        Vector3 toPlayer = player.transform.position - transform.position;
+        float range = player.stats.MagnetismForce;
+        attracting |= toPlayer.sqrMagnitude <= range * range;
+        if (!attracting) return;
 
-        Vector3 direction = new Vector3(player.transform.position.x, transform.position.x, player.transform.position.z);
-        transform.LookAt(direction);
-    }
+        const float collectRadius = 1.1f;
+        float step = Mathf.Max(speed, player.stats.SprintSpeed + 5f) * Time.deltaTime;
+        if (toPlayer.sqrMagnitude <= (step + collectRadius) * (step + collectRadius))
+        {
+            Collected();
+            return;
+        }
 
-    private void OnDrawGizmosSelected()
-    {
-        // Raio de detecção (Amarelo)
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, player.stats.MagnetismForce);
+        transform.position += toPlayer.normalized * step;
     }
 
     public virtual void Collected()
@@ -49,9 +41,17 @@ public abstract class Collectible : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponentInParent<NaveController>())
+        if (isActiveAndEnabled && player != null && player.IsAlive &&
+            other.GetComponentInParent<NaveController>() == player)
         {
             Collected();
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (player == null) return;
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, player.stats.MagnetismForce);
     }
 }

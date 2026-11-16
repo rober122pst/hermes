@@ -14,12 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemiesConfig
   enemyType: 0
   enemyPrefab: {fileID: 4374582424730688564, guid: c83b83ab06257f34597a09993585a446, type: 3}
-  maxHealth: 30
-  speed: 30
+  maxHealth: 24
+  speed: 23
   bulletPool: {fileID: 11400000, guid: 1c7dedc87e773964a86f59dd572cba1e, type: 2}
-  damage: 15
-  attackRange: 0
-  attackCooldown: 15
+  damage: 8
+  attackRange: 53
+  attackCooldown: 2.65
   cost: 1
-  distanceToStop: 60
+  distanceToStop: 29
+  windupTime: 0.36
+  projectileSpeed: 42
+  projectileTurnSpeed: 0
   hitAudio: {fileID: 8300000, guid: 8a37293db56a4bd42b349d77f1e4158b, type: 3}

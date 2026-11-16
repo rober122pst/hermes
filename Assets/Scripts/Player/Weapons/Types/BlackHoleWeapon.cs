@@ -46,7 +46,7 @@ public class BlackHoleWeapon : WeaponBase
     private readonly List<ActiveObject> activeObjects = new List<ActiveObject>();
     // Escala original de cada objeto da pool (capturada na primeira vez que aparece)
     private readonly Dictionary<GameObject, Vector3> baseScales = new Dictionary<GameObject, Vector3>();
-    private readonly RaycastHit[] hitResults = new RaycastHit[10];
+    private readonly Collider[] hitResults = new Collider[48];
 
     public override void Initialize(WeaponData data, Transform player)
     {
@@ -57,7 +57,9 @@ public class BlackHoleWeapon : WeaponBase
 
     void Update()
     {
-        if (playerTransform == null || weaponData == null) return;
+        if (playerTransform == null || weaponData == null || Time.deltaTime <= 0f) return;
+
+        CleanUpCooldowns();
 
         timer -= Time.deltaTime;
         if (timer <= 0f)
@@ -88,13 +90,13 @@ public class BlackHoleWeapon : WeaponBase
             float radius = item.obj.transform.localScale.x * 0.5f; // assume esfera uniforme
 
 
-            int hitCount = Physics.SphereCastNonAlloc(pos, radius, Vector3.up, hitResults, 0f, enemyLayer);
+            if (radius <= 0.01f) continue;
+            int hitCount = Physics.OverlapSphereNonAlloc(pos, radius, hitResults, enemyLayer, QueryTriggerInteraction.Collide);
 
             for (int h = 0; h < hitCount; h++)
             {
-                Collider col = hitResults[h].collider;
-
-                if (CanHitTarget(col))
+                Collider col = hitResults[h];
+                if (col != null && col.gameObject.activeInHierarchy && CanHitTarget(col))
                 {
                     hitCooldowns[col] = Time.time;
 
@@ -106,6 +108,17 @@ public class BlackHoleWeapon : WeaponBase
                 }
             }
         }
+    }
+
+    private void OnDisable()
+    {
+        foreach (ActiveObject item in activeObjects)
+        {
+            if (item.obj == null) continue;
+            item.obj.transform.localScale = item.baseScale;
+            item.obj.SetActive(false);
+        }
+        activeObjects.Clear();
     }
 
     // ---------------------------------------------------------------- Spawn

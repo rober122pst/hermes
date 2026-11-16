@@ -1,78 +1,121 @@
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
 using Player;
+using TMPro;
+using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class UpgradeItems : MonoBehaviour
 {
     public BuyItemButton[] buttons;
     public StarterAssetsInputs inputs;
 
-    private List<WeaponData> randomWeapons;
+    private readonly Dictionary<WeaponData, HermesPatch> patches = new();
+    private List<WeaponData> offeredWeapons;
+    private HermesPatchConsole console;
+    private TextMeshProUGUI prompt;
 
-    void Reset()
+    private void Reset()
     {
         buttons = GetComponentsInChildren<BuyItemButton>();
     }
 
-    void OnEnable()
+    private void OnEnable()
     {
-        // 1. Pausa o jogo e altera os estados do cursor apenas UMA vez ao abrir a interface
-        Time.timeScale = 0f;
-        Cursor.visible = true;
-        inputs.SetCursorState(false);
-
-        // 2. Desativa o movimento da câmera
-        inputs.cursorInputForLook = false;
-
-        inputs.look = Vector2.zero;
-
-        randomWeapons = WeaponManager.Instance.GetRandomWeapons();
-
-        CleanListeners();
-
-        for (int i = 0; i <= buttons.Length - 1; i++)
-        {
-            if (i >= randomWeapons.Count)
-            {
-                buttons[i].gameObject.SetActive(false);
-                break;
-            }
-            buttons[i].gameObject.SetActive(true);
-            string weaponName = randomWeapons[i].weaponName;
-            int level = WeaponManager.Instance.GetLevelByName(weaponName);
-            string description = level > 0 ? randomWeapons[i].updates.weaponLevels[level - 1].description : "";
-            UnityAction action = BuyItem(randomWeapons[i]);
-            buttons[i].Setup(weaponName, description, level + 1, action);
-        }
-    }
-
-    void CleanListeners()
-    {
-        for (int i = 0; i <= buttons.Length - 1; i++)
-        {
-            buttons[i].RemoveListener();
-        }
-    }
-
-    public UnityAction BuyItem(WeaponData item)
-    {
-        return () =>
+        UIManager manager = UIManager.Instance;
+        if (manager == null || WeaponManager.Instance == null)
         {
             gameObject.SetActive(false);
-            WeaponManager.Instance.EquipWeapon(item);
-        };
+            return;
+        }
+
+        if (!manager.OwnsTacticalPause(gameObject) && !manager.TryBeginTacticalPause(gameObject, inputs))
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+
+        patches.Clear();
+        offeredWeapons = WeaponManager.Instance.GetRandomWeapons();
+        if (offeredWeapons.Count == 0)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+
+        if (prompt == null) CreatePrompt();
+        ShowOffers();
+    }
+
+    private void ShowOffers()
+    {
+        prompt.gameObject.SetActive(true);
+        prompt.text = "TERMINAL DE BORDO\nSelecione um módulo para calibrar";
+
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            bool visible = i < offeredWeapons.Count;
+            buttons[i].gameObject.SetActive(visible);
+            if (!visible) continue;
+
+            WeaponData offer = offeredWeapons[i];
+            int level = WeaponManager.Instance.GetLevelByName(offer.weaponName);
+            string description = level > 0 ? offer.updates.weaponLevels[level - 1].description : "Equipar no espaço livre.";
+            buttons[i].Setup(offer.weaponName, description, level + 1, () => OpenPatch(offer, level + 1));
+        }
+
+        if (EventSystem.current != null && buttons.Length > 0 && buttons[0].gameObject.activeSelf)
+            EventSystem.current.SetSelectedGameObject(buttons[0].gameObject);
+    }
+
+    private void OpenPatch(WeaponData weapon, int nextLevel)
+    {
+        if (console != null) return;
+        Canvas canvas = GetComponentInParent<Canvas>();
+        if (canvas == null) return;
+
+        prompt.gameObject.SetActive(false);
+        foreach (BuyItemButton button in buttons) button.gameObject.SetActive(false);
+
+        if (!patches.TryGetValue(weapon, out HermesPatch patch))
+        {
+            patch = HermesPatches.CalibrateModule(weapon.weaponName, nextLevel, () =>
+            {
+                WeaponManager.Instance.EquipWeapon(weapon);
+                gameObject.SetActive(false);
+            });
+            patches.Add(weapon, patch);
+        }
+
+        console = HermesPatchConsole.Open((RectTransform)canvas.transform, patch, "Voltar", applying =>
+        {
+            console = null;
+            if (!applying && isActiveAndEnabled) ShowOffers();
+        });
+    }
+
+    private void CreatePrompt()
+    {
+        GameObject heading = new GameObject("Módulos de bordo", typeof(RectTransform), typeof(TextMeshProUGUI));
+        RectTransform rect = heading.GetComponent<RectTransform>();
+        rect.SetParent(transform, false);
+        rect.anchoredPosition = new Vector2(0f, 127f);
+        rect.sizeDelta = new Vector2(650f, 125f);
+        prompt = heading.GetComponent<TextMeshProUGUI>();
+        prompt.fontSize = 24f;
+        prompt.enableAutoSizing = true;
+        prompt.fontSizeMin = 15f;
+        prompt.fontSizeMax = 24f;
+        prompt.fontStyle = FontStyles.Bold;
+        prompt.color = new Color(0.85f, 0.98f, 1f);
+        prompt.alignment = TextAlignmentOptions.Center;
+        prompt.richText = false;
+        prompt.raycastTarget = false;
+        heading.AddComponent<UnityEngine.UI.Outline>().effectColor = new Color(0.01f, 0.03f, 0.09f, 1f);
     }
 
     private void OnDisable()
     {
-        // 3. Restaura as configurações ao fechar a interface
-        Time.timeScale = 1f;
-        inputs.SetCursorState(true);
-        Cursor.visible = false;
-        inputs.look = Vector2.zero;
-
-        // 4. Reativa o movimento da câmera
-        inputs.cursorInputForLook = true;
+        if (console != null) console.Close(true);
+        if (UIManager.Instance != null) UIManager.Instance.EndTacticalPause(gameObject);
     }
 }

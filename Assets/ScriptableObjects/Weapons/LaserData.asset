@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   weaponName: Laser
   weaponSprite: {fileID: 2800000, guid: 68d5b54387e32064d94e313720f4150c, type: 3}
-  attackCooldown: 2
+  attackCooldown: 0.38
   projectileCooldown: 0.2
   projectileAmount: 2
   _projectileScale: 1
-  speed: 150
-  lifetime: 2
-  damage: 15
+  speed: 270
+  lifetime: 0.7
+  damage: 14
   weaponLogicPrefab: {fileID: 8220193705518072167, guid: 0a87567ac44a96b42a90d845ff0d83e6, type: 3}
   projectilePoolID: {fileID: 11400000, guid: e37a48246836cdd4183da15873624b39, type: 2}
   updates: {fileID: 11400000, guid: 8bcdcd1f0b204ad4581dfa4f5c18099c, type: 2}

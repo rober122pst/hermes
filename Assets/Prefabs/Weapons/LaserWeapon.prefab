@@ -44,9 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06dc4b5e477ffe2429f7b52d4434d5f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LaserWeapon
-  spawnPoints:
-  - {fileID: 0}
-  - {fileID: 0}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 256
+  shotClip: {fileID: 8300000, guid: 06bb985c7a4faea4a888bc016211c42c, type: 3}
+  impactLayerClip: {fileID: 8300000, guid: 7528083f4a66b7e488aa67500f05cc89, type: 3}
+  sweepRadius: 1.15

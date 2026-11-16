@@ -97,12 +97,14 @@ namespace Player
 
 		private void OnApplicationFocus(bool hasFocus)
 		{
+			if (!hasFocus || (UIManager.Instance != null && UIManager.Instance.IsTacticallyPaused)) return;
 			SetCursorState(cursorLocked);
 		}
 
 		public void SetCursorState(bool newState)
 		{
 			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
+			Cursor.visible = !newState;
 		}
 
 		private void FireInput(bool newFireState)

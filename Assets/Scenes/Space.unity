@@ -5933,6 +5933,7 @@ GameObject:
   - component: {fileID: 350206731}
   - component: {fileID: 350206729}
   - component: {fileID: 350206730}
+  - component: {fileID: 350206733}
   m_Layer: 0
   m_Name: CinemachineCamera
   m_TagString: Untagged
@@ -5960,11 +5961,11 @@ MonoBehaviour:
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
-    TrackingTarget: {fileID: 548223703}
+    TrackingTarget: {fileID: 1270151981}
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
-    FieldOfView: 45
+    FieldOfView: 55
     OrthographicSize: 5
     NearClipPlane: 0.11
     FarClipPlane: 1000000
@@ -6034,7 +6035,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 350206723}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f38bda98361e1de48a4ca2bd86ea3c17, type: 3}
   m_Name: 
@@ -6063,7 +6064,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 350206723}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b617507da6d07e749b7efdb34e1173e1, type: 3}
   m_Name: 
@@ -6075,6 +6076,25 @@ MonoBehaviour:
     RotationDamping: {x: 0.1, y: 0.1, z: 0.1}
     QuaternionDamping: 1
   FollowOffset: {x: 0, y: 9.2, z: -40.5}
+--- !u!114 &350206733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 350206723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7e6e659bcbf4344b533d24740d77564, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::ShipChaseCamera
+  pilot: {fileID: 1270151980}
+  distance: 35
+  height: 7.5
+  pitch: 2
+  scenery:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!1001 &358681082
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6153,9 +6173,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 689b92598ebead8478acacd30f223bb8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1183959954}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 689b92598ebead8478acacd30f223bb8, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1183959953}
   m_SourcePrefab: {fileID: 100100000, guid: 689b92598ebead8478acacd30f223bb8, type: 3}
 --- !u!1 &359504479
 GameObject:
@@ -6356,14 +6373,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RawImage
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.2961502, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: fa0c42d88f272424b9b460a7073338f3, type: 3}
+  m_Texture: {fileID: -8328923581568760697, guid: 22ab3c957fbd4614faa137cceaab262b, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -6571,34 +6588,88 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c26ea210b613104fa65f02d770b6400, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveManager
-  initialWaveSize: 1500
-  waveSizeIncrease: 100
-  batchSize: 50
-  maxActiveEnemies: 250
-  delayBetweenSpawns: 0.35
-  delayBetweenBatches: 4
-  mapSpawnPoints:
-  - {fileID: 1093121540}
-  - {fileID: 1420681997}
-  - {fileID: 1501807738}
-  - {fileID: 426780668}
-  - {fileID: 952474992}
-  activeSpawnsPerBatch: 3
-  enemyEntries:
-  - config: {fileID: 11400000, guid: 2635e2c6efe6a9148af512fcbef501e1, type: 2}
-    poolID: {fileID: 11400000, guid: 378084a32ac804a4d823d40862e6112f, type: 2}
-    customWeight: 10
-    isRare: 0
-  - config: {fileID: 11400000, guid: c1d5654a7bd13c64a871b85d32a6548f, type: 2}
-    poolID: {fileID: 11400000, guid: 88b28fdea1128e049bb19b3d858038ac, type: 2}
-    customWeight: 15
-    isRare: 0
-  - config: {fileID: 11400000, guid: c1d5654a7bd13c64a871b85d32a6548f, type: 2}
-    poolID: {fileID: 11400000, guid: 84b97ac10f222a843b0ad56f1e630778, type: 2}
-    customWeight: 90
-    isRare: 1
-  useInverseCostAsWeight: 1
-  minSpacingBetweenRares: 8
+  drone:
+    config: {fileID: 11400000, guid: 2635e2c6efe6a9148af512fcbef501e1, type: 2}
+    pool: {fileID: 11400000, guid: 378084a32ac804a4d823d40862e6112f, type: 2}
+  rammer:
+    config: {fileID: 11400000, guid: c1d5654a7bd13c64a871b85d32a6548f, type: 2}
+    pool: {fileID: 11400000, guid: 88b28fdea1128e049bb19b3d858038ac, type: 2}
+  sentinel:
+    config: {fileID: 11400000, guid: 5a56df245d215e04dbd19af6e4b2e51c, type: 2}
+    pool: {fileID: 11400000, guid: 84b97ac10f222a843b0ad56f1e630778, type: 2}
+  sectors:
+  - title: "\xD3rbita de Mark"
+    briefing: "Aponte para os drones. Os canh\xF5es disparam automaticamente."
+    entryOffset: {x: 0, y: 0, z: 0}
+    signalColor: {r: 0.37, g: 0.88, b: 0.96, a: 1}
+    sunlight: {r: 1, g: 0.9855346, b: 0.95660377, a: 1}
+    scenery: 0
+    enemyHealth: 1
+    enemySpeed: 1
+    enemyDamage: 1
+    spawnArc: 40
+    assaults:
+    - drones: 13
+      rammers: 3
+      sentinels: 0
+      secondsBetweenSpawns: 0.96
+    - drones: 15
+      rammers: 6
+      sentinels: 1
+      secondsBetweenSpawns: 0.87
+    - drones: 16
+      rammers: 9
+      sentinels: 2
+      secondsBetweenSpawns: 0.8
+    boss: {fileID: 0}
+  - title: "Cintur\xE3o de Detritos"
+    briefing: "Contorne os fragmentos de ferro e desvie das investidas dos ar\xEDetes."
+    entryOffset: {x: 630, y: -140, z: -330}
+    signalColor: {r: 1, g: 0.7, b: 0.43, a: 1}
+    sunlight: {r: 1, g: 0.83, b: 0.68, a: 1}
+    scenery: 1
+    enemyHealth: 1.08
+    enemySpeed: 1.07
+    enemyDamage: 1.05
+    spawnArc: 77
+    assaults:
+    - drones: 9
+      rammers: 12
+      sentinels: 2
+      secondsBetweenSpawns: 0.77
+    - drones: 10
+      rammers: 15
+      sentinels: 3
+      secondsBetweenSpawns: 0.71
+    - drones: 11
+      rammers: 16
+      sentinels: 4
+      secondsBetweenSpawns: 0.66
+    boss: {fileID: 0}
+  - title: Tempestade Solar
+    briefing: "As sentinelas protegem o n\xFAcleo. Desvie dos lasers guiados."
+    entryOffset: {x: 1420, y: 210, z: 175}
+    signalColor: {r: 1, g: 0.46, b: 0.49, a: 1}
+    sunlight: {r: 1, g: 0.69, b: 0.67, a: 1}
+    scenery: 2
+    enemyHealth: 1.16
+    enemySpeed: 1.12
+    enemyDamage: 1.12
+    spawnArc: 117
+    assaults:
+    - drones: 10
+      rammers: 10
+      sentinels: 7
+      secondsBetweenSpawns: 0.68
+    - drones: 11
+      rammers: 12
+      sentinels: 9
+      secondsBetweenSpawns: 0.59
+    boss: {fileID: 11400000, guid: f5dc475df81f4db4beb449de9a3a7eb0, type: 2}
+  hudCanvas: {fileID: 1273185935}
+  sun: {fileID: 203844588}
+  signalShader: {fileID: 4800000, guid: 650dd9526735d5b46b79224bc6e94025, type: 3}
+  hullHitClip: {fileID: 8300000, guid: 7528083f4a66b7e488aa67500f05cc89, type: 3}
 --- !u!4 &471558486
 Transform:
   m_ObjectHideFlags: 0
@@ -7606,7 +7677,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.005370322, y: 0.4601986, z: -0.0027837995, w: 0.8877954}
   m_LocalPosition: {x: -34.693443, y: 9.19999, z: -165.93619}
-  m_LocalScale: {x: 1.7557241, y: 1.001051, z: 0.73841524}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 981921877}
@@ -7629,7 +7700,7 @@ MonoBehaviour:
   IgnoreTimeScale: 0
   WorldUpOverride: {fileID: 0}
   ChannelMask: -1
-  UpdateMethod: 2
+  UpdateMethod: 1
   BlendUpdateMethod: 1
   LensModeOverride:
     Enabled: 0
@@ -8210,7 +8281,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1132889348}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d5730438395217841b6d2afafa87b59a, type: 3}
   m_Name: 
@@ -8270,27 +8341,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 689b92598ebead8478acacd30f223bb8, type: 3}
   m_PrefabInstance: {fileID: 358681082}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &1183959953
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1183959950}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.04158606, y: 0.074039884, z: 0.03519072}
-  m_Center: {x: 0.000000011920927, y: -0.045197167, z: -0.0018180419}
 --- !u!65 &1183959954
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8306,7 +8356,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -8327,7 +8377,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -8348,7 +8398,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -8463,8 +8513,8 @@ Rigidbody:
   m_GameObject: {fileID: 1270151976}
   serializedVersion: 5
   m_Mass: 100
-  m_LinearDamping: 4
-  m_AngularDamping: 4
+  m_LinearDamping: 0
+  m_AngularDamping: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -8547,19 +8597,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player.NaveController
   stats:
-    speed: 1
-    sprintSpeed: 5
+    speed: 11
+    sprintSpeed: 19
     experience: 0
-    maxExperience: 100
+    maxExperience: 50
     incrementExperience: 10
-    magnetismForce: 15
-  multAnguloVelocidade: 0.15
-  multVelocidadeRotacao: 0.15
-  tiroAudioClip: {fileID: 8300000, guid: 06bb985c7a4faea4a888bc016211c42c, type: 3}
-  detectionRadius: 0
-  searchLayer:
-    serializedVersion: 2
-    m_Bits: 0
+    magnetismForce: 24
+  angleSpeedMultiplier: 0.15
+  rotationSpeedMultiplier: 0.15
+  thrustResponseTime: 0.11
+  coastResponseTime: 0.15
+  turnResponseTime: 0.03
+  stickTurnRate: 145
+  cruiseSpeed: 96
+  cruiseResponseTime: 0.4
+  cruiseBrakeTime: 0.27
+  maxHealth: 100
+  hitImmunity: 0.45
 --- !u!4 &1270151981
 Transform:
   m_ObjectHideFlags: 0
@@ -8590,13 +8644,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player.UI.AimRaycast
   cursorUI: {fileID: 1675830217}
   animator: {fileID: 1675830220}
-  objetosInterativos:
+  interactableLayers:
     serializedVersion: 2
     m_Bits: 64
-  raioDeDeteccao: 2
-  velocidadeDoDrag: 15
-  distanciaDaCamera: 60.8
-  multiplicadorDeForca: 20
+  detectionRadius: 2
+  dragSpeed: 15
+  cameraDistance: 60.8
+  throwForceMultiplier: 20
   shakeDuracao: 0.1
   shakeMagnitude: 2
   energyRay: {fileID: 1495915015}
@@ -8734,12 +8788,13 @@ MonoBehaviour:
   rayOrigin: {fileID: 2147221706}
   mainCamera: {fileID: 961739752}
   uiDot: {fileID: 359504480}
+  canvasRect: {fileID: 1273185936}
   maxDistance: 100
   collisionMask:
     serializedVersion: 2
     m_Bits: 256
-  canvasRect: {fileID: 1273185936}
-  reticleCanvasGroup: {fileID: 0}
+  acquireAngle: 16
+  releaseAngle: 21
 --- !u!114 &1270151986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8754,7 +8809,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteractor
   mainCamera: {fileID: 961739752}
   interactionDistance: 100
-  crosshairToleranceRadius: 24
+  crosshairToleranceRadius: 4
   interactableLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -8919,14 +8974,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RawImage
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.2961502, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: fa0c42d88f272424b9b460a7073338f3, type: 3}
+  m_Texture: {fileID: -8328923581568760697, guid: 22ab3c957fbd4614faa137cceaab262b, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -9129,11 +9184,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9744597de1cbe20459a6813414a3e17c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnergyRay
-  raioRenderer: {fileID: 1495915016}
-  segmentosDoRaio: 20
-  alturaDoArco: 0.2
-  oscilacaoEletrica: 0.3
-  velocidadeOscilacao: 25
+  arcRenderer: {fileID: 1495915016}
+  arcSegmentCount: 20
+  arcHeight: 0.2
+  electricalOscillation: 0.3
+  oscillationSpeed: 25
   beam: {fileID: 17837843}
 --- !u!120 &1495915016
 LineRenderer:
@@ -9626,14 +9681,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RawImage
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.2961502, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: fa0c42d88f272424b9b460a7073338f3, type: 3}
+  m_Texture: {fileID: -8328923581568760697, guid: 22ab3c957fbd4614faa137cceaab262b, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -9714,7 +9769,7 @@ GameObject:
   - component: {fileID: 1847672183}
   - component: {fileID: 1847672182}
   m_Layer: 0
-  m_Name: Yara
+  m_Name: Mark (ETN-11d)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

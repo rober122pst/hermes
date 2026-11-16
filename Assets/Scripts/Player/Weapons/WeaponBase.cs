@@ -11,11 +11,18 @@ public abstract class WeaponBase : MonoBehaviour
     protected int level = 1;
 
     protected bool updated = false;
+    private WeaponData runtimeData;
 
     public virtual void Initialize(WeaponData data, Transform player)
     {
-        weaponData = Instantiate(data);
+        runtimeData = Instantiate(data);
+        weaponData = runtimeData;
         playerTransform = player;
+    }
+
+    protected virtual void OnDestroy()
+    {
+        if (runtimeData != null) Destroy(runtimeData);
     }
 
     protected virtual bool CanHitTarget(Collider target)

@@ -1,84 +1,106 @@
+using Player;
 using UnityEngine;
-using TMPro;
-using Player; // Remova se usar o Text legado da Unity
+using UnityEngine.InputSystem;
 
 public class PlayerInteractor : MonoBehaviour
 {
-    [Header("Configuracoes da Mira e Raycast")]
     [SerializeField] private Camera mainCamera;
-    [SerializeField] private float interactionDistance = 3.5f;
-    [Tooltip("Raio de tolerancia para detectar objetos proximos a mira")]
-    [SerializeField] private float crosshairToleranceRadius = 0.35f;
+    [SerializeField] private float interactionDistance = 100f;
+    [SerializeField] private float crosshairToleranceRadius = 4f;
     [SerializeField] private LayerMask interactableLayer;
-
-    [Header("Controles e Referencias")]
     [SerializeField] private NaveController playerController;
 
-    // Guarda a referencia atual para evitar chamadas desnecessarias na UI
+    private readonly Collider[] nearbyTerminals = new Collider[16];
     private IInteractive currentInteractable;
-    private RaycastHit hitInfo;
+    private StarterAssetsInputs input;
+    private InputAction jumpAction;
 
     private void Start()
     {
-        if (mainCamera == null)
-        {
-            mainCamera = Camera.main;
-        }
-
-        ClearInteractable();
+        input = GetComponent<StarterAssetsInputs>();
+        if (playerController == null) playerController = GetComponent<NaveController>();
+        if (TryGetComponent(out PlayerInput playerInput)) jumpAction = playerInput.actions?.FindAction("Jump");
+        if (mainCamera == null) mainCamera = Camera.main;
     }
 
     private void Update()
     {
-        CheckForInteractable();
+        if (playerController != null && !playerController.IsAlive)
+        {
+            Focus(null);
+            return;
+        }
+
+        if (UIManager.Instance != null && UIManager.Instance.IsTacticallyPaused) return;
+        Focus(FindInteractable());
+        if (jumpAction?.WasPressedThisFrame() != true) return;
+
+        switch (currentInteractable)
+        {
+            case RouteSatellite relay:
+                relay.OpenPanel(input);
+                break;
+            case CoreTerminal terminal:
+                terminal.OpenPanel(input);
+                break;
+            case Satellite satellite:
+                satellite.OpenPanel(input);
+                break;
+        }
     }
 
-    private void CheckForInteractable()
+    private IInteractive FindInteractable()
     {
-        // Cria um raio saindo exatamente do centro da tela (posicao da mira)
+        IInteractive nearby = FindNearbyTerminal();
+        if (nearby != null || mainCamera == null) return nearby;
+
         Ray ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-
-        // O SphereCast projeta uma esfera ao longo do raio, facilitando a deteccao proxima a mira
-        if (Physics.SphereCast(ray, crosshairToleranceRadius, out hitInfo, interactionDistance, interactableLayer))
+        if (Physics.SphereCast(ray, crosshairToleranceRadius, out RaycastHit hit, interactionDistance,
+            interactableLayer, QueryTriggerInteraction.Collide))
         {
-            if (hitInfo.collider.TryGetComponent(out IInteractive interactive))
+            IInteractive focused = hit.collider.GetComponentInParent<IInteractive>();
+            if (focused is Satellite satellite && satellite.isActiveAndEnabled) return focused;
+        }
+        return null;
+    }
+
+    private IInteractive FindNearbyTerminal()
+    {
+        float range = Mathf.Max(CoreTerminal.DockingDistance, RouteSatellite.DockingDistance);
+        int count = Physics.OverlapSphereNonAlloc(transform.position, range, nearbyTerminals, interactableLayer,
+            QueryTriggerInteraction.Collide);
+        IInteractive closest = null;
+        float closestDistance = float.PositiveInfinity;
+        for (int i = 0; i < count; i++)
+        {
+            var terminal = nearbyTerminals[i].GetComponentInParent<IInteractive>();
+            float distance = (nearbyTerminals[i].transform.position - transform.position).sqrMagnitude;
+            if (distance >= closestDistance) continue;
+
+            bool available = terminal switch
             {
-                // Atualiza a UI apenas se o objeto focado mudou
-                if (currentInteractable != interactive)
-                {
-                    Debug.Log($"Objeto interativo detectado: {interactive}");
-                    currentInteractable = interactive;
-                    currentInteractable.ShowDialogueBox();
-                }
-                return;
-            }
+                RouteSatellite relay => relay.CanFocus(transform),
+                CoreTerminal core => core.CanFocus(transform),
+                _ => false
+            };
+            if (!available) continue;
+            closest = terminal;
+            closestDistance = distance;
         }
-
-        // Se o raio nao atingir nada valido, limpa o estado atual
-        ClearInteractable();
+        return closest;
     }
 
-    private void ClearInteractable()
+    private void Focus(IInteractive next)
     {
-        if (currentInteractable != null)
-        {
-            currentInteractable.HideDialogueBox();
-            currentInteractable = null;
-        }
+        if (currentInteractable == next) return;
+
+        if (currentInteractable is Object previous && previous != null) currentInteractable.HideDialogueBox();
+        currentInteractable = next;
+        currentInteractable?.ShowDialogueBox();
     }
 
-    // Desenha o raio e a esfera de tolerancia no editor para facilitar o ajuste
-    private void OnDrawGizmosSelected()
+    private void OnDisable()
     {
-        if (mainCamera == null) return;
-
-        Gizmos.color = currentInteractable != null ? Color.green : Color.yellow;
-
-        Vector3 origin = mainCamera.transform.position;
-        Vector3 direction = mainCamera.transform.forward;
-        Vector3 endPosition = origin + (direction * interactionDistance);
-
-        Gizmos.DrawLine(origin, endPosition);
-        Gizmos.DrawWireSphere(endPosition, crosshairToleranceRadius);
+        Focus(null);
     }
 }

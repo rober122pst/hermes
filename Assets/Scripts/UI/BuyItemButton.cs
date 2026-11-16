@@ -36,7 +36,7 @@ public class BuyItemButton : MonoBehaviour
 
         if (levelText != null)
         {
-            levelText.text = "Level: " + level;
+            levelText.text = level > 0 ? $"Nível {level}" : string.Empty;
         }
 
         if (button != null)

@@ -1,60 +1,80 @@
-using UnityEngine;
 using System.Collections.Generic;
-
+using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
 {
+    private sealed class Pool
+    {
+        public readonly List<GameObject> Instances = new List<GameObject>();
+        public int NextIndex;
+    }
+
     public static ObjectPool Instance { get; private set; }
 
     public List<PoolID> pools;
     [Tooltip("Objeto pai para os objetos instanciados")]
     public Transform parent;
 
-    private Dictionary<PoolID, List<GameObject>> instances;
-    private Dictionary<PoolID, int> lastIndexes;
+    private readonly Dictionary<PoolID, Pool> instances = new Dictionary<PoolID, Pool>();
 
-    void Awake()
+    private void Awake()
     {
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
-        }
-        else
-        {
-            Instance = this;
+            return;
         }
 
-        instances = new Dictionary<PoolID, List<GameObject>>();
-        lastIndexes = new Dictionary<PoolID, int>();
-        foreach (PoolID data in pools)
+        Instance = this;
+        foreach (PoolID id in pools)
         {
-            List<GameObject> pool = new List<GameObject>();
-            for (int i = 0; i < data.amount; i++)
-            {
-                GameObject obj = Instantiate(data.prefab, parent);
-                obj.SetActive(false);
-                pool.Add(obj);
-            }
+            if (id == null || id.prefab == null || instances.ContainsKey(id)) continue;
 
-            instances.Add(data, pool);
-            lastIndexes.Add(data, 0);
+            Pool pool = new Pool();
+            instances.Add(id, pool);
+            for (int i = 0; i < id.amount; i++)
+                pool.Instances.Add(CreateInactiveInstance(id));
         }
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this) Instance = null;
     }
 
     public GameObject GetInstance(PoolID id)
     {
-        if (!instances.TryGetValue(id, out List<GameObject> pool))
+        if (id == null || !instances.TryGetValue(id, out Pool pool))
         {
             Debug.LogError($"Pool com ID {id} não existe.");
             return null;
         }
 
-        int index = lastIndexes[id];
+        for (int i = 0; i < pool.Instances.Count; i++)
+        {
+            int index = (pool.NextIndex + i) % pool.Instances.Count;
+            GameObject item = pool.Instances[index];
+            if (item != null && item.activeSelf) continue;
 
-        GameObject obj = pool[index];
+            if (item == null)
+            {
+                item = CreateInactiveInstance(id);
+                pool.Instances[index] = item;
+            }
 
-        lastIndexes[id] = (index + 1) % pool.Count;
+            pool.NextIndex = (index + 1) % pool.Instances.Count;
+            return item;
+        }
 
-        return obj;
+        GameObject extra = CreateInactiveInstance(id);
+        pool.Instances.Add(extra);
+        return extra;
+    }
+
+    private GameObject CreateInactiveInstance(PoolID id)
+    {
+        GameObject item = Instantiate(id.prefab, parent);
+        item.SetActive(false);
+        return item;
     }
 }

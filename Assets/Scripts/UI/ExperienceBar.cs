@@ -11,11 +11,14 @@ public class ExperienceBar : MonoBehaviour
 
     private void OnEnable()
     {
+        if (player == null || xpBar == null) return;
         player.stats.OnExperienceChanged += UpdateXpBar;
+        UpdateXpBar(player.stats.Experience);
     }
 
     private void OnDisable()
     {
+        if (player == null) return;
         player.stats.OnExperienceChanged -= UpdateXpBar;
     }
 

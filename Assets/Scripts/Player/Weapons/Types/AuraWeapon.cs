@@ -4,94 +4,70 @@ using UnityEngine;
 public class AuraWeapon : WeaponBase
 {
     public GameObject auraPrefab;
-    private GameObject activeProjectile;
-
-    [Header("Configuracoes da Colisao")]
     public float baseAuraRadius = 10f;
-    public float castDistance = 0.1f;
     public LayerMask enemyLayer;
 
-    // Variaveis para o controle de cooldown
-    private float hitCooldown;
-    private float auraRadius;
+    private readonly Collider[] hits = new Collider[48];
+    private readonly HashSet<IDamageable> damaged = new();
+    private GameObject field;
+    private Transform visual;
+    private float cycleTime;
+    private float nextPulse;
 
     public override void Initialize(WeaponData data, Transform player)
     {
         base.Initialize(data, player);
-        auraRadius = data.projectileScale * baseAuraRadius;
-        SpawnProjectiles();
-    }
+        if (auraPrefab == null) return;
 
-    private void SpawnProjectiles()
-    {
-        updated = false;
-        GameObject p = Instantiate(auraPrefab, playerTransform);
-        p.SetActive(true);
-        activeProjectile = p;
-        weaponData.OnScale += UpdateAuraSize;
-        UpdateAuraSize();
+        field = Instantiate(auraPrefab, playerTransform);
+        visual = field.transform.childCount > 0 ? field.transform.GetChild(0) : field.transform;
+        field.SetActive(true);
     }
 
     private void Update()
     {
-        AuraUpdate();
-    }
+        if (field == null || Time.deltaTime <= 0f) return;
 
-    private void UpdateAuraSize()
-    {
-        auraRadius = weaponData.projectileScale * baseAuraRadius;
+        float duration = Mathf.Max(0.1f, weaponData.lifetime);
+        float cycle = duration + Mathf.Max(0f, weaponData.attackCooldown);
+        cycleTime = Mathf.Repeat(cycleTime + Time.deltaTime, cycle);
 
-        if (activeProjectile == null) return;
-        Transform auraObject = activeProjectile.transform.GetChild(0);
-        auraObject.localScale = new Vector3(auraRadius * 2, auraObject.localScale.y, auraRadius * 2);
-    }
+        bool active = cycleTime < duration;
+        if (field.activeSelf != active) field.SetActive(active);
+        if (!active) return;
 
-    private void AuraUpdate()
-    {
-        if (activeProjectile == null) return;
+        float radius = weaponData.projectileScale * baseAuraRadius;
+        float fade = Mathf.Min(Mathf.Clamp01(cycleTime / 0.18f), Mathf.Clamp01((duration - cycleTime) / 0.2f));
+        visual.localScale = new Vector3(radius * 2f * fade, visual.localScale.y, radius * 2f * fade);
+        if (Time.time < nextPulse || fade < 0.9f) return;
 
-        // Ponto de origem do cast
-        Vector3 origin = activeProjectile.transform.position;
-        // Direcao do cast
-        Vector3 direction = activeProjectile.transform.forward;
-
-        // Dispara o SphereCastAll para capturar todos os colisores na area
-        RaycastHit[] hits = Physics.SphereCastAll(origin, auraRadius, direction, castDistance, enemyLayer);
-
-        if (hitCooldown <= 0f)
+        nextPulse = Time.time + Mathf.Max(0.1f, weaponData.projectileCooldown);
+        damaged.Clear();
+        int count = Physics.OverlapSphereNonAlloc(playerTransform.position, radius, hits,
+            enemyLayer, QueryTriggerInteraction.Collide);
+        for (int i = 0; i < count; i++)
         {
-            foreach (RaycastHit hit in hits)
+            Collider hit = hits[i];
+            IDamageable target = hit.GetComponentInParent<IDamageable>();
+            if (target == null || !damaged.Add(target)) continue;
+
+            if (target is EnemySystem enemy)
             {
-                Collider hitCollider = hit.collider;
-
-                // Verifica se o alvo ja saiu do cooldown
-                // Registra o tempo do hit
-                hitCooldown = weaponData.projectileCooldown;
-
-                IDamageable target = hitCollider.GetComponentInParent<IDamageable>();
-                if (target != null)
-                {
-                    target.TakeDamage(weaponData.damage);
-                    Debug.Log("Alvo detetado e levou dano: " + hitCollider.name);
-                }
+                Vector3 outward = (enemy.transform.position - playerTransform.position).normalized;
+                enemy.ApplyKnockback(outward * (8f + (level - 1) * 1.6f));
             }
+            target.TakeDamage(weaponData.damage);
         }
-
-        hitCooldown -= Time.deltaTime;
     }
 
     private void OnDisable()
     {
-        weaponData.OnScale -= UpdateAuraSize;
+        if (field != null) field.SetActive(false);
     }
 
-    // Metodo para desenhar a area da aura no editor, facilitando o ajuste do raio
-    private void OnDrawGizmosSelected()
+    protected override void OnDestroy()
     {
-        if (activeProjectile != null)
-        {
-            Gizmos.color = Color.cyan;
-            Gizmos.DrawWireSphere(activeProjectile.transform.position, auraRadius);
-        }
+        if (field != null) Destroy(field);
+        base.OnDestroy();
     }
 }

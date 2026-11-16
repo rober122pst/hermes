@@ -4,7 +4,8 @@ public enum EnemyType
 {
     Basic,
     Fast,
-    Tank
+    Tank,
+    Boss
 }
 
 [CreateAssetMenu(fileName = "EnemiesConfig", menuName = "Game/Enemy/EnemiesConfig")]
@@ -24,6 +25,9 @@ public class EnemiesConfig : ScriptableObject
     public int cost;
 
     public float distanceToStop = 1.5f;
+    [Min(0f)] public float windupTime = 0.35f;
+    [Min(0f)] public float projectileSpeed = 40f;
+    [Min(0f)] public float projectileTurnSpeed;
 
     [Header("Áudio")]
     public AudioClip hitAudio;
